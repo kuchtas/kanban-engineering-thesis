@@ -1,0 +1,25 @@
+.ant-page-header-heading {
+    background-color: var(--amplify-primary-color);
+    display: flex;
+    width: 100%;
+  }
+
+.ant-page-header-heading-left{
+    margin-left: auto;
+    font-size: 25px;
+    color: white;
+}
+
+.ant-page-header-heading-extra{
+    margin-left: auto;
+}
+
+.sign-out-button{
+    background-color: var(--amplify-primary-color);
+    color: white;
+    padding: 8px;
+    margin: 2px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: white;
+}

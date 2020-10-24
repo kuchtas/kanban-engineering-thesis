@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kanbanengthesis-dev-162132-authRole",
+      "UnauthRoleArn": "arn:aws:iam::286935822615:role/amplify-kanbanengthesis-dev-162132-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::286935822615:role/amplify-kanbanengthesis-dev-162132-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-kanbanengthesis-dev-162132-deployment",
+      "UnauthRoleName": "amplify-kanbanengthesis-dev-162132-unauthRole",
+      "StackName": "amplify-kanbanengthesis-dev-162132",
+      "StackId": "arn:aws:cloudformation:eu-central-1:286935822615:stack/amplify-kanbanengthesis-dev-162132/37e1b070-1604-11eb-9972-024987071e6c",
+      "AmplifyAppId": "d1j786vh8i3ynf"
+    },
+    "categories": {
+      "function": {
+        "KanbanEngThesisAPIResourcesCustomMessage": {
+          "REDIRECTURL": "kanbankuchta",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": ""
+        }
+      },
+      "auth": {
+        "KanbanEngThesisAPIResources": {}
+      }
+    }
+  }
+}
