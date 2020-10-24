@@ -1,20 +1,46 @@
-type Blog @model {
+type User @model @auth (rules: [{ allow: owner }]) {
   id: ID!
   name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+  boards: [BoardUser] @connection(name: "BoardUser")
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Board @model @auth (rules: [{ allow: owner }]) {
   id: ID!
   title: String!
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  ownerID: ID!
+  cards: [Card] @connection(keyName: "byBoard", fields: ["id"])
+  users: [BoardUser] @connection(name: "BoardUser")
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type BoardUser @model @auth (rules: [{ allow: owner }]) {
   id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
-  content: String!
+  user: User @connection(name: "BoardUser")
+  board: Board @connection(name: "BoardUser")
+}
+
+type Card @model @auth (rules: [{ allow: owner }]) @key(name: "byBoard", fields: ["boardID"]) {
+  id: ID!
+  boardID: ID!
+  title: String!
+  status: CardStatus!
+  description: String
+  startDate: AWSDate!
+  endDate: AWSDate!
+  tag: String
+  users: [String] 
+  points: [Point] @connection(keyName: "byCard", fields: ["id"])
+}
+
+type Point @model @auth (rules: [{ allow: owner }]) @key(name: "byCard", fields: ["cardID"]) {
+  id: ID!
+  cardID: ID!
+  title: String!
+  description: String
+  checked: Boolean
+}
+
+enum CardStatus {
+  TODO
+  DOING
+  DONE
 }
