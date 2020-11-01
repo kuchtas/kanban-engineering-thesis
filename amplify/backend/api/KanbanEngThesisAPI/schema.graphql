@@ -1,46 +1,12 @@
-type User @model @auth (rules: [{ allow: owner }]) {
+type User @model {
   id: ID!
+  cognitoID: String!
   name: String!
-  boards: [BoardUser] @connection(name: "UserBoardConnection")
+  boards: [String]
 }
 
-type BoardUser @model @auth (rules: [{ allow: owner }]) {
-  id: ID!
-  user: User @connection(name: "UserBoardConnection")
-  board: Board @connection(name: "BoardUserConnection")
-}
-
-type Board @model @auth (rules: [{ allow: owner }]) {
+type Board @model {
   id: ID!
   title: String!
-  ownerID: ID!
-  cards: [Card] @connection(keyName: "byBoard", fields: ["id"])
-  users: [BoardUser] @connection(name: "BoardUserConnection")
-}
-
-type Card @model @auth (rules: [{ allow: owner }]) @key(name: "byBoard", fields: ["boardID"]) {
-  id: ID!
-  boardID: ID!
-  title: String!
-  status: CardStatus!
-  description: String
-  startDate: AWSDate!
-  endDate: AWSDate!
-  tag: String
-  users: [String] 
-  points: [Point] @connection(keyName: "byCard", fields: ["id"])
-}
-
-type Point @model @auth (rules: [{ allow: owner }]) @key(name: "byCard", fields: ["cardID"]) {
-  id: ID!
-  cardID: ID!
-  title: String!
-  description: String
-  checked: Boolean
-}
-
-enum CardStatus {
-  TODO
-  DOING
-  DONE
+  users: [String]
 }

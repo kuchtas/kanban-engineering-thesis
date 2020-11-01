@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import AppWithAuth from './AppWithAuth';
-import Amplify from "aws-amplify";
+import Amplify,{ DataStore} from "aws-amplify";
 import awsExports from "./aws-exports";
 import reportWebVitals from './reportWebVitals';
 
 Amplify.configure(awsExports);
+DataStore.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>
