@@ -10,3 +10,29 @@ type Board @model {
   title: String!
   users: [String]
 }
+
+type Card @model {
+  id: ID!
+  boardID: ID!
+  title: String!
+  status: CardStatus!
+  description: String
+  startDate: AWSDate!
+  endDate: AWSDate!
+  tag: String
+  users: [String]
+}
+
+type Point @model {
+  id: ID!
+  cardID: ID!
+  title: String!
+  description: String
+  checked: Boolean!
+}
+
+enum CardStatus {
+  TODO
+  DOING
+  DONE
+}

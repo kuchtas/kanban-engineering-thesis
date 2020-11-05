@@ -88,3 +88,111 @@ export const onDeleteBoard = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCard = /* GraphQL */ `
+  subscription OnCreateCard {
+    onCreateCard {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCard = /* GraphQL */ `
+  subscription OnUpdateCard {
+    onUpdateCard {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCard = /* GraphQL */ `
+  subscription OnDeleteCard {
+    onDeleteCard {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreatePoint = /* GraphQL */ `
+  subscription OnCreatePoint {
+    onCreatePoint {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePoint = /* GraphQL */ `
+  subscription OnUpdatePoint {
+    onUpdatePoint {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePoint = /* GraphQL */ `
+  subscription OnDeletePoint {
+    onDeletePoint {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;

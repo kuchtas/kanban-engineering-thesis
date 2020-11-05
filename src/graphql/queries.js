@@ -132,3 +132,155 @@ export const listBoards = /* GraphQL */ `
     }
   }
 `;
+export const syncCards = /* GraphQL */ `
+  query SyncCards(
+    $filter: ModelCardFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCards(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        boardID
+        title
+        status
+        description
+        startDate
+        endDate
+        tag
+        users
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getCard = /* GraphQL */ `
+  query GetCard($id: ID!) {
+    getCard(id: $id) {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCards = /* GraphQL */ `
+  query ListCards(
+    $filter: ModelCardFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        boardID
+        title
+        status
+        description
+        startDate
+        endDate
+        tag
+        users
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncPoints = /* GraphQL */ `
+  query SyncPoints(
+    $filter: ModelPointFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncPoints(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        cardID
+        title
+        description
+        checked
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getPoint = /* GraphQL */ `
+  query GetPoint($id: ID!) {
+    getPoint(id: $id) {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPoints = /* GraphQL */ `
+  query ListPoints(
+    $filter: ModelPointFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPoints(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        cardID
+        title
+        description
+        checked
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;

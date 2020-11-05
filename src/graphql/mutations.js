@@ -106,3 +106,129 @@ export const deleteBoard = /* GraphQL */ `
     }
   }
 `;
+export const createCard = /* GraphQL */ `
+  mutation CreateCard(
+    $input: CreateCardInput!
+    $condition: ModelCardConditionInput
+  ) {
+    createCard(input: $input, condition: $condition) {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCard = /* GraphQL */ `
+  mutation UpdateCard(
+    $input: UpdateCardInput!
+    $condition: ModelCardConditionInput
+  ) {
+    updateCard(input: $input, condition: $condition) {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCard = /* GraphQL */ `
+  mutation DeleteCard(
+    $input: DeleteCardInput!
+    $condition: ModelCardConditionInput
+  ) {
+    deleteCard(input: $input, condition: $condition) {
+      id
+      boardID
+      title
+      status
+      description
+      startDate
+      endDate
+      tag
+      users
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPoint = /* GraphQL */ `
+  mutation CreatePoint(
+    $input: CreatePointInput!
+    $condition: ModelPointConditionInput
+  ) {
+    createPoint(input: $input, condition: $condition) {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePoint = /* GraphQL */ `
+  mutation UpdatePoint(
+    $input: UpdatePointInput!
+    $condition: ModelPointConditionInput
+  ) {
+    updatePoint(input: $input, condition: $condition) {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePoint = /* GraphQL */ `
+  mutation DeletePoint(
+    $input: DeletePointInput!
+    $condition: ModelPointConditionInput
+  ) {
+    deletePoint(input: $input, condition: $condition) {
+      id
+      cardID
+      title
+      description
+      checked
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;

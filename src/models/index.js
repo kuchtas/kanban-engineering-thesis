@@ -2,11 +2,18 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const CardStatus = {
+  "TODO": "TODO",
+  "DOING": "DOING",
+  "DONE": "DONE"
+};
 
-
-const { User, Board } = initSchema(schema);
+const { User, Board, Card, Point } = initSchema(schema);
 
 export {
   User,
-  Board
+  Board,
+  Card,
+  Point,
+  CardStatus
 };
