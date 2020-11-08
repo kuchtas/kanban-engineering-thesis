@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Board, User, Card, Point } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
-const About = ({ user }) => {
+import { useSelector } from "react-redux";
+
+const About = () => {
+  const { user } = useSelector((state) => state.user);
   const [boards, setBoards] = useState([]);
   const [cards, setCards] = useState([]);
   const [points, setPoints] = useState([]);

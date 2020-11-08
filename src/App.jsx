@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Auth, Hub } from "aws-amplify";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import history from './history';
 // CSS
 import "./App.css";
 // components
 import Navigation from "./components/Navigation";
 // pages
 import About from "./pages/About";
+import BoardList from "./pages/BoardList";
 // GraphQl
 import { User } from "./models/index";
+//Redux
+import store from './store';
+import { Provider } from "react-redux";
 
 function App() {
   // window.LOG_LEVEL = "DEBUG";
-  const [user, setUser] = useState("");
   useEffect(() => {
     Hub.listen("auth", () => {
       initUser();
@@ -44,10 +48,10 @@ function App() {
                 boards: [],
               })
             );
-            setUser(newUser);
+            store.dispatch({ type: "user/added", payload: newUser });
             localStorage.setItem("user", JSON.stringify(newUser));
           } else {
-            setUser(userQuery[0]);
+            store.dispatch({ type: "user/added", payload: userQuery[0] });
             localStorage.setItem("user", JSON.stringify(userQuery[0]));
           }
         });
@@ -60,13 +64,10 @@ function App() {
     };
   };
 
-  useEffect(() => {
-    console.log("after setting user", user);
-  }, [user]);
-
   const loadUserFromLocalStorage = () => {
     try {
-      setUser(JSON.parse(localStorage.getItem("user")));
+      const loadedUser = JSON.parse(localStorage.getItem("user"));
+      store.dispatch({ type: "user/added", payload: loadedUser});
     } catch {
       Auth.signOut();
     }
@@ -75,16 +76,15 @@ function App() {
 
   return (
     <div id="app-root">
-      <Navigation />
-      <Router>
-        <Switch>
-          <Route path="/about">
-            <About user={user} />
-          </Route>
-          <Route path="/users"></Route>
-          <Route path="/"></Route>
-        </Switch>
-      </Router>
+      <Provider store={store}>
+      <Navigation history={history}/>
+        <Router history={history}>
+          <Switch>
+            <Route path="/" component={BoardList}/>
+            <Route path="/about" component={About} />
+          </Switch>
+        </Router>        
+      </Provider>
     </div>
   );
 }
