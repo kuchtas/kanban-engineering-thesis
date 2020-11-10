@@ -57,49 +57,58 @@ const BoardList = ({history}) => {
 
   return (
     <div className="board-list-page-container">
-      {loading ? 
-      <div>
-        <Navigation history={history}/>
-        <Loading/> 
-      </div> 
-      : 
-      <div>
-      <Navigation history={history}/>
-        <div id="board-list-page">
-        <Grid container className="board-list-container" spacing={2}>
-          {boards.map((board) => (
-            <Grid
-              alignContent="stretch"
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={6}
-              xl={4}
-              className="board-list-element"
-            >
-              <Card variant="outlined" className="board-list-card radial-out" onClick={() => openBoard(board)}>
-                <Typography>{board.title}</Typography>
-              </Card>
+      {loading ? (
+        <div>
+          <Navigation history={history} />
+          <Loading />
+        </div>
+      ) : (
+        <div>
+          <Navigation history={history} />
+          <div id="board-list-page">
+            <Grid container className="board-list-container" spacing={2}>
+              {boards.map((board) => (
+                <Grid
+                  alignContent="stretch"
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={6}
+                  xl={4}
+                  className="board-list-element"
+                >
+                  <Card
+                    variant="outlined"
+                    className="board-list-card radial-out"
+                    onClick={() => openBoard(board)}
+                  >
+                    <Typography>{board.title}</Typography>
+                  </Card>
+                </Grid>
+              ))}
+              <Grid
+                alignContent="stretch"
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                lg={6}
+                xl={4}
+                className="board-list-element"
+              >
+                <Card
+                  variant="outlined"
+                  className="board-list-card-add radial-out"
+                  onClick={createBoard}
+                >
+                  <AddIcon fontSize="large" />
+                </Card>
+              </Grid>
             </Grid>
-          ))}
-            <Grid
-              alignContent="stretch"
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={6}
-              xl={4}
-              className="board-list-element"
-            >
-              <Card variant="outlined" className="board-list-card-add radial-out">
-                <AddIcon fontSize="large"/>
-              </Card>
-            </Grid>
-        </Grid>
-      </div>
-      </div>}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
