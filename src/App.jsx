@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Auth, Hub } from "aws-amplify";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import history from './history';
 // CSS
 import "./App.css";
@@ -81,6 +86,9 @@ function App() {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
             <Route path="/home" component={BoardList} />
             <Route path="/board/:id" component={BoardView} exact={true} />
             <Route path="/about" component={About} exact={true} />
