@@ -1,0 +1,16 @@
+.invalid-user-container{
+    height: 94vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+.invalid-user-home-link{
+    color: black;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.invalid-user-home-link:hover{
+    color: var(--amplify-primary-color);
+}
