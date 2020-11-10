@@ -18,6 +18,7 @@ import store from './store';
 import { Provider } from "react-redux";
 
 function App() {
+  const baseUrl = process.env.PUBLIC_URL;
   // window.LOG_LEVEL = "DEBUG";
   useEffect(() => {
     Hub.listen("auth", () => {
@@ -80,9 +81,13 @@ function App() {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
-            <Route path="/home" component={BoardList} />
-            <Route path="/board/:id" component={BoardView} exact={true} />
-            <Route path="/about" component={About} exact={true} />
+            <Route path={baseUrl + "/home"} component={BoardList} />
+            <Route
+              path={baseUrl + "/board/:id"}
+              component={BoardView}
+              exact={true}
+            />
+            <Route path={baseUrl + "/about"} component={About} exact={true} />
           </Switch>
         </Router>
       </Provider>
