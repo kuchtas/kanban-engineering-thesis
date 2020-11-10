@@ -81,13 +81,9 @@ function App() {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
-            <Route path={baseUrl + "/home"} component={BoardList} />
-            <Route
-              path={baseUrl + "/board/:id"}
-              component={BoardView}
-              exact={true}
-            />
-            <Route path={baseUrl + "/about"} component={About} exact={true} />
+            <Route path="/home" component={BoardList} />
+            <Route path="/board/:id" component={BoardView} exact={true} />
+            <Route path="/about" component={About} exact={true} />
           </Switch>
         </Router>
       </Provider>
