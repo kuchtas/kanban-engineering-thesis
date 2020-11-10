@@ -12,10 +12,52 @@
 }
 
 .board-list-element{
-    width: 200px;
-    height: 200px;
+    min-width: 300px;
+    text-align: center;
 }
 
-.board-list-paper{
-    
+.board-list-card, .board-list-card-add{
+    margin-right: 16px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-list-card:hover, .board-list-card-add:hover{
+    color: var(--amplify-primary-color);
+    border-color: var(--amplify-primary-color);
+}
+
+.radial-out{
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    -webkit-transition: color 400ms;
+    transition: color 400ms;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.radial-out:before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: aliceblue;
+    border-radius: 100%;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition: 400ms ease-out;
+    transition: 400ms ease-out;
+}
+.radial-out:hover:before{
+    -webkit-transform: scale(2);
+    transform: scale(2);
 }

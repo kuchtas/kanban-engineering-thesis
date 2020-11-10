@@ -6,10 +6,11 @@ import history from './history';
 // CSS
 import "./App.css";
 // components
-import Navigation from "./components/Navigation";
+
 // pages
 import About from "./pages/About";
 import BoardList from "./pages/BoardList";
+import BoardView from "./pages/BoardView";
 // GraphQl
 import { User } from "./models/index";
 //Redux
@@ -77,13 +78,13 @@ function App() {
   return (
     <div id="app-root">
       <Provider store={store}>
-      <Navigation history={history}/>
         <Router history={history}>
           <Switch>
-            <Route path="/" component={BoardList}/>
-            <Route path="/about" component={About} />
+            <Route path="/home" component={BoardList} />
+            <Route path="/board/:id" component={BoardView} exact={true} />
+            <Route path="/about" component={About} exact={true} />
           </Switch>
-        </Router>        
+        </Router>
       </Provider>
     </div>
   );

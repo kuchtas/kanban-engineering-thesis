@@ -14,7 +14,7 @@ const Navigation = ({ history }) => {
     window.location.reload();
   };
 
-  const handleClick = () => history.push("/");
+  const handleClick = () => history.push("/home");
 
   return (
     <div className="page-header-wrapper" onClick={handleClick}>
