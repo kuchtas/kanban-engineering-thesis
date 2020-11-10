@@ -32,7 +32,7 @@ const BoardList = ({history}) => {
   const createBoard = async () => {
     const newBoard = await DataStore.save(
       new Board({
-        title: "That is a new board!",
+        title: "Hello there",
         users: [user.name],
         cards: [],
       })
@@ -74,7 +74,7 @@ const BoardList = ({history}) => {
                   xs={12}
                   sm={6}
                   md={6}
-                  lg={6}
+                  lg={4}
                   xl={4}
                   className="board-list-element"
                 >
@@ -93,7 +93,7 @@ const BoardList = ({history}) => {
                 xs={12}
                 sm={6}
                 md={6}
-                lg={6}
+                lg={4}
                 xl={4}
                 className="board-list-element"
               >
