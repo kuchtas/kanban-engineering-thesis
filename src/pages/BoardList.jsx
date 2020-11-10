@@ -58,12 +58,12 @@ const BoardList = ({history}) => {
   return (
     <div className="board-list-page-container">
       {loading ? (
-        <div>
+        <React.Fragment>
           <Navigation history={history} />
           <Loading />
-        </div>
+        </React.Fragment>
       ) : (
-        <div>
+        <React.Fragment>
           <Navigation history={history} />
           <div id="board-list-page">
             <Grid container className="board-list-container" spacing={2}>
@@ -107,7 +107,7 @@ const BoardList = ({history}) => {
               </Grid>
             </Grid>
           </div>
-        </div>
+        </React.Fragment>
       )}
     </div>
   );
