@@ -10,6 +10,7 @@ import {
 import history from './history';
 // CSS
 import "./App.css";
+import { ThemeProvider } from '@material-ui/core/styles';
 // components
 
 // pages
@@ -21,6 +22,7 @@ import { User } from "./models/index";
 //Redux
 import store from './store';
 import { Provider } from "react-redux";
+import {globalTheme} from "./themes/globalTheme";
 
 function App() {
   // window.LOG_LEVEL = "DEBUG";
@@ -82,18 +84,20 @@ function App() {
 
   return (
     <div id="app-root">
-      <Provider store={store}>
-        <Router history={history}>
-          <Switch>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Route path="/home" component={BoardList} />
-            <Route path="/board/:id" component={BoardView} exact={true} />
-            <Route path="/about" component={About} exact={true} />
-          </Switch>
-        </Router>
-      </Provider>
+      <ThemeProvider theme={globalTheme}>
+          <Provider store={store}>
+            <Router history={history}>
+              <Switch>
+                <Route exact path="/">
+                  <Redirect to="/home" />
+                </Route>
+                <Route path="/home" component={BoardList} />
+                <Route path="/board/:id" component={BoardView} exact={true} />
+                <Route path="/about" component={About} exact={true} />
+              </Switch>
+            </Router>
+          </Provider>
+      </ThemeProvider>
     </div>
   );
 }
