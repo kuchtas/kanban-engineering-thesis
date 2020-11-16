@@ -85,6 +85,7 @@ export const syncBoards = /* GraphQL */ `
         id
         title
         users
+        cards
         _version
         _deleted
         _lastChangedAt
@@ -102,6 +103,7 @@ export const getBoard = /* GraphQL */ `
       id
       title
       users
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -121,6 +123,7 @@ export const listBoards = /* GraphQL */ `
         id
         title
         users
+        cards
         _version
         _deleted
         _lastChangedAt

@@ -9,6 +9,7 @@ type Board @model {
   id: ID!
   title: String!
   users: [String]
+  cards: [String]
 }
 
 type Card @model {

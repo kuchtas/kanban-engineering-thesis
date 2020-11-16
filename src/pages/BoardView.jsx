@@ -45,6 +45,15 @@ const BoardView = ({ history, match }) => {
         endDate: "2020-12-31",
       })
     );
+    const boardQuery = await DataStore.query(Board, (b) =>
+      b.id("eq", match.params.id)
+    );
+
+    await DataStore.save(
+      Board.copyOf(boardQuery[0], (updated) => {
+        updated.cards = [...updated.cards, newCard.id];
+      })
+    );
     loadCards();
   };
 

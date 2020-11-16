@@ -52,6 +52,7 @@ export const onCreateBoard = /* GraphQL */ `
       id
       title
       users
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -66,6 +67,7 @@ export const onUpdateBoard = /* GraphQL */ `
       id
       title
       users
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -80,6 +82,7 @@ export const onDeleteBoard = /* GraphQL */ `
       id
       title
       users
+      cards
       _version
       _deleted
       _lastChangedAt

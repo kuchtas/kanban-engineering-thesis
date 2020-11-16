@@ -21,6 +21,7 @@ export declare class Board {
   readonly id: string;
   readonly title: string;
   readonly users?: (string | null)[];
+  readonly cards?: (string | null)[];
   constructor(init: ModelInit<Board>);
   static copyOf(source: Board, mutator: (draft: MutableModel<Board>) => MutableModel<Board> | void): Board;
 }
