@@ -1,0 +1,7 @@
+.card-list-element-add-card{
+    border: 0px !important;
+}
+
+.card-list-element-add-card:hover{
+    color: var(--amplify-primary-color);
+}

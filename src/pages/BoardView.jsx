@@ -7,7 +7,8 @@ import "./BoardView.css";
 
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
-import InvalidUserError from "../components/InvalidUserError"
+import InvalidUserError from "../components/InvalidUserError";
+import CardListsContainer from "../components/CardListsContainer";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -15,46 +16,31 @@ const BoardView = ({ history, match }) => {
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
-  const [cards, setCards] = useState([]);
 
   const loadBoard = async () => {
     const boardQuery = await DataStore.query(Board, (b) =>
       b.id("eq", match.params.id)
     );
-    console.log("boardQuery: ", JSON.stringify(boardQuery));
     store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
     setLoadingBoard(false);
   };
 
   const loadCards = async () => {
-    const cardsQuery = await DataStore.query(Card, (c) =>
-      c.boardID("eq", match.params.id)
+    const cardsToDoQuery = await DataStore.query(Card, (c) =>
+      c.boardID("eq", match.params.id).status("eq", "TODO")
     );
-    console.log("cardsQuery: ", JSON.stringify(cardsQuery));
-    setCards(cardsQuery);
+    store.dispatch({ type: "cards/todoloaded", payload: cardsToDoQuery });
+
+    const cardsDoingQuery = await DataStore.query(Card, (c) =>
+      c.boardID("eq", match.params.id).status("eq", "DOING")
+    );
+    store.dispatch({ type: "cards/doingloaded", payload: cardsDoingQuery });
+
+    const cardsDoneQuery = await DataStore.query(Card, (c) =>
+      c.boardID("eq", match.params.id).status("eq", "DONE")
+    );
+    store.dispatch({ type: "cards/doneloaded", payload: cardsDoneQuery });
     setLoadingCards(false);
-  };
-
-  const createCard = async () => {
-    const newCard = await DataStore.save(
-      new Card({
-        boardID: match.params.id,
-        title: "A card added to first board in boards list",
-        status: "DOING",
-        startDate: "2020-11-10",
-        endDate: "2020-12-31",
-      })
-    );
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id)
-    );
-
-    await DataStore.save(
-      Board.copyOf(boardQuery[0], (updated) => {
-        updated.cards = [...updated.cards, newCard.id];
-      })
-    );
-    loadCards();
   };
 
   useEffect(() => {
@@ -78,7 +64,7 @@ const BoardView = ({ history, match }) => {
         <div className="board-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          
+          <CardListsContainer />
         </div>
       ) : (
         <div className="board-view-page-invalid-user-error">

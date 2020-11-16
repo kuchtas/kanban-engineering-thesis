@@ -1,0 +1,36 @@
+.card-lists-container{
+    margin: 0px !important;
+}
+
+.card-list{
+    border: 1px solid rgb(224, 224, 231);
+    border-radius: 5px;
+    text-align: center;
+    max-width: 500px !important; 
+    min-width: 200px !important; 
+    height: 94vh;
+    overflow-y: auto;
+}
+
+.card-list-todo{
+    margin-left: auto !important;
+}
+
+.card-list-doing{
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.card-list-done{
+    margin-right: auto !important;
+}
+
+.card-list-element{
+    margin-top: 3px !important;
+    width: 98%;
+    margin: auto;
+}
+
+.card-list-element:hover{
+    background-color:rgba(241, 241, 241, 0.4);
+}
