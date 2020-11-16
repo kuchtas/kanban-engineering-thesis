@@ -23,7 +23,6 @@ import store from './store';
 import { Provider } from "react-redux";
 
 function App() {
-  const baseUrl = process.env.PUBLIC_URL;
   // window.LOG_LEVEL = "DEBUG";
   useEffect(() => {
     Hub.listen("auth", () => {
@@ -74,7 +73,7 @@ function App() {
   const loadUserFromLocalStorage = () => {
     try {
       const loadedUser = JSON.parse(localStorage.getItem("user"));
-      store.dispatch({ type: "user/added", payload: loadedUser});
+      store.dispatch({ type: "user/added", payload: loadedUser });
     } catch {
       Auth.signOut();
     }
