@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 import { useSelector } from "react-redux";
-
+import store from '../store';
 import "./BoardView.css";
 
 import Navigation from "../components/Navigation";
@@ -11,10 +11,10 @@ import InvalidUserError from "../components/InvalidUserError"
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
+  const { board } = useSelector((state) => state.board);
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
-  const [board, setBoards] = useState([]);
   const [cards, setCards] = useState([]);
 
   const loadBoard = async () => {
@@ -22,7 +22,7 @@ const BoardView = ({ history, match }) => {
       b.id("eq", match.params.id)
     );
     console.log("boardQuery: ", JSON.stringify(boardQuery));
-    setBoards(boardQuery[0]);
+    store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
     setLoadingBoard(false);
   };
 
@@ -40,7 +40,7 @@ const BoardView = ({ history, match }) => {
       new Card({
         boardID: match.params.id,
         title: "A card added to first board in boards list",
-        status: "TODO",
+        status: "DOING",
         startDate: "2020-11-10",
         endDate: "2020-12-31",
       })
@@ -68,24 +68,26 @@ const BoardView = ({ history, match }) => {
 
   return (
     <React.Fragment>
-      {(loadingCards || loadingBoard) ? ( 
-        <div className="board-view-page"> {/* display spinner when loading */}
+      {loadingCards || loadingBoard ? (
+        <div className="board-view-page">
+          {/* display spinner when loading */}
           <Navigation history={history} />
           <Loading />
         </div>
-      ) : ( userValid ?  
-        <div className="board-view-page"> {/* if all is loaded and user is a part of the board display it */}
+      ) : userValid ? (
+        <div className="board-view-page">
+          {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          <button onClick={createCard}>Create a card for this board</button>
-          <p>Board: {JSON.stringify(board)}</p>
-          <p>Cards:{cards.map((card) => { return <li>{JSON.stringify(card)}</li>})}</p>
-        </div> :
-         <div className="board-view-page-invalid-user-error"> {/* if user is not a part of the board they cannot see it */}
-         <Navigation history={history} />
-         <InvalidUserError history={history} />
-       </div>
+          
+        </div>
+      ) : (
+        <div className="board-view-page-invalid-user-error">
+          {/* if user is not a part of the board they cannot see it */}
+          <Navigation history={history} />
+          <InvalidUserError history={history} />
+        </div>
       )}
-     </React.Fragment>
+    </React.Fragment>
   );
 };
 
