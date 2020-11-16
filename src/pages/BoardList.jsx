@@ -22,6 +22,9 @@ const BoardList = ({history}) => {
       const boardsQuery = await DataStore.query(Board, (b) =>
         b.users("contains", user.name)
       );
+      boardsQuery.sort((a, b) =>
+        a._lastChangedAt > b._lastChangedAt ? -1 : 1
+      );
       console.log(JSON.stringify(boardsQuery));
       setBoards(boardsQuery);
       setLoading(false);
