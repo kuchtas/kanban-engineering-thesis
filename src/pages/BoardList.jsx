@@ -4,7 +4,7 @@ import { Board, User } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
 import "./BoardList.css";
-import { Grid, Card, Typography } from "@material-ui/core";
+import { Grid, Card, Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Button} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
@@ -13,6 +13,9 @@ const BoardList = ({history}) => {
   const { user } = useSelector((state) => state.user);
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openCreateBoardDialog, setOpenCreateBoardDialog] = useState(false);
+  const [newBoardTitle, setNewBoardTitle] = useState(null);
+
 
   const loadBoards = async () => {
     if (user !== null) {
@@ -32,7 +35,7 @@ const BoardList = ({history}) => {
   const createBoard = async () => {
     const newBoard = await DataStore.save(
       new Board({
-        title: "Hello there",
+        title: newBoardTitle,
         users: [user.name],
         cards: [],
       })
@@ -49,11 +52,21 @@ const BoardList = ({history}) => {
       })
     );
     loadBoards();
+    setOpenCreateBoardDialog(false);
   };
 
   const openBoard = (board) =>{
     history.push(`/board/${board.id}`);
   }
+
+  const openBoardCreationDialog = () => {
+    setNewBoardTitle(null);
+    setOpenCreateBoardDialog(true);
+  };
+
+  const closeBoardCreationDialog = () => {
+    setOpenCreateBoardDialog(false);
+  };
 
   return (
     <div className="board-list-page-container">
@@ -100,13 +113,44 @@ const BoardList = ({history}) => {
                 <Card
                   variant="outlined"
                   className="board-list-card-add radial-out"
-                  onClick={createBoard}
+                  onClick={openBoardCreationDialog}
                 >
                   <AddIcon fontSize="large" />
                 </Card>
               </Grid>
             </Grid>
           </div>
+          <Dialog
+                className="create-board-dialog"
+                open={openCreateBoardDialog}
+                onClose={closeBoardCreationDialog}
+              >
+            <DialogTitle className="create-board-dialog-title">Name your new board</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                This name will be visible for all of its users.
+              </DialogContentText>
+              <TextField
+                classes={{label: "create-board-dialog-textfield-label"}}
+                className="create-board-dialog-textfield"
+                autoFocus
+                margin="normal"
+                label="Name"
+                type="text"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => setNewBoardTitle(e.target.value)}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={closeBoardCreationDialog} color="primary" variant="outlined">
+                Cancel
+              </Button>
+              <Button onClick={createBoard} color="primary" variant="outlined">
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
         </React.Fragment>
       )}
     </div>
