@@ -11,6 +11,7 @@ import history from './history';
 // CSS
 import "./App.css";
 import { ThemeProvider } from '@material-ui/core/styles';
+import { globalTheme } from "./themes/globalTheme";
 // components
 
 // pages
@@ -22,7 +23,6 @@ import { User } from "./models/index";
 //Redux
 import store from './store';
 import { Provider } from "react-redux";
-import {globalTheme} from "./themes/globalTheme";
 
 function App() {
   // window.LOG_LEVEL = "DEBUG";

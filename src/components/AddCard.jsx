@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+// Components
 import { Card } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+// CSS
 import "./AddCard.css";
+
 const AddCard = ({ createCard }) => {
   return (
     <React.Fragment>

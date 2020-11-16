@@ -1,3 +1,4 @@
+// CSS
 import "./InvalidUserError.css";
 
 const InvalidUserError = ({ history }) => {

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
+// Redux
 import { useSelector } from "react-redux";
+import store from "../store";
+// GraphQL
+import { Board, Card } from "../models/index";
+import { DataStore } from "@aws-amplify/datastore";
+// CSS
+import "./CardListsContainer.css";
+// Components
 import {
   Grid,
   Card as MaterialUICard,
@@ -12,11 +20,7 @@ import {
   TextField,
   Button,
 } from "@material-ui/core";
-import { Board, Card } from "../models/index";
-import { DataStore } from "@aws-amplify/datastore";
-import "./CardListsContainer.css";
 import AddCard from "../components/AddCard";
-import store from "../store";
 
 const CardListsContainer = () => {
   const { cardsToDo, cardsDoing, cardsDone } = useSelector(

@@ -1,15 +1,18 @@
 import React from "react";
-import "./Navigation.css";
+// Redux
+import { useSelector } from "react-redux";
+// GraphQL 
+import { Auth, DataStore } from "aws-amplify";
+// Components
 import {
   Toolbar,
   Button,
   Typography,
   MuiThemeProvider,
 } from "@material-ui/core";
-import { Auth, DataStore } from "aws-amplify";
-import { useSelector } from "react-redux";
+// CSS
+import "./Navigation.css";
 import {signOutButtonTheme} from "../themes/singOutButtonTheme";
-
 
 const Navigation = ({ history }) => {
   const { user } = useSelector((state) => state.user);

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+// GraphQL
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
+// Redux
 import { useSelector } from "react-redux";
 import store from '../store';
+// CSS
 import "./BoardView.css";
-
+// Components 
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 import InvalidUserError from "../components/InvalidUserError";
