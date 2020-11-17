@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 
+
 const BoardList = ({history}) => {
   const { user } = useSelector((state) => state.user);
   const [boards, setBoards] = useState([]);
@@ -20,42 +21,49 @@ const BoardList = ({history}) => {
 
 
   const loadBoards = async () => {
-    if (user !== null) {
-      const boardsQuery = await DataStore.query(Board, (b) =>
-        b.users("contains", user.name)
-      );
-      boardsQuery.sort((a, b) =>
-        a._lastChangedAt > b._lastChangedAt ? -1 : 1
-      );
-      setBoards(boardsQuery);
-      setLoading(false);
-    }
+    const boardsQuery = await DataStore.query(Board, (b) =>
+      b.users("contains", user.name)
+    );
+    boardsQuery.sort((a, b) => (a._lastChangedAt > b._lastChangedAt ? -1 : 1));
+    setBoards(boardsQuery);
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadBoards();
+    if (user !== null) {
+        loadBoards();
+        const subscription = DataStore.observe(Board).subscribe((b) => {
+          console.log(b.opType);
+          if (b.opType === "INSERT" || b.opType === "DELETE") loadBoards();
+        });
+
+        return () => {
+          subscription.unsubscribe();
+        };
+      }
   }, [user]);
 
   const createBoard = async () => {
-    const newBoard = await DataStore.save(
-      new Board({
-        title: newBoardTitle,
-        users: [user.name],
-        cards: [],
-      })
-    );
-
-    const userQuery = await DataStore.query(User, (u) =>
-      u.name("eq", user.name)
-    );
-    console.log("query", userQuery);
-
-    await DataStore.save(
-      User.copyOf(userQuery[0], (updated) => {
-        updated.boards = [...updated.boards, newBoard.id];
-      })
-    );
-    loadBoards();
+    if(newBoardTitle!==null && newBoardTitle!==""){
+      const newBoard = await DataStore.save(
+        new Board({
+          title: newBoardTitle,
+          users: [user.name],
+          cards: [],
+        })
+      );
+  
+      const userQuery = await DataStore.query(User, (u) =>
+        u.name("eq", user.name)
+      );
+      console.log("query", userQuery);
+  
+      await DataStore.save(
+        User.copyOf(userQuery[0], (updated) => {
+          updated.boards = [...updated.boards, newBoard.id];
+        })
+      );
+    }
     setOpenCreateBoardDialog(false);
   };
 
@@ -143,7 +151,7 @@ const BoardList = ({history}) => {
                 type="text"
                 variant="outlined"
                 fullWidth
-                onChange={(e) => setNewBoardTitle(e.target.value)}
+                onChange={(e) => setNewBoardTitle(e.target.value.trim())}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
                     createBoard();
