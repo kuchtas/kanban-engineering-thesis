@@ -12,6 +12,7 @@ import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 import InvalidUserError from "../components/InvalidUserError";
 import CardListsContainer from "../components/CardListsContainer";
+import BoardViewHeader from "../components/BoardViewHeader";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -67,6 +68,7 @@ const BoardView = ({ history, match }) => {
         <div className="board-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
+          <BoardViewHeader boardName={board.title} />
           <CardListsContainer />
         </div>
       ) : (

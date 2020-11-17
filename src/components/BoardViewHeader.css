@@ -1,0 +1,28 @@
+.board-view-page-header-container{
+    min-height: 30px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.board-view-page-header-title{
+    /* margin-left: 8px; */
+    max-width: 600px;
+    font-size: 12px;
+}
+
+.board-view-page-header-button-delete{
+    color: red !important;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 1px;
+    /* margin-right: 8px; */
+}
+
+.board-view-page-header-button-members{
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: auto;
+    margin-right: 1px;
+}
