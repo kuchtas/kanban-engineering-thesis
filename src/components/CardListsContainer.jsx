@@ -98,7 +98,6 @@ const CardListsContainer = () => {
     <React.Fragment>
       <Grid container className="card-lists-container">
         <Grid
-          alignContent="stretch"
           item
           xs={4}
           sm={4}
@@ -106,7 +105,6 @@ const CardListsContainer = () => {
           lg={4}
           xl={4}
           className="card-list-todo card-list"
-          wrap="nowrap"
         >
           {cardsToDo.map((card) => {
             return (
@@ -118,7 +116,6 @@ const CardListsContainer = () => {
           <AddCard createCard={createToDoCard} />
         </Grid>
         <Grid
-          alignContent="stretch"
           item
           xs={4}
           sm={4}
@@ -126,7 +123,6 @@ const CardListsContainer = () => {
           lg={4}
           xl={4}
           className="card-list-doing card-list"
-          wrap="nowrap"
         >
           {cardsDoing.map((card) => {
             return (
@@ -138,7 +134,6 @@ const CardListsContainer = () => {
           <AddCard createCard={createDoingCard} />
         </Grid>
         <Grid
-          alignContent="stretch"
           item
           xs={4}
           sm={4}
@@ -146,7 +141,6 @@ const CardListsContainer = () => {
           lg={4}
           xl={4}
           className="card-list-done card-list"
-          wrap="nowrap"
         >
           {cardsDone.map((card) => {
             return (
