@@ -1,7 +1,9 @@
 .sign-out-button{
     background-color: var(--amplify-primary-color);
     color: white !important;
-    padding: 5px !important;
+    padding: 3px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
     margin-right: 8px !important;
     border: 1px white solid !important;
 }
@@ -17,7 +19,7 @@
 }
 
 .page-header{
-    min-height: 50px !important;
+    min-height: 44px !important;
 }
 
 .page-header-title{
