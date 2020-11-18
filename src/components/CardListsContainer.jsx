@@ -8,18 +8,7 @@ import { DataStore } from "@aws-amplify/datastore";
 // CSS
 import "./CardListsContainer.css";
 // Components
-import {
-  Grid,
-  Card as MaterialUICard,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
-  Button,
-} from "@material-ui/core";
+import { Grid, Card as MaterialUICard, Typography } from "@material-ui/core";
 import AddCard from "../components/AddCard";
 
 const CardListsContainer = () => {
