@@ -36,6 +36,13 @@ export default function cardsReducer(state = initialState, action){
             return {
                 ...state,cardsDone: [...state.cardsDone, action.payload]
             }
+        case 'cards/deleted':
+            console.log("cards deleted: ", action.payload);
+            return {
+                ...state, cardsToDo: [], 
+                cardsDoing: [], 
+                cardsDone: []
+            }
         default:
             return state;
     }

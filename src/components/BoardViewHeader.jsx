@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+// GraphQL
+import { Board, Card } from "../models/index";
+import { DataStore } from "@aws-amplify/datastore";
 // Components
-import { Toolbar, Button, Typography } from "@material-ui/core";
+import { Toolbar, Button, Typography, MuiThemeProvider } from "@material-ui/core";
 // CSS
 import "./BoardViewHeader.css";
+import {deleteButtonTheme} from "../themes/deleteButtonTheme";
 
-const BoardViewHeader = ({ boardName }) => {
+const BoardViewHeader = ({ boardName, openBoardDeletionDialog }) => {
+
   return (
     <Toolbar
       className="board-view-page-header-container"
-      disableGutters={false}
+      disableGutters={true}
     >
       <Typography
         variant="overline"
@@ -22,15 +27,18 @@ const BoardViewHeader = ({ boardName }) => {
         variant="outlined"
         color="primary"
       >
-        See members
+        Add a member
       </Button>
-      <Button
-        className="board-view-page-header-button-delete"
-        variant="outlined"
-        color="primary"
-      >
-        Delete board
-      </Button>
+      <MuiThemeProvider theme={deleteButtonTheme}>  
+        <Button
+          className="board-view-page-header-button-delete"
+          variant="outlined"
+          color="primary"
+          onClick={openBoardDeletionDialog}
+        >
+          Delete board
+        </Button>
+      </MuiThemeProvider>
     </Toolbar>
   );
 };

@@ -1,0 +1,7 @@
+.delete-board-dialog-delete-button{
+    color: red !important;
+
+}
+.delete-board-dialog-delete-button:enabled{
+    border: 1px red solid !important;
+}

@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import InvalidUserError from "../components/InvalidUserError";
 import CardListsContainer from "../components/CardListsContainer";
 import BoardViewHeader from "../components/BoardViewHeader";
+import DeleteBoardDialog from "../components/DeleteBoardDialog";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ const BoardView = ({ history, match }) => {
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
+  const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
 
   const loadBoard = async () => {
     const boardQuery = await DataStore.query(Board, (b) =>
@@ -47,6 +49,27 @@ const BoardView = ({ history, match }) => {
     setLoadingCards(false);
   };
 
+  const deleteBoard = async () => {
+    const boardQuery = await DataStore.query(Board, (b) =>
+      b.id("eq", match.params.id)
+    );
+
+    await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
+    store.dispatch({ type: "cards/deleted", payload: [] });
+    DataStore.delete(boardQuery[0]);
+    history.push("/home");
+
+    setOpenDeleteBoardDialog(false);
+  };
+
+  const openBoardDeletionDialog = () => {
+    setOpenDeleteBoardDialog(true);
+  };
+
+  const closeBoardDeletionDialog = () => {
+    setOpenDeleteBoardDialog(false);
+  };
+  
   useEffect(() => {
     if (loadingBoard) loadBoard();
     if (loadingCards) loadCards();
@@ -68,8 +91,17 @@ const BoardView = ({ history, match }) => {
         <div className="board-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          <BoardViewHeader boardName={board.title} />
-          <CardListsContainer />
+          <BoardViewHeader
+            boardName={board.title}
+            boardID={board.id}
+            openBoardDeletionDialog={openBoardDeletionDialog}
+          />
+          <CardListsContainer board={board} />
+          <DeleteBoardDialog
+            openDeleteBoardDialog={openDeleteBoardDialog}
+            closeBoardDeletionDialog={closeBoardDeletionDialog}
+            deleteBoard={deleteBoard}
+          />
         </div>
       ) : (
         <div className="board-view-page-invalid-user-error">
