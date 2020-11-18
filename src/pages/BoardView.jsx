@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // GraphQL
-import { Board, Card } from "../models/index";
+import { Board, Card, User } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
@@ -54,6 +54,17 @@ const BoardView = ({ history, match }) => {
       b.id("eq", match.params.id)
     );
 
+    const userQuery = await DataStore.query(User, (u) =>
+      u.name("eq", user.name)
+    );
+
+    await DataStore.save(
+      User.copyOf(userQuery[0], (updated) => {
+        const index = updated.boards.indexOf(match.params.id);
+        const clg = updated.boards.splice(index, 1);
+      })
+    );
+
     await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
     store.dispatch({ type: "cards/deleted", payload: [] });
     DataStore.delete(boardQuery[0]);
@@ -69,7 +80,7 @@ const BoardView = ({ history, match }) => {
   const closeBoardDeletionDialog = () => {
     setOpenDeleteBoardDialog(false);
   };
-  
+
   useEffect(() => {
     if (loadingBoard) loadBoard();
     if (loadingCards) loadCards();
