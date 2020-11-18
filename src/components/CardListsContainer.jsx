@@ -32,7 +32,7 @@ const CardListsContainer = () => {
     const newCard = await DataStore.save(
       new Card({
         boardID: board.id,
-        title: "A card Todo card",
+        title: "A ToDo card",
         status: "TODO",
         startDate: "2020-11-10",
         endDate: "2020-12-31",
