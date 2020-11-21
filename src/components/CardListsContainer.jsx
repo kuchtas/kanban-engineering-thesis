@@ -15,21 +15,19 @@ const CardListsContainer = () => {
   const { cardsToDo, cardsDoing, cardsDone } = useSelector(
     (state) => state.cards
   );
-  const { board } = useSelector((state) => state.board);
+  const { id } = useSelector((state) => state.board);
 
   const createToDoCard = async () => {
     const newCard = await DataStore.save(
       new Card({
-        boardID: board.id,
+        boardID: id,
         title: "A ToDo card",
         status: "TODO",
         startDate: "2020-11-10",
         endDate: "2020-12-31",
       })
     );
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", board.id)
-    );
+    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
 
     await DataStore.save(
       Board.copyOf(boardQuery[0], (updated) => {
@@ -42,16 +40,14 @@ const CardListsContainer = () => {
   const createDoingCard = async () => {
     const newCard = await DataStore.save(
       new Card({
-        boardID: board.id,
+        boardID: id,
         title: "A Doing card",
         status: "DOING",
         startDate: "2020-11-10",
         endDate: "2020-12-31",
       })
     );
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", board.id)
-    );
+    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
 
     await DataStore.save(
       Board.copyOf(boardQuery[0], (updated) => {
@@ -64,16 +60,14 @@ const CardListsContainer = () => {
   const createDoneCard = async () => {
     const newCard = await DataStore.save(
       new Card({
-        boardID: board.id,
+        boardID: id,
         title: "A Done card",
         status: "DONE",
         startDate: "2020-11-10",
         endDate: "2020-12-31",
       })
     );
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", board.id)
-    );
+    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
 
     await DataStore.save(
       Board.copyOf(boardQuery[0], (updated) => {
@@ -97,7 +91,11 @@ const CardListsContainer = () => {
         >
           {cardsToDo.map((card) => {
             return (
-              <MaterialUICard variant="outlined" className="card-list-element">
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-element"
+                key={card.id}
+              >
                 <Typography>{card.status}</Typography>
               </MaterialUICard>
             );
@@ -115,7 +113,11 @@ const CardListsContainer = () => {
         >
           {cardsDoing.map((card) => {
             return (
-              <MaterialUICard variant="outlined" className="card-list-element">
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-element"
+                key={card.id}
+              >
                 <Typography>{card.status}</Typography>
               </MaterialUICard>
             );
@@ -133,7 +135,11 @@ const CardListsContainer = () => {
         >
           {cardsDone.map((card) => {
             return (
-              <MaterialUICard variant="outlined" className="card-list-element">
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-element"
+                key={card.id}
+              >
                 <Typography>{card.status}</Typography>
               </MaterialUICard>
             );

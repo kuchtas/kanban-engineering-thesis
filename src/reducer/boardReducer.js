@@ -1,5 +1,8 @@
 const initialState = {
-    board: [],
+    id: null,
+    title: null,
+    cards: [],
+    users: [],
 }
 
 export default function boardReducer(state = initialState, action){
@@ -7,7 +10,15 @@ export default function boardReducer(state = initialState, action){
         case 'board/loaded':
             console.log("board loaded: ", action.payload);
             return {
-                ...state, board: action.payload
+                ...state, id: action.payload.id, 
+                title: action.payload.title, 
+                cards: action.payload.cards, 
+                users: action.payload.users
+            }
+        case 'board/changedtitle':
+            console.log("new title:", action.payload);
+            return {
+                ...state, title: action.payload
             }
         default:
             return state;

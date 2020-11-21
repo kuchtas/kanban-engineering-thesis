@@ -1,27 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 // GraphQL
-import { Board, Card } from "../models/index";
+import { Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Components
-import { Toolbar, Button, Typography, MuiThemeProvider } from "@material-ui/core";
+import {
+  Toolbar,
+  Button,
+  MuiThemeProvider,
+  TextField,
+  ClickAwayListener,
+} from "@material-ui/core";
+// Redux
+import { useSelector } from "react-redux";
+import store from '../store';
 // CSS
 import "./BoardViewHeader.css";
 import {deleteButtonTheme} from "../themes/deleteButtonTheme";
+import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 
-const BoardViewHeader = ({ boardName, openBoardDeletionDialog }) => {
+const BoardViewHeader = ({ openBoardDeletionDialog }) => {
+  const { id, title } = useSelector((state) => state.board);
+  const [editableTitle, setEditableTitle] = useState(title);
 
+  const handleClickAway = async () =>{
+    const newTitle = editableTitle.trim()
+    
+    if(newTitle !== title && newTitle !== null && newTitle !== ""){
+      const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
+
+      await DataStore.save(
+        Board.copyOf(boardQuery[0], (updated) => {
+          updated.title = newTitle;
+        })
+      );
+      store.dispatch({ type: "board/changedtitle", payload: newTitle })
+    }
+    else{
+      setEditableTitle(title);
+    }
+  }
   return (
     <Toolbar
       className="board-view-page-header-container"
-      disableGutters={true}
+      disableGutters={false}
     >
-      <Typography
-        variant="overline"
-        className="board-view-page-header-title"
-        noWrap={true}
-      >
-        {boardName}
-      </Typography>
+      <MuiThemeProvider theme={boardTitleEditTheme}>
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <TextField
+            key="board-title-form"
+            variant="outlined"
+            className="board-view-page-header-title"
+            margin="dense"
+            onChange={(e) => setEditableTitle(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleClickAway();
+              }
+            }}
+            value={editableTitle}
+          >
+          </TextField>
+        </ClickAwayListener>
+      </MuiThemeProvider>
       <Button
         className="board-view-page-header-button-members"
         variant="outlined"
@@ -29,7 +69,7 @@ const BoardViewHeader = ({ boardName, openBoardDeletionDialog }) => {
       >
         Add a member
       </Button>
-      <MuiThemeProvider theme={deleteButtonTheme}>  
+      <MuiThemeProvider theme={deleteButtonTheme}>
         <Button
           className="board-view-page-header-button-delete"
           variant="outlined"

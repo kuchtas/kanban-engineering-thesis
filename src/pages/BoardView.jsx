@@ -17,7 +17,7 @@ import DeleteBoardDialog from "../components/DeleteBoardDialog";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
-  const { board } = useSelector((state) => state.board);
+  const { id,  users } = useSelector((state) => state.board);
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
@@ -61,7 +61,7 @@ const BoardView = ({ history, match }) => {
     await DataStore.save(
       User.copyOf(userQuery[0], (updated) => {
         const index = updated.boards.indexOf(match.params.id);
-        const clg = updated.boards.splice(index, 1);
+        updated.boards.splice(index, 1);
       })
     );
 
@@ -87,8 +87,8 @@ const BoardView = ({ history, match }) => {
   });
 
   useEffect(() => {
-    if (!loadingBoard) setUserValid(board.users.includes(user.name));
-  }, [board]);
+    if (!loadingBoard) setUserValid(users.includes(user.name));
+  }, [id]);
 
   return (
     <React.Fragment>
@@ -103,11 +103,9 @@ const BoardView = ({ history, match }) => {
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
           <BoardViewHeader
-            boardName={board.title}
-            boardID={board.id}
             openBoardDeletionDialog={openBoardDeletionDialog}
           />
-          <CardListsContainer board={board} />
+          <CardListsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}

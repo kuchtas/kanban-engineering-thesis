@@ -5,6 +5,7 @@
 
 .board-view-page-header-title{
     /* margin-left: 8px; */
+    max-height: 30px;
     max-width: 600px;
     font-size: 12px;
 }
