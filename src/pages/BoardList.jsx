@@ -34,7 +34,7 @@ const BoardList = ({history}) => {
         loadBoards();
         const subscription = DataStore.observe(Board).subscribe((b) => {
           console.log(b.opType);
-          if (b.opType === "INSERT" || b.opType === "DELETE") loadBoards();
+          loadBoards();
         });
 
         return () => {
