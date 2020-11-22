@@ -33,5 +33,15 @@
 }
 
 .card-list-element:hover{
-    background-color:rgba(241, 241, 241, 0.4);
+    background-color:rgba(241, 241, 241, 0.2);
+}
+
+.card-list-header{
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-radius: 0px !important;
+    width: 100%;
+    margin: auto;
+    background-color:rgba(241, 241, 241, 0.6) !important;
 }

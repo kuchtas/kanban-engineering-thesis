@@ -89,6 +89,13 @@ const CardListsContainer = () => {
           xl={4}
           className="card-list-todo card-list"
         >
+          <MaterialUICard
+            variant="outlined"
+            className="card-list-header"
+            key="todo-header"
+          >
+            <Typography>TO DO</Typography>
+          </MaterialUICard>
           {cardsToDo.map((card) => {
             return (
               <MaterialUICard
@@ -111,6 +118,13 @@ const CardListsContainer = () => {
           xl={4}
           className="card-list-doing card-list"
         >
+          <MaterialUICard
+            variant="outlined"
+            className="card-list-header"
+            key="doing-header"
+          >
+            <Typography>DOING</Typography>
+          </MaterialUICard>
           {cardsDoing.map((card) => {
             return (
               <MaterialUICard
@@ -133,6 +147,13 @@ const CardListsContainer = () => {
           xl={4}
           className="card-list-done card-list"
         >
+          <MaterialUICard
+            variant="outlined"
+            className="card-list-header"
+            key="done-header"
+          >
+            <Typography>DONE</Typography>
+          </MaterialUICard>
           {cardsDone.map((card) => {
             return (
               <MaterialUICard
