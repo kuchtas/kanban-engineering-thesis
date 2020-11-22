@@ -1,80 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // Redux
 import { useSelector } from "react-redux";
-import store from "../store";
-// GraphQL
-import { Board, Card } from "../models/index";
-import { DataStore } from "@aws-amplify/datastore";
 // CSS
 import "./CardListsContainer.css";
 // Components
 import { Grid, Card as MaterialUICard, Typography } from "@material-ui/core";
 import AddCard from "../components/AddCard";
+import AddTodoCardDialog from "../components/AddTodoCardDialog";
+import AddDoingCardDialog from "../components/AddDoingCardDialog";
+import AddDoneCardDialog from "../components/AddDoneCardDialog";
 
 const CardListsContainer = () => {
   const { cardsToDo, cardsDoing, cardsDone } = useSelector(
     (state) => state.cards
   );
-  const { id } = useSelector((state) => state.board);
+  const [openTodoCardDialog, setAddTodoCardDialog] = useState(false);
+  const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
+  const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
 
-  const createToDoCard = async () => {
-    const newCard = await DataStore.save(
-      new Card({
-        boardID: id,
-        title: "A ToDo card",
-        status: "TODO",
-        startDate: "2020-11-10",
-        endDate: "2020-12-31",
-      })
-    );
-    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
-
-    await DataStore.save(
-      Board.copyOf(boardQuery[0], (updated) => {
-        updated.cards = [...updated.cards, newCard.id];
-      })
-    );
-    store.dispatch({ type: "cards/todoadded", payload: newCard });
+  const openAddTodoCardDialog = () => {
+    setAddTodoCardDialog(true);
+  };
+  const closeAddTodoCardDialog = () => {
+    setAddTodoCardDialog(false);
   };
 
-  const createDoingCard = async () => {
-    const newCard = await DataStore.save(
-      new Card({
-        boardID: id,
-        title: "A Doing card",
-        status: "DOING",
-        startDate: "2020-11-10",
-        endDate: "2020-12-31",
-      })
-    );
-    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
-
-    await DataStore.save(
-      Board.copyOf(boardQuery[0], (updated) => {
-        updated.cards = [...updated.cards, newCard.id];
-      })
-    );
-    store.dispatch({ type: "cards/doingadded", payload: newCard });
+  const openAddDoingCardDialog = () => {
+    setAddDoingCardDialog(true);
+  };
+  const closeAddDoingCardDialog = () => {
+    setAddDoingCardDialog(false);
   };
 
-  const createDoneCard = async () => {
-    const newCard = await DataStore.save(
-      new Card({
-        boardID: id,
-        title: "A Done card",
-        status: "DONE",
-        startDate: "2020-11-10",
-        endDate: "2020-12-31",
-      })
-    );
-    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
-
-    await DataStore.save(
-      Board.copyOf(boardQuery[0], (updated) => {
-        updated.cards = [...updated.cards, newCard.id];
-      })
-    );
-    store.dispatch({ type: "cards/doneadded", payload: newCard });
+  const openAddDoneCardDialog = () => {
+    setAddDoneCardDialog(true);
+  };
+  const closeAddDoneCardDialog = () => {
+    setAddDoneCardDialog(false);
   };
 
   return (
@@ -103,11 +65,13 @@ const CardListsContainer = () => {
                 className="card-list-element"
                 key={card.id}
               >
-                <Typography>{card.status}</Typography>
+                <Typography>{card.title}</Typography>
+                <Typography>{card.startDate}</Typography>
+                <Typography>{card.endDate}</Typography>
               </MaterialUICard>
             );
           })}
-          <AddCard createCard={createToDoCard} />
+          <AddCard createCard={openAddTodoCardDialog} />
         </Grid>
         <Grid
           item
@@ -132,11 +96,13 @@ const CardListsContainer = () => {
                 className="card-list-element"
                 key={card.id}
               >
-                <Typography>{card.status}</Typography>
+                <Typography>{card.title}</Typography>
+                <Typography>{card.startDate}</Typography>
+                <Typography>{card.endDate}</Typography>
               </MaterialUICard>
             );
           })}
-          <AddCard createCard={createDoingCard} />
+          <AddCard createCard={openAddDoingCardDialog} />
         </Grid>
         <Grid
           item
@@ -161,13 +127,27 @@ const CardListsContainer = () => {
                 className="card-list-element"
                 key={card.id}
               >
-                <Typography>{card.status}</Typography>
+                <Typography>{card.title}</Typography>
+                <Typography>{card.startDate}</Typography>
+                <Typography>{card.endDate}</Typography>
               </MaterialUICard>
             );
           })}
-          <AddCard createCard={createDoneCard} />
+          <AddCard createCard={openAddDoneCardDialog} />
         </Grid>
       </Grid>
+      <AddTodoCardDialog
+          openAddTodoCardDialog={openTodoCardDialog}
+          closeAddTodoCardDialog={closeAddTodoCardDialog}
+      />
+      <AddDoingCardDialog
+          openAddDoingCardDialog={openDoingCardDialog}
+          closeAddDoingCardDialog={closeAddDoingCardDialog}
+      />
+      <AddDoneCardDialog
+          openAddDoneCardDialog={openDoneCardDialog}
+          closeAddDoneCardDialog={closeAddDoneCardDialog}
+      />
     </React.Fragment>
   );
 };

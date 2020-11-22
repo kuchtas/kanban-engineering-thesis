@@ -1,6 +1,5 @@
 .card-lists-container{
     margin: 0px !important;
-    margin-top: 2px !important;
 }
 
 .card-list{
@@ -9,8 +8,15 @@
     text-align: center;
     max-width: 500px !important; 
     min-width: 200px !important; 
-    height: 92vh;
+    height: 91vh;
     overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.card-list::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 
 .card-list-todo{
