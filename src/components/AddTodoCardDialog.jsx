@@ -76,7 +76,6 @@ const AddTodoCardDialog = ({
         />
         <TextField
           className="add-todo-card-dialog-textfield-startdate"
-          autoFocus
           margin="normal"
           type="date"
           variant="outlined"
@@ -89,7 +88,6 @@ const AddTodoCardDialog = ({
         />
         <TextField
           className="add-todo-card-dialog-textfield-enddate"
-          autoFocus
           margin="normal"
           type="date"
           variant="outlined"

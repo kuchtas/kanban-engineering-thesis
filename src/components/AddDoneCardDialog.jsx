@@ -76,7 +76,6 @@ const AddDoneCardDialog = ({
         />
         <TextField
           className="add-done-card-dialog-textfield-startdate"
-          autoFocus
           margin="normal"
           type="date"
           variant="outlined"
@@ -89,7 +88,6 @@ const AddDoneCardDialog = ({
         />
         <TextField
           className="add-done-card-dialog-textfield-enddate"
-          autoFocus
           margin="normal"
           type="date"
           variant="outlined"
