@@ -32,7 +32,9 @@ const BoardList = ({history}) => {
   useEffect(() => {
     if (user !== null) {
         loadBoards();
-        const subscription = DataStore.observe(Board).subscribe((b) => {
+        const subscription = DataStore.observe(Board, (b) =>
+          b.users("contains", user.name)
+        ).subscribe((b) => {
           console.log(b.opType);
           loadBoards();
         });
