@@ -17,10 +17,12 @@ import DeleteBoardDialog from "../components/DeleteBoardDialog";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
-  const { id,  users } = useSelector((state) => state.board);
+  const { id, users } = useSelector((state) => state.board);
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
-  const [loadingCards, setLoadingCards] = useState(true);
+  const [loadingTodoCards, setLoadingTodoCards] = useState(true);
+  const [loadingDoingCards, setLoadingDoingCards] = useState(true);
+  const [loadingDoneCards, setLoadingDoneCards] = useState(true);
   const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
 
   const loadBoard = async () => {
@@ -31,22 +33,54 @@ const BoardView = ({ history, match }) => {
     setLoadingBoard(false);
   };
 
-  const loadCards = async () => {
+  useEffect(() => {
+    if (user !== null) {
+      const subscriptionTodo = DataStore.observe(Card, (c) =>
+          c.boardID("eq", match.params.id).status("eq", "TODO")).subscribe((c) => {
+        console.log(c.opType);
+        loadTodoCards();
+      });
+      const subscriptionDoing = DataStore.observe(Card, (c) =>
+          c.boardID("eq", match.params.id).status("eq", "DOING")).subscribe((c) => {
+        console.log(c.opType);
+        loadDoingCards();
+      });
+      const subscriptionDone = DataStore.observe(Card, (c) =>
+          c.boardID("eq", match.params.id).status("eq", "DONE")).subscribe((c) => {
+        console.log(c.opType);
+        loadDoneCards();
+      });
+
+      return () => {
+        subscriptionTodo.unsubscribe();
+        subscriptionDoing.unsubscribe();
+        subscriptionDone.unsubscribe();
+      };
+    }
+  }, []);
+  
+  const loadTodoCards = async () => {
     const cardsToDoQuery = await DataStore.query(Card, (c) =>
       c.boardID("eq", match.params.id).status("eq", "TODO")
     );
     store.dispatch({ type: "cards/todoloaded", payload: cardsToDoQuery });
+    setLoadingTodoCards(false);
+  };
 
+  const loadDoingCards = async () => {
     const cardsDoingQuery = await DataStore.query(Card, (c) =>
       c.boardID("eq", match.params.id).status("eq", "DOING")
     );
     store.dispatch({ type: "cards/doingloaded", payload: cardsDoingQuery });
+    setLoadingDoingCards(false);
+  };
 
+  const loadDoneCards = async () => {
     const cardsDoneQuery = await DataStore.query(Card, (c) =>
       c.boardID("eq", match.params.id).status("eq", "DONE")
     );
     store.dispatch({ type: "cards/doneloaded", payload: cardsDoneQuery });
-    setLoadingCards(false);
+    setLoadingDoneCards(false);
   };
 
   const deleteBoard = async () => {
@@ -83,7 +117,9 @@ const BoardView = ({ history, match }) => {
 
   useEffect(() => {
     if (loadingBoard) loadBoard();
-    if (loadingCards) loadCards();
+    if (loadingTodoCards) loadTodoCards();
+    if (loadingDoingCards) loadDoingCards();
+    if (loadingDoneCards) loadDoneCards();
   });
 
   useEffect(() => {
@@ -92,7 +128,10 @@ const BoardView = ({ history, match }) => {
 
   return (
     <React.Fragment>
-      {loadingCards || loadingBoard ? (
+      {loadingTodoCards ||
+       loadingDoingCards ||
+       loadingDoneCards ||
+       loadingBoard ? (
         <div className="board-view-page">
           {/* display spinner when loading */}
           <Navigation history={history} />
@@ -102,9 +141,7 @@ const BoardView = ({ history, match }) => {
         <div className="board-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          <BoardViewHeader
-            openBoardDeletionDialog={openBoardDeletionDialog}
-          />
+          <BoardViewHeader openBoardDeletionDialog={openBoardDeletionDialog} />
           <CardListsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
