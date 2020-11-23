@@ -31,7 +31,7 @@ const DeleteBoardDialog = ({
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <Typography>
+          <Typography component={"span"}>
             This action cannot be undone! Type
             <span style={{ fontWeight: "bold" }}> delete</span> to confirm.
           </Typography>
