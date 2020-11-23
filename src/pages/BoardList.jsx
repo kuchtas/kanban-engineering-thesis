@@ -137,6 +137,7 @@ const BoardList = ({history}) => {
             className="create-board-dialog"
             open={openCreateBoardDialog}
             onClose={closeBoardCreationDialog}
+            fullWidth
           >
             <DialogTitle className="create-board-dialog-title">
               Name your new board

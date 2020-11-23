@@ -25,6 +25,7 @@ const DeleteBoardDialog = ({
       className="delete-board-dialog"
       open={openDeleteBoardDialog}
       onClose={closeBoardDeletionDialog}
+      fullWidth
     >
       <DialogTitle className="delete-board-dialog-title">
         Do you want to delete this board with all its contents?
