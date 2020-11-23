@@ -9,6 +9,7 @@ import {
   Button,
   MuiThemeProvider,
   FormHelperText,
+  Divider,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
 // Redux
@@ -67,6 +68,7 @@ const AddDoneCardDialog = ({
     >
       <DialogTitle className="add-done-card-dialog-title">
         Creating a new Done card
+        <Divider />
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -85,8 +87,8 @@ const AddDoneCardDialog = ({
           fullWidth
           error={titleTooLong}
         />
-        <FormHelperText style={{   color:   "red"   }} hidden={!titleTooLong}>
-          Title can not be longer than 120 characters        
+        <FormHelperText style={{ color: "red" }} hidden={!titleTooLong}>
+          Title can not be longer than 120 characters
         </FormHelperText>
         <TextField
           className="add-done-card-dialog-textfield-startdate"

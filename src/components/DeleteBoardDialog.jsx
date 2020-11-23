@@ -8,6 +8,7 @@ import {
   TextField,
   Button,
   MuiThemeProvider,
+  Divider,
 } from "@material-ui/core";
 import { useState } from "react";
 // CSS
@@ -29,6 +30,7 @@ const DeleteBoardDialog = ({
     >
       <DialogTitle className="delete-board-dialog-title">
         Do you want to delete this board with all its contents?
+        <Divider />
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
