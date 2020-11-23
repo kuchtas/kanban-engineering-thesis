@@ -36,17 +36,20 @@ const BoardView = ({ history, match }) => {
   useEffect(() => {
     if (user !== null) {
       const subscriptionTodo = DataStore.observe(Card, (c) =>
-          c.boardID("eq", match.params.id).status("eq", "TODO")).subscribe((c) => {
+        c.boardID("eq", match.params.id).status("eq", "TODO")
+      ).subscribe((c) => {
         console.log(c.opType);
         loadTodoCards();
       });
       const subscriptionDoing = DataStore.observe(Card, (c) =>
-          c.boardID("eq", match.params.id).status("eq", "DOING")).subscribe((c) => {
+        c.boardID("eq", match.params.id).status("eq", "DOING")
+      ).subscribe((c) => {
         console.log(c.opType);
         loadDoingCards();
       });
       const subscriptionDone = DataStore.observe(Card, (c) =>
-          c.boardID("eq", match.params.id).status("eq", "DONE")).subscribe((c) => {
+        c.boardID("eq", match.params.id).status("eq", "DONE")
+      ).subscribe((c) => {
         console.log(c.opType);
         loadDoneCards();
       });
@@ -57,7 +60,7 @@ const BoardView = ({ history, match }) => {
         subscriptionDone.unsubscribe();
       };
     }
-  }, []);
+  }, [user]);
   
   const loadTodoCards = async () => {
     const cardsToDoQuery = await DataStore.query(Card, (c) =>

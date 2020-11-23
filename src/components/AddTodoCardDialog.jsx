@@ -45,7 +45,7 @@ const AddTodoCardDialog = ({
         updated.cards = [...updated.cards, newCard.id];
       })
     );
-    store.dispatch({ type: "cards/todoadded", payload: newCard });
+    // store.dispatch({ type: "cards/todoadded", payload: newCard });
     closeAddTodoCardDialog();
   };
 

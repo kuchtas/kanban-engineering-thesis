@@ -45,7 +45,7 @@ const AddDoingCardDialog = ({
         updated.cards = [...updated.cards, newCard.id];
       })
     );
-    store.dispatch({ type: "cards/doingadded", payload: newCard });
+    // store.dispatch({ type: "cards/doingadded", payload: newCard });
     closeAddDoingCardDialog();
   };
 
