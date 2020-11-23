@@ -49,7 +49,7 @@ const CardListsContainer = () => {
           md={4}
           lg={4}
           xl={4}
-          className="card-list-todo card-list"
+          className="card-list-todo"
         >
           <MaterialUICard
             variant="outlined"
@@ -58,20 +58,22 @@ const CardListsContainer = () => {
           >
             <Typography>TO DO</Typography>
           </MaterialUICard>
-          {cardsToDo.map((card) => {
-            return (
-              <MaterialUICard
-                variant="outlined"
-                className="card-list-element"
-                key={card.id}
-              >
-                <Typography>{card.title}</Typography>
-                <Typography>{card.startDate}</Typography>
-                <Typography>{card.endDate}</Typography>
-              </MaterialUICard>
-            );
-          })}
-          <AddCard createCard={openAddTodoCardDialog} />
+          <Grid item className="card-list">
+              {cardsToDo.map((card) => {
+                return (
+                  <MaterialUICard
+                    variant="outlined"
+                    className="card-list-element"
+                    key={card.id}
+                  >
+                    <Typography>{card.title}</Typography>
+                    <Typography>{card.startDate}</Typography>
+                    <Typography>{card.endDate}</Typography>
+                  </MaterialUICard>
+                );
+              })}
+              <AddCard createCard={openAddTodoCardDialog} />
+          </Grid>
         </Grid>
         <Grid
           item
@@ -80,7 +82,7 @@ const CardListsContainer = () => {
           md={4}
           lg={4}
           xl={4}
-          className="card-list-doing card-list"
+          className="card-list-doing"
         >
           <MaterialUICard
             variant="outlined"
@@ -89,20 +91,22 @@ const CardListsContainer = () => {
           >
             <Typography>DOING</Typography>
           </MaterialUICard>
-          {cardsDoing.map((card) => {
-            return (
-              <MaterialUICard
-                variant="outlined"
-                className="card-list-element"
-                key={card.id}
-              >
-                <Typography>{card.title}</Typography>
-                <Typography>{card.startDate}</Typography>
-                <Typography>{card.endDate}</Typography>
-              </MaterialUICard>
-            );
-          })}
-          <AddCard createCard={openAddDoingCardDialog} />
+          <Grid item className="card-list">
+            {cardsDoing.map((card) => {
+              return (
+                <MaterialUICard
+                  variant="outlined"
+                  className="card-list-element"
+                  key={card.id}
+                >
+                  <Typography>{card.title}</Typography>
+                  <Typography>{card.startDate}</Typography>
+                  <Typography>{card.endDate}</Typography>
+                </MaterialUICard>
+              );
+            })}
+            <AddCard createCard={openAddDoingCardDialog} />
+          </Grid>
         </Grid>
         <Grid
           item
@@ -111,7 +115,7 @@ const CardListsContainer = () => {
           md={4}
           lg={4}
           xl={4}
-          className="card-list-done card-list"
+          className="card-list-done"
         >
           <MaterialUICard
             variant="outlined"
@@ -120,33 +124,35 @@ const CardListsContainer = () => {
           >
             <Typography>DONE</Typography>
           </MaterialUICard>
-          {cardsDone.map((card) => {
-            return (
-              <MaterialUICard
-                variant="outlined"
-                className="card-list-element"
-                key={card.id}
-              >
-                <Typography>{card.title}</Typography>
-                <Typography>{card.startDate}</Typography>
-                <Typography>{card.endDate}</Typography>
-              </MaterialUICard>
-            );
-          })}
-          <AddCard createCard={openAddDoneCardDialog} />
+          <Grid item className="card-list">
+            {cardsDone.map((card) => {
+              return (
+                <MaterialUICard
+                  variant="outlined"
+                  className="card-list-element"
+                  key={card.id}
+                >
+                  <Typography>{card.title}</Typography>
+                  <Typography>{card.startDate}</Typography>
+                  <Typography>{card.endDate}</Typography>
+                </MaterialUICard>
+              );
+            })}
+            <AddCard createCard={openAddDoneCardDialog} />
+          </Grid>
         </Grid>
       </Grid>
       <AddTodoCardDialog
-          openAddTodoCardDialog={openTodoCardDialog}
-          closeAddTodoCardDialog={closeAddTodoCardDialog}
+        openAddTodoCardDialog={openTodoCardDialog}
+        closeAddTodoCardDialog={closeAddTodoCardDialog}
       />
       <AddDoingCardDialog
-          openAddDoingCardDialog={openDoingCardDialog}
-          closeAddDoingCardDialog={closeAddDoingCardDialog}
+        openAddDoingCardDialog={openDoingCardDialog}
+        closeAddDoingCardDialog={closeAddDoingCardDialog}
       />
       <AddDoneCardDialog
-          openAddDoneCardDialog={openDoneCardDialog}
-          closeAddDoneCardDialog={closeAddDoneCardDialog}
+        openAddDoneCardDialog={openDoneCardDialog}
+        closeAddDoneCardDialog={closeAddDoneCardDialog}
       />
     </React.Fragment>
   );

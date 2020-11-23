@@ -8,7 +8,7 @@
     text-align: center;
     max-width: 500px !important; 
     min-width: 200px !important; 
-    height: 91vh;
+    height: 88vh;
     overflow-y: auto;
     overflow-x: hidden;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -21,21 +21,31 @@
 
 .card-list-todo{
     margin-left: auto !important;
+    text-align: center;
+    max-width: 500px !important; 
+    min-width: 200px !important; 
 }
 
 .card-list-doing{
     margin-left: auto !important;
     margin-right: auto !important;
+    text-align: center;
+    max-width: 500px !important; 
+    min-width: 200px !important; 
 }
 
 .card-list-done{
     margin-right: auto !important;
+    text-align: center;
+    max-width: 500px !important; 
+    min-width: 200px !important; 
 }
 
 .card-list-element{
     margin-top: 3px !important;
     width: 98%;
     margin: auto;
+    overflow-wrap: break-word;
 }
 
 .card-list-element:hover{

@@ -1,6 +1,11 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const globalTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#479dff",
+    },
+  },
   overrides: {
     MuiInputLabel: {
       // Name of the component ⚛️ / style sheet
