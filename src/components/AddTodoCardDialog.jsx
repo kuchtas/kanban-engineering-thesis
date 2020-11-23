@@ -8,11 +8,11 @@ import {
   TextField,
   Button,
   MuiThemeProvider,
+  FormHelperText,
 } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Redux
 import { useSelector } from "react-redux";
-import store from "../store";
 // GraphQL
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
@@ -23,7 +23,8 @@ const AddTodoCardDialog = ({
   openAddTodoCardDialog,
   closeAddTodoCardDialog,
 }) => {
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState("");
+  const [titleTooLong, setTitleTooLong] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const { id } = useSelector((state) => state.board);
@@ -46,17 +47,23 @@ const AddTodoCardDialog = ({
       })
     );
     // store.dispatch({ type: "cards/todoadded", payload: newCard });
-    setTitle(null);
+    setTitle("");
     setStartDate(null);
     setEndDate(null);
+    setTitleTooLong(false);
     closeAddTodoCardDialog();
   };
+
+  useEffect(() => {
+    title.length > 120 ? setTitleTooLong(true) : setTitleTooLong(false);
+  }, [title]);
 
   return (
     <Dialog
       className="add-todo-card-dialog"
       open={openAddTodoCardDialog}
       onClose={closeAddTodoCardDialog}
+      fullWidth
     >
       <DialogTitle className="add-todo-card-dialog-title">
         Creating a new To Do card
@@ -77,6 +84,9 @@ const AddTodoCardDialog = ({
           onChange={(e) => setTitle(e.target.value)}
           fullWidth
         />
+        <FormHelperText style={{   color:   "red"   }} hidden={!titleTooLong}>
+          Title can not be longer than 120 characters        
+        </FormHelperText>
         <TextField
           className="add-todo-card-dialog-textfield-startdate"
           margin="normal"
@@ -118,7 +128,8 @@ const AddTodoCardDialog = ({
             title === null ||
             startDate === null ||
             endDate === null ||
-            title === ""
+            title === "" ||
+            titleTooLong
           }
           className="add-todo-card-dialog-add-button"
         >

@@ -8,11 +8,11 @@ import {
   TextField,
   Button,
   MuiThemeProvider,
+  FormHelperText
 } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Redux
 import { useSelector } from "react-redux";
-import store from "../store";
 // GraphQL
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
@@ -23,7 +23,8 @@ const AddDoingCardDialog = ({
   openAddDoingCardDialog,
   closeAddDoingCardDialog,
 }) => {
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState("");
+  const [titleTooLong, setTitleTooLong] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const { id } = useSelector((state) => state.board);
@@ -46,17 +47,23 @@ const AddDoingCardDialog = ({
       })
     );
     // store.dispatch({ type: "cards/doingadded", payload: newCard });
-    setTitle(null);
+    setTitle("");
     setStartDate(null);
     setEndDate(null);
+    setTitleTooLong(false);
     closeAddDoingCardDialog();
   };
+
+  useEffect(() => {
+    title.length > 120 ? setTitleTooLong(true) : setTitleTooLong(false);
+  }, [title]);
 
   return (
     <Dialog
       className="add-doing-card-dialog"
       open={openAddDoingCardDialog}
       onClose={closeAddDoingCardDialog}
+      fullWidth
     >
       <DialogTitle className="add-doing-card-dialog-title">
         Creating a new Doing card
@@ -76,7 +83,11 @@ const AddDoingCardDialog = ({
           label="Title"
           onChange={(e) => setTitle(e.target.value)}
           fullWidth
+          error={titleTooLong}
         />
+        <FormHelperText style={{   color:   "red"   }} hidden={!titleTooLong}>
+          Title can not be longer than 120 characters        
+        </FormHelperText>
         <TextField
           className="add-doing-card-dialog-textfield-startdate"
           margin="normal"
@@ -118,7 +129,8 @@ const AddDoingCardDialog = ({
             title === null ||
             startDate === null ||
             endDate === null ||
-            title === ""
+            title === "" ||
+            titleTooLong
           }
           className="add-doing-card-dialog-add-button"
         >
