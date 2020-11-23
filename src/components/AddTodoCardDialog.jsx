@@ -46,6 +46,9 @@ const AddTodoCardDialog = ({
       })
     );
     // store.dispatch({ type: "cards/todoadded", payload: newCard });
+    setTitle(null);
+    setStartDate(null);
+    setEndDate(null);
     closeAddTodoCardDialog();
   };
 

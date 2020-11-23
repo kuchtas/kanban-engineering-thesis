@@ -46,6 +46,9 @@ const AddDoneCardDialog = ({
       })
     );
     // store.dispatch({ type: "cards/doneadded", payload: newCard });
+    setTitle(null);
+    setStartDate(null);
+    setEndDate(null);
     closeAddDoneCardDialog();
   };
 
