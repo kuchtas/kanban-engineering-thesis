@@ -6,7 +6,19 @@ import { DataStore } from "@aws-amplify/datastore";
 // CSS
 import "./BoardList.css";
 // Components
-import { Grid, Card, Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Button} from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
+  Button,
+  Divider,
+} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
@@ -141,6 +153,7 @@ const BoardList = ({history}) => {
           >
             <DialogTitle className="create-board-dialog-title">
               Name your new board
+              <Divider />
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -170,7 +183,12 @@ const BoardList = ({history}) => {
               >
                 Cancel
               </Button>
-              <Button onClick={createBoard} color="primary" variant="outlined">
+              <Button
+                onClick={createBoard}
+                color="primary"
+                variant="outlined"
+                disabled={newBoardTitle  ===  "" || newBoardTitle  ===  null}
+              >
                 Create
               </Button>
             </DialogActions>
