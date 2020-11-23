@@ -1,7 +1,12 @@
 .card-list-element-add-card{
-    border: 0px !important;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(224, 224, 231);
+    margin-top: 3px;
 }
 
 .card-list-element-add-card:hover{
     color: var(--amplify-primary-color);
+    background-color: rgba(224, 224, 231, 0.1);
 }

@@ -3,6 +3,7 @@
 }
 
 .card-list{
+    background-color: rgba(224, 224, 231, 0.3) ;
     border: 1px solid rgb(224, 224, 231);
     border-radius: 0px 0px 5px 5px;
     text-align: center;
@@ -42,7 +43,7 @@
 }
 
 .card-list-element:hover{
-    background-color:rgba(241, 241, 241, 0.2);
+    background-color: rgba(224, 224, 231, 0.1);
 }
 
 .card-list-header{
