@@ -122,6 +122,7 @@ const CardListsContainer = () => {
                   title={card.title}
                   startDate={card.startDate}
                   endDate={card.endDate}
+                  status={card.status}
                   openCard={openUserCardDialog}
                 />
               );
@@ -153,6 +154,7 @@ const CardListsContainer = () => {
                   title={card.title}
                   startDate={card.startDate}
                   endDate={card.endDate}
+                  status={card.status}
                   openCard={openUserCardDialog}
                 />
               );
