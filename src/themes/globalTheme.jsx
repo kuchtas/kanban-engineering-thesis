@@ -41,5 +41,11 @@ export const globalTheme = createMuiTheme({
         },
       },
     },
+    MuiChip: {
+      label: {
+        paddingRight: "4px !important",
+        paddingLeft: "4px !important",
+      },
+    },
   },
 });
