@@ -1,9 +1,16 @@
 import React from "react";
 import { Card, CardContent, Typography, Chip } from "@material-ui/core";
 import "./UserCard.css";
-const UserCard = ({ id, title, startDate, endDate }) => {
+
+
+const UserCard = ({ id, title, startDate, endDate, openCard, status}) => {
+
   return (
-    <Card variant="outlined" className="card-list-element" key={id}>
+    <Card variant="outlined"
+          className="card-list-element"
+          key={id}
+          onClick={() => openCard(id, title, startDate, endDate, status)}
+    >
       <CardContent className="card-list-element-content">
         <Typography className="card-list-element-content-title">
           {title}

@@ -9,6 +9,7 @@ import AddCard from "../components/AddCard";
 import AddTodoCardDialog from "../components/AddTodoCardDialog";
 import AddDoingCardDialog from "../components/AddDoingCardDialog";
 import AddDoneCardDialog from "../components/AddDoneCardDialog";
+import UserCardDialog from "./UserCardDialog";
 import UserCard from "../components/UserCard";
 
 const CardListsContainer = () => {
@@ -18,6 +19,14 @@ const CardListsContainer = () => {
   const [openTodoCardDialog, setAddTodoCardDialog] = useState(false);
   const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
   const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
+  const [showUserCardDialog, setShowUserCardDialog] = useState(false);
+  const [chosenCard, setChosenCard] = useState({
+    id: "",
+    title: "",
+    startDate: "",
+    endDate: "",
+    status: "",
+  });
 
   const openAddTodoCardDialog = () => {
     setAddTodoCardDialog(true);
@@ -38,6 +47,20 @@ const CardListsContainer = () => {
   };
   const closeAddDoneCardDialog = () => {
     setAddDoneCardDialog(false);
+  };
+  
+  const openUserCardDialog = (id, title, startDate, endDate, status) => {
+    setChosenCard({
+      id: id,
+      title: title,
+      startDate: startDate,
+      endDate: endDate,
+      status: status,
+    });
+    setShowUserCardDialog(true);
+  };
+  const closeUserCardDialog = () => {
+    setShowUserCardDialog(false);
   };
 
   return (
@@ -60,17 +83,19 @@ const CardListsContainer = () => {
             <Typography>TO DO</Typography>
           </MaterialUICard>
           <Grid item className="card-list">
-              {cardsToDo.map((card) => {
-                return (
-                  <UserCard
-                    id={card.id}
-                    title={card.title}
-                    startDate={card.startDate}
-                    endDate={card.endDate}
-                  />
-                );
-              })}
-              <AddCard createCard={openAddTodoCardDialog} />
+            {cardsToDo.map((card) => {
+              return (
+                <UserCard
+                  id={card.id}
+                  title={card.title}
+                  startDate={card.startDate}
+                  endDate={card.endDate}
+                  status={card.status}
+                  openCard={openUserCardDialog}
+                />
+              );
+            })}
+            <AddCard createCard={openAddTodoCardDialog} />
           </Grid>
         </Grid>
         <Grid
@@ -97,6 +122,7 @@ const CardListsContainer = () => {
                   title={card.title}
                   startDate={card.startDate}
                   endDate={card.endDate}
+                  openCard={openUserCardDialog}
                 />
               );
             })}
@@ -127,6 +153,7 @@ const CardListsContainer = () => {
                   title={card.title}
                   startDate={card.startDate}
                   endDate={card.endDate}
+                  openCard={openUserCardDialog}
                 />
               );
             })}
@@ -145,6 +172,11 @@ const CardListsContainer = () => {
       <AddDoneCardDialog
         openAddDoneCardDialog={openDoneCardDialog}
         closeAddDoneCardDialog={closeAddDoneCardDialog}
+      />
+      <UserCardDialog
+        showUserCardDialog={showUserCardDialog}
+        closeUserCardDialog={closeUserCardDialog}
+        card={chosenCard}
       />
     </React.Fragment>
   );
