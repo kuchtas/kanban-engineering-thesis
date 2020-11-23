@@ -1,0 +1,53 @@
+.card-list-element{
+    margin-top: 3px !important;
+    width: 98%;
+    margin: auto;
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+.card-list-element-content{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-list-element-content-title{
+    float: left;
+    width: calc(100% - 95px);
+    margin: 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.card-dates-container{
+    float: right;
+}
+
+.start-date-chip-container{
+    margin: 0px !important;
+}
+
+.end-date-chip-container{
+    margin: 0px !important;
+}
+
+.start-date-chip{
+    margin: 0px;
+    padding: 0px !important;
+}
+
+.end-date-chip{
+    margin-top: 2px;
+}
+

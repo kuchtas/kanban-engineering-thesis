@@ -4,7 +4,7 @@
 
 .card-list{
     border: 1px solid rgb(224, 224, 231);
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
     text-align: center;
     max-width: 500px !important; 
     min-width: 200px !important; 
@@ -41,22 +41,15 @@
     min-width: 200px !important; 
 }
 
-.card-list-element{
-    margin-top: 3px !important;
-    width: 98%;
-    margin: auto;
-    overflow-wrap: break-word;
-}
-
 .card-list-element:hover{
     background-color:rgba(241, 241, 241, 0.2);
 }
 
 .card-list-header{
+    border-radius: 5px 5px 0px 0px !important;
     border-top: 0px !important;
     border-left: 0px !important;
     border-right: 0px !important;
-    border-radius: 0px !important;
     width: 100%;
     margin: auto;
     background-color: rgb(224, 224, 231) !important;

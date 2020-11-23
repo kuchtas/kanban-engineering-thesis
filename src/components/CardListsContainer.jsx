@@ -9,6 +9,7 @@ import AddCard from "../components/AddCard";
 import AddTodoCardDialog from "../components/AddTodoCardDialog";
 import AddDoingCardDialog from "../components/AddDoingCardDialog";
 import AddDoneCardDialog from "../components/AddDoneCardDialog";
+import UserCard from "../components/UserCard";
 
 const CardListsContainer = () => {
   const { cardsToDo, cardsDoing, cardsDone } = useSelector(
@@ -61,15 +62,12 @@ const CardListsContainer = () => {
           <Grid item className="card-list">
               {cardsToDo.map((card) => {
                 return (
-                  <MaterialUICard
-                    variant="outlined"
-                    className="card-list-element"
-                    key={card.id}
-                  >
-                    <Typography>{card.title}</Typography>
-                    <Typography>{card.startDate}</Typography>
-                    <Typography>{card.endDate}</Typography>
-                  </MaterialUICard>
+                  <UserCard
+                    id={card.id}
+                    title={card.title}
+                    startDate={card.startDate}
+                    endDate={card.endDate}
+                  />
                 );
               })}
               <AddCard createCard={openAddTodoCardDialog} />
@@ -94,15 +92,12 @@ const CardListsContainer = () => {
           <Grid item className="card-list">
             {cardsDoing.map((card) => {
               return (
-                <MaterialUICard
-                  variant="outlined"
-                  className="card-list-element"
-                  key={card.id}
-                >
-                  <Typography>{card.title}</Typography>
-                  <Typography>{card.startDate}</Typography>
-                  <Typography>{card.endDate}</Typography>
-                </MaterialUICard>
+                <UserCard
+                  id={card.id}
+                  title={card.title}
+                  startDate={card.startDate}
+                  endDate={card.endDate}
+                />
               );
             })}
             <AddCard createCard={openAddDoingCardDialog} />
@@ -127,15 +122,12 @@ const CardListsContainer = () => {
           <Grid item className="card-list">
             {cardsDone.map((card) => {
               return (
-                <MaterialUICard
-                  variant="outlined"
-                  className="card-list-element"
-                  key={card.id}
-                >
-                  <Typography>{card.title}</Typography>
-                  <Typography>{card.startDate}</Typography>
-                  <Typography>{card.endDate}</Typography>
-                </MaterialUICard>
+                <UserCard
+                  id={card.id}
+                  title={card.title}
+                  startDate={card.startDate}
+                  endDate={card.endDate}
+                />
               );
             })}
             <AddCard createCard={openAddDoneCardDialog} />

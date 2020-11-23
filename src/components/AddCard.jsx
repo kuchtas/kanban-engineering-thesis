@@ -10,7 +10,7 @@ const AddCard = ({ createCard }) => {
     <React.Fragment>
       <Card
         variant="outlined"
-        className="card-list-element-add-card card-list-element"
+        className="card-list-element-add-card"
         onClick={createCard}
       >
         <AddIcon fontSize="default" />
