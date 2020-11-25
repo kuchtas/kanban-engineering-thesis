@@ -36,6 +36,9 @@ const AddDoingCardDialog = ({
         boardID: id,
         title: title,
         status: "DOING",
+        description: "",
+        tag: "",
+        users: [],
         startDate: startDate,
         endDate: endDate,
       })

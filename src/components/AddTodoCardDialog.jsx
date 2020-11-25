@@ -36,6 +36,9 @@ const AddTodoCardDialog = ({
         boardID: id,
         title: title,
         status: "TODO",
+        description: "",
+        tag: "",
+        users: [],
         startDate: startDate,
         endDate: endDate,
       })

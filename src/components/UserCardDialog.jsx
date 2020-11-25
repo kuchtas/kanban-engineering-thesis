@@ -13,8 +13,14 @@ import {
   Grid,
   FormControlLabel,
   Checkbox,
-  FormGroup
+  FormGroup,
+  ClickAwayListener
 } from "@material-ui/core";
+// GraphQL
+import { Card } from "../models/index";
+import { DataStore } from "@aws-amplify/datastore";
+// Redux 
+import store from '../store';
 // CSS
 import "./UserCardDialog.css";
 import { cardTitleEditTheme } from "../themes/cardTitleEditTheme";
@@ -22,15 +28,72 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
+
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [status, setStatus] = useState("");
+  const [tag, setTag] = useState("");
+  const [users, setUsers] = useState([]);
 
   const handleEnter = () =>{
+    console.log(card);
     setTitle(card.title);
+    setDescription(card.description);
+    setStartDate(card.startDate);
+    setEndDate(card.endDate);    
+    setStatus(card.status);    
+    setTag(card.tag);
+    setUsers(card.users);
   }
 
   const handleClose = () =>{
-    setTitle("");
+    // setTitle("");
+    // setDescription("");
+    // setStartDate("");
+    // setEndDate("");    
+    // setStatus("");    
+    // setTag("");
+    // setUsers([]);
     closeUserCardDialog();
+  }
+
+  const descriptionClickAway = async () =>{
+    console.log("clicked away from description");
+    const newDescription = description.trim();
+    
+    if(newDescription !== card.description){
+      console.log("UPDATING DESCRIPTION");
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+
+      await DataStore.save(
+        Card.copyOf(cardQuery[0], (updated) => {
+          updated.description = newDescription;
+        })
+      );
+    }
+    else{
+      setDescription(description);
+    }
+  }
+  const titleClickAway = async () =>{
+    console.log("clicked away from title");
+    const newTitle = title.trim();
+    
+    if(newTitle !== card.title && newTitle !== null && newTitle !== ""){
+      console.log("UPDATING TITLE");
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+
+      await DataStore.save(
+        Card.copyOf(cardQuery[0], (updated) => {
+          updated.title = newTitle;
+        })
+      );
+    }
+    else{
+      setTitle(title);
+    }
   }
 
   return (
@@ -43,12 +106,14 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
     >
       <MuiThemeProvider theme={cardTitleEditTheme}>
         <DialogTitle className="user-card-dialog-title-container">
-          <TextField 
-            onChange={(e) => setTitle(e.target.value)} 
-            value={title}
-            variant="outlined"
-            className="user-card-dialog-title">
-          </TextField>
+          <ClickAwayListener onClickAway={titleClickAway}>
+            <TextField 
+              onChange={(e) => setTitle(e.target.value)} 
+              value={title}
+              variant="outlined"
+              className="user-card-dialog-title">
+            </TextField>
+          </ClickAwayListener>
           <Typography component={"span"} className="user-card-dialog-status">
             {card.status}
           </Typography>
@@ -75,19 +140,21 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
             </Grid>
           </Grid>
         </DialogContentText>
-        <Typography className="user-card-description-label" component={'span'}><DescriptionIcon />Description </Typography>
-        <TextField
-          className="user-card-description-dialog-textfield"
-          margin="normal"
-          type="text"
-          variant="outlined"
-          multiline={true}
-          rows="5"
-          // onChange={(e) => setTitle(e.target.value)}
-          fullWidth
-          value="Sample card description"
-        />
-         <Typography className="user-card-points-label" component={'span'}><FormatListBulletedIcon />Points </Typography>
+        <Typography className="user-card-description-label" component={'span'}><DescriptionIcon />Description</Typography>
+        <ClickAwayListener onClickAway={descriptionClickAway}>
+          <TextField
+            className="user-card-description-dialog-textfield"
+            margin="normal"
+            type="text"
+            variant="outlined"
+            multiline={true}
+            rows="5"
+            onChange={(e) => setDescription(e.target.value)}
+            fullWidth
+            value={description}
+          />
+        </ClickAwayListener>
+         <Typography className="user-card-points-label" component={'span'}><FormatListBulletedIcon />Points</Typography>
          <FormGroup>
          <FormControlLabel
           control={

@@ -26,6 +26,9 @@ const CardListsContainer = () => {
     startDate: "",
     endDate: "",
     status: "",
+    description: "",
+    tag: "",
+    users: [],
   });
 
   const openAddTodoCardDialog = () => {
@@ -49,13 +52,25 @@ const CardListsContainer = () => {
     setAddDoneCardDialog(false);
   };
   
-  const openUserCardDialog = (id, title, startDate, endDate, status) => {
+  const openUserCardDialog = (
+    id,
+    title,
+    startDate,
+    endDate,
+    status,
+    description,
+    tag,
+    users
+  ) => {
     setChosenCard({
       id: id,
       title: title,
       startDate: startDate,
       endDate: endDate,
       status: status,
+      description: description,
+      tag: tag,
+      users: users,
     });
     setShowUserCardDialog(true);
   };
@@ -91,6 +106,9 @@ const CardListsContainer = () => {
                   startDate={card.startDate}
                   endDate={card.endDate}
                   status={card.status}
+                  description={card.description}
+                  tag={card.tag}
+                  users={card.users}
                   openCard={openUserCardDialog}
                 />
               );
@@ -123,6 +141,9 @@ const CardListsContainer = () => {
                   startDate={card.startDate}
                   endDate={card.endDate}
                   status={card.status}
+                  description={card.description}
+                  tag={card.tag}
+                  users={card.users}
                   openCard={openUserCardDialog}
                 />
               );
@@ -155,6 +176,9 @@ const CardListsContainer = () => {
                   startDate={card.startDate}
                   endDate={card.endDate}
                   status={card.status}
+                  description={card.description}
+                  tag={card.tag}
+                  users={card.users}
                   openCard={openUserCardDialog}
                 />
               );

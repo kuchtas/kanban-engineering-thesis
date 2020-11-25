@@ -33,7 +33,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog }) => {
           updated.title = newTitle;
         })
       );
-      store.dispatch({ type: "board/changedtitle", payload: newTitle })
+      // store.dispatch({ type: "board/changedtitle", payload: newTitle })
     }
     else{
       setEditableTitle(title);
