@@ -20,14 +20,15 @@ import {
 import { Card, Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux 
-import store from '../store';
+import { useSelector } from "react-redux";
 // CSS
 import "./UserCardDialog.css";
 import { cardTitleEditTheme } from "../themes/cardTitleEditTheme";
 import {deleteButtonTheme} from "../themes/deleteButtonTheme";
+import { cardDescriptionEditTheme } from "../themes/cardDescriptionEditTheme";
 import DescriptionIcon from '@material-ui/icons/Description';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import { useSelector } from "react-redux";
+import LabelIcon from "@material-ui/icons/Label";
 
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   const { id } = useSelector((state) => state.board);
@@ -38,6 +39,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   const [status, setStatus] = useState("");
   const [tag, setTag] = useState("");
   const [users, setUsers] = useState([]);
+  const [titleChanged, setTitleChanged] = useState(false);
+  const [tagChanged, setTagChanged] = useState(false);
+  const [descriptionChanged, setDescriptionChanged] = useState(false);
 
   const handleEnter = () => {
     console.log(card);
@@ -62,10 +66,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   };
 
   const descriptionClickAway = async () => {
-    console.log("clicked away from description");
     const newDescription = description.trim();
 
-    if (newDescription !== card.description) {
+    if (newDescription !== card.description && descriptionChanged) {
       console.log("UPDATING DESCRIPTION");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
 
@@ -74,16 +77,23 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
           updated.description = newDescription;
         })
       );
+      setDescription(newDescription);
+      setDescriptionChanged(false);
     } else {
       setDescription(description);
     }
   };
 
   const titleClickAway = async () => {
-    console.log("clicked away from title");
     const newTitle = title.trim();
 
-    if (newTitle !== card.title && newTitle !== null && newTitle !== "") {
+    if (
+      newTitle !== card.title &&
+      newTitle !== null &&
+      newTitle !== "" &&
+      titleChanged
+    
+    ) {
       console.log("UPDATING TITLE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
 
@@ -92,8 +102,29 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
           updated.title = newTitle;
         })
       );
+      setTitle(newTitle);
+      setTitleChanged(false);
     } else {
       setTitle(title);
+    }
+  };
+
+  const tagClickAway = async () => {
+    const newTag = tag.trim();
+
+    if (newTag !== card.tag && tagChanged) {
+      console.log("UPDATING TAG");
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+
+      await DataStore.save(
+        Card.copyOf(cardQuery[0], (updated) => {
+          updated.tag = newTag;
+        })
+      );
+      setTag(newTag);
+      setTagChanged(false);
+    } else {
+      setTag(tag);
     }
   };
 
@@ -124,11 +155,30 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
         <DialogTitle className="user-card-dialog-title-container">
           <ClickAwayListener onClickAway={titleClickAway}>
             <TextField
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setTitleChanged(true);
+              }}
               value={title}
               variant="outlined"
               className="user-card-dialog-title"
+              placeholder="Set a title..."
             ></TextField>
+          </ClickAwayListener>
+          <LabelIcon />
+          <ClickAwayListener onClickAway={tagClickAway}>
+            <TextField
+              className="user-card-tag-dialog-textfield"
+              margin="normal"
+              type="text"
+              variant="outlined"
+              onChange={(e) => {
+                setTag(e.target.value);
+                setTagChanged(true);
+              }}
+              value={tag}
+              placeholder="Set a tag..."
+            />
           </ClickAwayListener>
           <Typography component={"span"} className="user-card-dialog-status">
             {card.status}
@@ -154,19 +204,22 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
           <DescriptionIcon />
           Description
         </Typography>
-        <ClickAwayListener onClickAway={descriptionClickAway}>
-          <TextField
-            className="user-card-description-dialog-textfield"
-            margin="normal"
-            type="text"
-            variant="outlined"
-            multiline={true}
-            rows="5"
-            onChange={(e) => setDescription(e.target.value)}
-            fullWidth
-            value={description}
-          />
-        </ClickAwayListener>
+        <MuiThemeProvider theme={cardDescriptionEditTheme}>
+          <ClickAwayListener onClickAway={descriptionClickAway}>
+            <TextField
+              className="user-card-description-dialog-textfield"
+              margin="normal"
+              type="text"
+              variant="outlined"
+              multiline={true}
+              rows="5"
+              onChange={(e) => {setDescription(e.target.value); setDescriptionChanged(true);}}
+              fullWidth
+              value={description}
+              placeholder="Set a description..."
+            />
+          </ClickAwayListener>
+        </MuiThemeProvider>
         <Typography className="user-card-points-label" component={"span"}>
           <FormatListBulletedIcon />
           Points

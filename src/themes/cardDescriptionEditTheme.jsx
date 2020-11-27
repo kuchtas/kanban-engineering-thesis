@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-export const cardTitleEditTheme = createMuiTheme({
+export const cardDescriptionEditTheme = createMuiTheme({
   overrides: {
     MuiInputLabel: {
       // Name of the component ⚛️ / style sheet
@@ -15,7 +15,6 @@ export const cardTitleEditTheme = createMuiTheme({
       root: {
         "& $notchedOutline": {
           borderColor: "white",
-          height: "30px",
         },
         "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
           borderColor: "white",
