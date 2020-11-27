@@ -99,7 +99,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
 
   const deleteCard = async () => {
     const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
-    console.log(card.id);
     const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
 
     await DataStore.save(
