@@ -38,3 +38,11 @@
 .user-card-description-dialog-textfield::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
+
+.delete-card-dialog-delete-button{
+    color: red !important;
+
+}
+.delete-card-dialog-delete-button:enabled{
+    border: 1px red solid !important;
+}
