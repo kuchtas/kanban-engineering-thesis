@@ -30,29 +30,58 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import LabelIcon from "@material-ui/icons/Label";
 
-const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
-  const { id } = useSelector((state) => state.board);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [tag, setTag] = useState("");
-  const [users, setUsers] = useState([]);
+const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
+  const {
+    id: cardID,
+    title: cardTitle,
+    startDate: cardStartDate,
+    endDate: cardEndDate,
+    status: cardStatus,
+    description: cardDescription,
+    tag: cardTag,
+    users: cardUsers,
+  } = useSelector((state) => state.chosenCard);
+  const { id: boardID } = useSelector((state) => state.board);
+
+  const [title, setTitle] = useState(cardTitle);
+  const [description, setDescription] = useState(cardDescription);
+  const [startDate, setStartDate] = useState(cardStartDate);
+  const [endDate, setEndDate] = useState(cardEndDate);
+  const [status, setStatus] = useState(cardStatus);
+  const [tag, setTag] = useState(cardTag);
+  const [users, setUsers] = useState(cardUsers);
   const [titleChanged, setTitleChanged] = useState(false);
   const [tagChanged, setTagChanged] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
 
   const handleEnter = () => {
-    console.log(card);
-    setTitle(card.title);
-    setDescription(card.description);
-    setStartDate(card.startDate);
-    setEndDate(card.endDate);
-    setStatus(card.status);
-    setTag(card.tag);
-    setUsers(card.users);
+    // setTitle(cardTitle);
+    // setDescription(cardDescription);
+    // setStartDate(cardStartDate);
+    // setEndDate(cardEndDate);
+    // setStatus(cardStatus);
+    // setTag(cardTag);
+    // setUsers(cardUsers);
   };
+
+  useEffect(() => {
+    setTitle(cardTitle);
+    setDescription(cardDescription);
+    setStartDate(cardStartDate);
+    setEndDate(cardEndDate);
+    setStatus(cardStatus);
+    setTag(cardTag);
+    setUsers(cardUsers);
+  }, [
+    cardID,
+    cardTitle,
+    cardStartDate,
+    cardEndDate,
+    cardStatus,
+    cardDescription,
+    cardTag,
+    cardUsers,
+  ]);
 
   const handleClose = () => {
     // setTitle("");
@@ -68,9 +97,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   const descriptionClickAway = async () => {
     const newDescription = description.trim();
 
-    if (newDescription !== card.description && descriptionChanged) {
+    if (newDescription !== cardDescription && descriptionChanged) {
       console.log("UPDATING DESCRIPTION");
-      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
       await DataStore.save(
         Card.copyOf(cardQuery[0], (updated) => {
@@ -88,14 +117,13 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
     const newTitle = title.trim();
 
     if (
-      newTitle !== card.title &&
+      newTitle !== cardTitle &&
       newTitle !== null &&
       newTitle !== "" &&
       titleChanged
-    
     ) {
       console.log("UPDATING TITLE");
-      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
       await DataStore.save(
         Card.copyOf(cardQuery[0], (updated) => {
@@ -112,9 +140,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   const tagClickAway = async () => {
     const newTag = tag.trim();
 
-    if (newTag !== card.tag && tagChanged) {
+    if (newTag !== cardTag && tagChanged) {
       console.log("UPDATING TAG");
-      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
       await DataStore.save(
         Card.copyOf(cardQuery[0], (updated) => {
@@ -129,12 +157,12 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
   };
 
   const deleteCard = async () => {
-    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", card.id));
-    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
+    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
+    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", boardID));
 
     await DataStore.save(
       Board.copyOf(boardQuery[0], (updated) => {
-        const index = updated.cards.indexOf(card.id);
+        const index = updated.cards.indexOf(cardID);
         updated.cards.splice(index, 1);
       })
     );
@@ -181,7 +209,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
             />
           </ClickAwayListener>
           <Typography component={"span"} className="user-card-dialog-status">
-            {card.status}
+            {cardStatus}
           </Typography>
           <Divider />
         </DialogTitle>
@@ -190,13 +218,13 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
         <DialogContentText>
           <Grid justify="center" container spacing={1}>
             <Grid item>
-              <Typography component={"span"}>{card.startDate}</Typography>
+              <Typography component={"span"}>{cardStartDate}</Typography>
             </Grid>
             <Grid item>
               <Typography component={"span"}>-</Typography>
             </Grid>
             <Grid item>
-              <Typography component={"span"}>{card.endDate}</Typography>
+              <Typography component={"span"}>{cardEndDate}</Typography>
             </Grid>
           </Grid>
         </DialogContentText>
@@ -213,7 +241,10 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog, card }) => {
               variant="outlined"
               multiline={true}
               rows="5"
-              onChange={(e) => {setDescription(e.target.value); setDescriptionChanged(true);}}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setDescriptionChanged(true);
+              }}
               fullWidth
               value={description}
               placeholder="Set a description..."

@@ -6,10 +6,11 @@ import "./UserCard.css";
 const UserCard = ({ id, title, startDate, endDate, openCard, status, description, tag, users}) => {
 
   return (
-    <Card variant="outlined"
-          className="card-list-element"
-          key={id}
-          onClick={() => openCard(id, title, startDate, endDate, status, description, tag, users)}
+    <Card
+      variant="outlined"
+      className="card-list-element"
+      key={id}
+      onClick={() => openCard(id)}
     >
       <CardContent className="card-list-element-content">
         <Typography className="card-list-element-content-title">

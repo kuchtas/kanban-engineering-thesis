@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Redux
 import { useSelector } from "react-redux";
+import store from "../store";
 // CSS
 import "./CardListsContainer.css";
 // Components
@@ -11,26 +12,20 @@ import AddDoingCardDialog from "../components/AddDoingCardDialog";
 import AddDoneCardDialog from "../components/AddDoneCardDialog";
 import UserCardDialog from "./UserCardDialog";
 import UserCard from "../components/UserCard";
+// GraphQL
+import { DataStore } from "@aws-amplify/datastore";
+import { Card } from "../models/index";
 
 const CardListsContainer = () => {
   const { cardsToDo, cardsDoing, cardsDone } = useSelector(
     (state) => state.cards
   );
+  const { subscription } = useSelector((state) => state.chosenCard);
   const [openTodoCardDialog, setAddTodoCardDialog] = useState(false);
   const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
   const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
   const [showUserCardDialog, setShowUserCardDialog] = useState(false);
-  const [chosenCard, setChosenCard] = useState({
-    id: "",
-    title: "",
-    startDate: "",
-    endDate: "",
-    status: "",
-    description: "",
-    tag: "",
-    users: [],
-  });
-
+  let cardSubscription;
   const openAddTodoCardDialog = () => {
     setAddTodoCardDialog(true);
   };
@@ -52,29 +47,27 @@ const CardListsContainer = () => {
     setAddDoneCardDialog(false);
   };
   
-  const openUserCardDialog = (
-    id,
-    title,
-    startDate,
-    endDate,
-    status,
-    description,
-    tag,
-    users
-  ) => {
-    setChosenCard({
-      id: id,
-      title: title,
-      startDate: startDate,
-      endDate: endDate,
-      status: status,
-      description: description,
-      tag: tag,
-      users: users,
-    });
+  const loadChosenCard = async (id) => {
+    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", id));
+
+    if (cardQuery !== undefined)
+      store.dispatch({ type: "chosencard/added", payload: cardQuery[0] });
+  };
+
+  const openUserCardDialog = (id) => {
+    loadChosenCard(id);
+    cardSubscription = DataStore.observe(Card, (c) => c.id("eq", id)).subscribe(
+      (c) => {
+        console.log(c.opType);
+        if (c.opType === "DELETE") closeUserCardDialog();
+        loadChosenCard(id);
+      }
+    );
+    store.dispatch({ type: "chosencard/setsub", payload: cardSubscription });
     setShowUserCardDialog(true);
   };
   const closeUserCardDialog = () => {
+    subscription.unsubscribe();
     setShowUserCardDialog(false);
   };
 
@@ -202,7 +195,6 @@ const CardListsContainer = () => {
       <UserCardDialog
         showUserCardDialog={showUserCardDialog}
         closeUserCardDialog={closeUserCardDialog}
-        card={chosenCard}
       />
     </React.Fragment>
   );
