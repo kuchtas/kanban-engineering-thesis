@@ -54,16 +54,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const [tagChanged, setTagChanged] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
 
-  const handleEnter = () => {
-    // setTitle(cardTitle);
-    // setDescription(cardDescription);
-    // setStartDate(cardStartDate);
-    // setEndDate(cardEndDate);
-    // setStatus(cardStatus);
-    // setTag(cardTag);
-    // setUsers(cardUsers);
-  };
-
   useEffect(() => {
     setTitle(cardTitle);
     setDescription(cardDescription);
@@ -84,13 +74,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   ]);
 
   const handleClose = () => {
-    // setTitle("");
-    // setDescription("");
-    // setStartDate("");
-    // setEndDate("");
-    // setStatus("");
-    // setTag("");
-    // setUsers([]);
     closeUserCardDialog();
   };
 
@@ -176,7 +159,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       className="user-card-dialog"
       open={showUserCardDialog}
       onClose={handleClose}
-      onEnter={handleEnter}
       fullWidth
     >
       <MuiThemeProvider theme={cardTitleEditTheme}>
