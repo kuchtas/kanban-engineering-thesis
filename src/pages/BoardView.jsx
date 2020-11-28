@@ -56,10 +56,17 @@ const BoardView = ({ history, match }) => {
         loadDoneCards();
       });
 
+      const subscriptionOnBoard = DataStore.observe(Board, (b) =>
+        b.id("eq", match.params.id)
+      ).subscribe((b) => {
+        if (b.opType === "DELETE") history.push("/home");
+      });
+
       return () => {
         subscriptionTodo.unsubscribe();
         subscriptionDoing.unsubscribe();
         subscriptionDone.unsubscribe();
+        subscriptionOnBoard.unsubscribe();
       };
     }
   }, [user]);
