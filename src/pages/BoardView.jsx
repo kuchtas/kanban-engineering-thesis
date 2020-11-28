@@ -14,6 +14,7 @@ import InvalidUserError from "../components/InvalidUserError";
 import CardListsContainer from "../components/CardListsContainer";
 import BoardViewHeader from "../components/BoardViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
+import AddMemberDialog from "../components/AddMemberDialog";
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -24,6 +25,7 @@ const BoardView = ({ history, match }) => {
   const [loadingDoingCards, setLoadingDoingCards] = useState(true);
   const [loadingDoneCards, setLoadingDoneCards] = useState(true);
   const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
+  const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
 
   const loadBoard = async () => {
     const boardQuery = await DataStore.query(Board, (b) =>
@@ -110,6 +112,8 @@ const BoardView = ({ history, match }) => {
     setOpenDeleteBoardDialog(false);
   };
 
+  const addMember = async () => {};
+
   const openBoardDeletionDialog = () => {
     setOpenDeleteBoardDialog(true);
   };
@@ -118,6 +122,14 @@ const BoardView = ({ history, match }) => {
     setOpenDeleteBoardDialog(false);
   };
 
+  const openMemberAdditionDialog = () => {
+    setOpenAddMemberDialog(true);
+  };
+
+  const closeMemberAdditionDialog = () => {
+    setOpenAddMemberDialog(false);
+  };
+  
   useEffect(() => {
     if (loadingBoard) loadBoard();
     if (loadingTodoCards) loadTodoCards();
@@ -132,9 +144,9 @@ const BoardView = ({ history, match }) => {
   return (
     <React.Fragment>
       {loadingTodoCards ||
-       loadingDoingCards ||
-       loadingDoneCards ||
-       loadingBoard ? (
+      loadingDoingCards ||
+      loadingDoneCards ||
+      loadingBoard ? (
         <div className="board-view-page">
           {/* display spinner when loading */}
           <Navigation history={history} />
@@ -144,12 +156,20 @@ const BoardView = ({ history, match }) => {
         <div className="board-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          <BoardViewHeader openBoardDeletionDialog={openBoardDeletionDialog} />
+          <BoardViewHeader
+               openBoardDeletionDialog={openBoardDeletionDialog}
+               openMemberAdditionDialog={openMemberAdditionDialog}
+          />
           <CardListsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}
             deleteBoard={deleteBoard}
+          />
+          <AddMemberDialog
+            openAddMemberDialog={openAddMemberDialog}
+            closeMemberAdditionDialog={closeMemberAdditionDialog}
+            addMember={addMember}
           />
         </div>
       ) : (

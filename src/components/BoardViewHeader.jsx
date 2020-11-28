@@ -18,7 +18,7 @@ import "./BoardViewHeader.css";
 import {deleteButtonTheme} from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 
-const BoardViewHeader = ({ openBoardDeletionDialog }) => {
+const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) => {
   const { id, title } = useSelector((state) => state.board);
   const [editableTitle, setEditableTitle] = useState(title);
 
@@ -66,6 +66,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog }) => {
         className="board-view-page-header-button-members"
         variant="outlined"
         color="primary"
+        onClick={openMemberAdditionDialog}
       >
         Add a member
       </Button>
