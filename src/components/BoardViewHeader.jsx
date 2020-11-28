@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core";
 // Redux
 import { useSelector } from "react-redux";
-import store from '../store';
 // CSS
 import "./BoardViewHeader.css";
 import {deleteButtonTheme} from "../themes/deleteButtonTheme";
@@ -40,10 +39,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
     }
   }
   return (
-    <Toolbar
-      className="board-view-page-header-container"
-      disableGutters={false}
-    >
+    <Toolbar className="board-view-page-header-container" disableGutters={true}>
       <MuiThemeProvider theme={boardTitleEditTheme}>
         <ClickAwayListener onClickAway={handleClickAway}>
           <TextField
@@ -58,8 +54,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
               }
             }}
             value={editableTitle}
-          >
-          </TextField>
+          ></TextField>
         </ClickAwayListener>
       </MuiThemeProvider>
       <Button

@@ -6,8 +6,10 @@
 .board-view-page-header-title{
     /* margin-left: 8px; */
     max-height: 30px;
-    max-width: 600px;
+    max-width: 1000px;
     font-size: 12px;
+    width: 100%;
+    margin-right: 5px !important;
 }
 
 .board-view-page-header-button-delete{
@@ -17,6 +19,7 @@
     padding-right: 5px !important;
     margin-left: 2px !important;
     border: 1px red solid !important;
+    min-width: 125px !important;
     /* margin-right: 8px; */
 }
 
@@ -26,4 +29,5 @@
     padding-right: 5px !important;
     margin-left: auto !important;
     margin-right: 2px !important;
+    min-width: 125px !important;
 }

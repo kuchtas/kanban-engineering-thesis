@@ -161,10 +161,10 @@ const BoardList = ({history}) => {
                 This name will be visible for all of its users.
               </DialogContentText>
               <FormHelperText
-                 style={{ color: "red" }}
-                  hidden={newBoardTitle.length < 120}
+                style={{ color: "red" }}
+                hidden={newBoardTitle?.length < 120}
               >
-                      Title can not be longer than 120 characters
+                Title can not be longer than 120 characters
               </FormHelperText>
               <TextField
                 className="create-board-dialog-textfield"
