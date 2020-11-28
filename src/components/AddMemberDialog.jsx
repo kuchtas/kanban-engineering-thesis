@@ -10,18 +10,28 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import "./AddMemberDialog.css";
 const AddMemberDialog = ({
   openAddMemberDialog,
   closeMemberAdditionDialog,
   addMember,
 }) => {
+    const [emailAddress, setEmailAddress] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
+
+    const checkEmailValid = (email) =>{
+        setEmailAddress(email);
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        setValidEmail(re.test(email));
+    }
+
   return (
     <Dialog
       className="add-member-dialog"
       open={openAddMemberDialog}
       onClose={closeMemberAdditionDialog}
+      onEnter={() => setEmailAddress("")}
       fullWidth
     >
       <DialogTitle className="add-member-dialog-title">
@@ -39,15 +49,16 @@ const AddMemberDialog = ({
           className="add-member-dialog-textfield"
           autoFocus
           margin="normal"
-          type="text"
+          type="e-mail"
           variant="outlined"
           fullWidth
-          //   onChange={(e) => setConfirmDeletion(e.target.value.trim())}
-          //   onKeyPress={(e) => {
-          //     if (e.key === "Enter" && confirmDeletion === "delete") {
-          //       deleteBoard();
-          //     }
-          //   }}
+          onChange={(e) => checkEmailValid((e.target.value.trim()))}
+          onKeyPress={(e) => {
+              if (e.key === "Enter" && validEmail) {
+                addMember(emailAddress);
+              }
+            }}
+          value={emailAddress}
         />
         {/* </MuiThemeProvider> */}
       </DialogContent>
@@ -61,10 +72,10 @@ const AddMemberDialog = ({
         </Button>
         {/* <MuiThemeProvider theme={deleteButtonTheme}> */}
         <Button
-          onClick={addMember}
+          onClick={() => addMember(emailAddress)}
           color="primary"
           variant="outlined"
-          // disabled={confirmDeletion !== "delete"}
+          disabled={!validEmail}
           className="add-member-dialog-add-button"
         >
           Add

@@ -94,15 +94,19 @@ const BoardView = ({ history, match }) => {
     );
 
     const userQuery = await DataStore.query(User, (u) =>
-      u.name("eq", user.name)
+      u.boards("contains", match.params.id)
     );
 
-    await DataStore.save(
-      User.copyOf(userQuery[0], (updated) => {
-        const index = updated.boards.indexOf(match.params.id);
-        updated.boards.splice(index, 1);
-      })
-    );
+    console.log(userQuery);
+    userQuery.forEach( async (userQuery) => {
+      console.log(userQuery);
+      await DataStore.save(
+        User.copyOf(userQuery, (updated) => {
+          const index = updated.boards.indexOf(match.params.id);
+          updated.boards.splice(index, 1);
+        })
+      );
+    })
 
     await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
     store.dispatch({ type: "cards/deleted", payload: [] });
@@ -112,7 +116,29 @@ const BoardView = ({ history, match }) => {
     setOpenDeleteBoardDialog(false);
   };
 
-  const addMember = async () => {};
+  const addMember = async (member) => {
+    const boardQuery = await DataStore.query(Board, (b) =>
+      b.id("eq", match.params.id).users("notContains", member)
+    );
+    const userQuery = await DataStore.query(User, (u) =>
+      u.name("eq", member).boards("notContains", match.params.id)
+    );
+
+    if (userQuery.length !== 0 && boardQuery.length !== 0) {
+      await DataStore.save(
+        Board.copyOf(boardQuery[0], (updated) => {
+          updated.users = [...updated.users, member];
+        })
+      );
+
+      await DataStore.save(
+        User.copyOf(userQuery[0], (updated) => {
+          updated.boards = [...updated.boards, match.params.id];
+        })
+      );
+    }
+    setOpenAddMemberDialog(false);
+  };
 
   const openBoardDeletionDialog = () => {
     setOpenDeleteBoardDialog(true);
