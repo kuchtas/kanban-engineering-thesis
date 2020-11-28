@@ -30,6 +30,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-wrap: anywhere;
 }
 
 .board-list-card:hover, .board-list-card-add:hover{

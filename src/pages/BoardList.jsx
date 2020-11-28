@@ -18,6 +18,7 @@ import {
   TextField,
   Button,
   Divider,
+  FormHelperText,
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Navigation from "../components/Navigation";
@@ -159,6 +160,12 @@ const BoardList = ({history}) => {
               <DialogContentText>
                 This name will be visible for all of its users.
               </DialogContentText>
+              <FormHelperText
+                 style={{ color: "red" }}
+                  hidden={newBoardTitle.length < 120}
+              >
+                      Title can not be longer than 120 characters
+              </FormHelperText>
               <TextField
                 className="create-board-dialog-textfield"
                 autoFocus
@@ -187,7 +194,11 @@ const BoardList = ({history}) => {
                 onClick={createBoard}
                 color="primary"
                 variant="outlined"
-                disabled={newBoardTitle  ===  "" || newBoardTitle  ===  null}
+                disabled={
+                  newBoardTitle === "" ||
+                  newBoardTitle === null ||
+                  newBoardTitle.length > 120
+                }
               >
                 Create
               </Button>
