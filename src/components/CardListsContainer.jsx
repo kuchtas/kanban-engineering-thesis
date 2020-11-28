@@ -67,7 +67,13 @@ const CardListsContainer = () => {
     setShowUserCardDialog(true);
   };
   const closeUserCardDialog = () => {
-    subscription.unsubscribe();
+    console.log("unsubscribing from", subscription);
+    try{
+      subscription.unsubscribe();
+    }
+    catch{
+      console.log("Error unsubscribing from the chosen card");
+    }
     setShowUserCardDialog(false);
   };
 

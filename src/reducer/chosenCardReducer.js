@@ -31,8 +31,12 @@ export default function chosenCardReducer(state = initialState, action){
             }
         case 'chosencard/setsub':
             console.log('set sub: ', action.payload);
+            if(action.payload !== [] && action.payload !== undefined)
             return{
                 ...state, subscription: action.payload,
+            }
+            else{
+                return state;
             }
         default:
             return state;
