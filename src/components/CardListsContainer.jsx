@@ -109,6 +109,7 @@ const CardListsContainer = () => {
                   tag={card.tag}
                   users={card.users}
                   openCard={openUserCardDialog}
+                  key={card.id}
                 />
               );
             })}
