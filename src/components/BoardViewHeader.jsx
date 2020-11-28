@@ -24,7 +24,12 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
   const handleClickAway = async () =>{
     const newTitle = editableTitle.trim()
     
-    if(newTitle !== title && newTitle !== null && newTitle !== ""){
+    if (
+      newTitle !== title &&
+      newTitle !== null &&
+      newTitle !== "" &&
+      newTitle.length < 120
+    ) {
       const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
 
       await DataStore.save(
@@ -33,8 +38,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
         })
       );
       // store.dispatch({ type: "board/changedtitle", payload: newTitle })
-    }
-    else{
+    } else {
       setEditableTitle(title);
     }
   }
@@ -48,8 +52,9 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
             className="board-view-page-header-title"
             margin="dense"
             onChange={(e) => setEditableTitle(e.target.value)}
+            error={editableTitle?.length > 120}
             onKeyPress={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && editableTitle.length < 120) {
                 handleClickAway();
               }
             }}
