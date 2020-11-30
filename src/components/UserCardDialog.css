@@ -53,10 +53,48 @@
     display: none;  /* Safari and Chrome */
 }
 
+.user-card-users-label{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: -4px !important;
+    margin-bottom: 3px !important;
+}
+
+.card-dialog-users-container{
+    min-height: 0px;
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.card-dialog-users-container::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.delete-user-from-card-button{
+    color:red !important;
+    float: right;
+    padding: 0px !important;
+    min-width: 15px !important;
+}
+
+.card-dialog-user{
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(224, 224, 231);
+    margin-top: 3px;
+    text-align: center;
+    height: 25px;
+}
+
 .delete-card-dialog-delete-button{
     color: red !important;
-
 }
+
 .delete-card-dialog-delete-button:enabled{
     border: 1px red solid !important;
 }

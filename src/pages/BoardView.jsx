@@ -60,6 +60,7 @@ const BoardView = ({ history, match }) => {
         b.id("eq", match.params.id)
       ).subscribe((b) => {
         if (b.opType === "DELETE") history.push("/home");
+        if (b.opType === "UPDATE") loadBoard();
       });
 
       return () => {

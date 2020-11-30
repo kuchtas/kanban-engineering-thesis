@@ -14,7 +14,8 @@ import {
   FormControlLabel,
   Checkbox,
   FormGroup,
-  ClickAwayListener
+  ClickAwayListener,
+  Card as MaterialUICard,
 } from "@material-ui/core";
 // GraphQL
 import { Card, Board } from "../models/index";
@@ -29,6 +30,9 @@ import { cardDescriptionEditTheme } from "../themes/cardDescriptionEditTheme";
 import DescriptionIcon from '@material-ui/icons/Description';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import LabelIcon from "@material-ui/icons/Label";
+import GroupIcon from "@material-ui/icons/Group";
+import AddUserToCard from "./AddUserToCard";
+import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
 
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
@@ -154,6 +158,27 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     handleClose();
   };
 
+  const addUser = async (user) => {
+    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
+
+    await DataStore.save(
+      Card.copyOf(cardQuery[0], (updated) => {
+        updated.users = [...updated.users, user];
+      })
+    );
+  };
+
+  const deleteUser = async (user) => {
+    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
+
+    await DataStore.save(
+      Card.copyOf(cardQuery[0], (updated) => {
+        const index = updated.users.indexOf(user);
+        updated.users.splice(index, 1);
+      })
+    );
+  };
+
   return (
     <Dialog
       className="user-card-dialog"
@@ -251,6 +276,32 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
             label="Point 3"
           />
         </FormGroup>
+        <Typography className="user-card-users-label" component={"span"}>
+          <GroupIcon />
+          Assigned members
+        </Typography>
+        <Grid container className="card-dialog-users-container">
+          {users.map((user) => {
+            return (
+              <MaterialUICard
+                variant="outlined"
+                className="card-dialog-user"
+                key={user}
+              >
+                {user}
+                <MuiThemeProvider theme={deleteUserFromCardTheme}>
+                  <Button
+                    className="delete-user-from-card-button"
+                    onClick={() => deleteUser(user)}
+                  >
+                    X
+                  </Button>
+                </MuiThemeProvider>
+              </MaterialUICard>
+            );
+          })}
+        </Grid>
+        <AddUserToCard addUser={addUser} cardUsers={users} />
       </DialogContent>
       <DialogActions>
         <MuiThemeProvider theme={deleteButtonTheme}>

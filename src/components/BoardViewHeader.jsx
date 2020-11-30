@@ -21,6 +21,10 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
   const { id, title } = useSelector((state) => state.board);
   const [editableTitle, setEditableTitle] = useState(title);
 
+  useEffect(() => {
+    setEditableTitle(title);
+  }, [title]);
+  
   const handleClickAway = async () =>{
     const newTitle = editableTitle.trim()
     
