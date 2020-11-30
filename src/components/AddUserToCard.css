@@ -5,6 +5,7 @@
     border: 1px solid rgb(224, 224, 231);
     margin-top: 3px;
     text-align: center;
+    max-height: 25px;
 }
 
 .card-dialog-add-user:hover{
