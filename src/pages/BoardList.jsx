@@ -30,7 +30,7 @@ const BoardList = ({history}) => {
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openCreateBoardDialog, setOpenCreateBoardDialog] = useState(false);
-  const [newBoardTitle, setNewBoardTitle] = useState(null);
+  const [newBoardTitle, setNewBoardTitle] = useState("");
 
 
   const loadBoards = async () => {
@@ -164,7 +164,7 @@ const BoardList = ({history}) => {
                 style={{ color: "red" }}
                 hidden={newBoardTitle?.length < 120}
               >
-                Title can not be longer than 120 characters
+                Title can not be empty or longer than 120 characters
               </FormHelperText>
               <TextField
                 className="create-board-dialog-textfield"
