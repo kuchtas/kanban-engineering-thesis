@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // Components
 import { Card } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
