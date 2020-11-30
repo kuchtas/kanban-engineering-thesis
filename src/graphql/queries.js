@@ -19,6 +19,7 @@ export const syncUsers = /* GraphQL */ `
         cognitoID
         name
         boards
+        cards
         _version
         _deleted
         _lastChangedAt
@@ -37,6 +38,7 @@ export const getUser = /* GraphQL */ `
       cognitoID
       name
       boards
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -57,6 +59,7 @@ export const listUsers = /* GraphQL */ `
         cognitoID
         name
         boards
+        cards
         _version
         _deleted
         _lastChangedAt

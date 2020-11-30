@@ -31,6 +31,14 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                },
+                "cards": {
+                    "name": "cards",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 }
             },
             "syncable": true,
@@ -224,5 +232,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "74330866c07abeda646939bbfc093818"
+    "version": "44410cf5949283f5f9a1bf2801dc4027"
 };

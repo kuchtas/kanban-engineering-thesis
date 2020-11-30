@@ -13,6 +13,7 @@ export declare class User {
   readonly cognitoID: string;
   readonly name: string;
   readonly boards?: (string | null)[];
+  readonly cards?: (string | null)[];
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }

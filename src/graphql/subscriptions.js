@@ -8,6 +8,7 @@ export const onCreateUser = /* GraphQL */ `
       cognitoID
       name
       boards
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -23,6 +24,7 @@ export const onUpdateUser = /* GraphQL */ `
       cognitoID
       name
       boards
+      cards
       _version
       _deleted
       _lastChangedAt
@@ -38,6 +40,7 @@ export const onDeleteUser = /* GraphQL */ `
       cognitoID
       name
       boards
+      cards
       _version
       _deleted
       _lastChangedAt

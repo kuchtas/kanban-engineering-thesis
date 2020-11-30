@@ -54,6 +54,7 @@ function App() {
                 cognitoID: data.username,
                 name: data.attributes.email,
                 boards: [],
+                cards: [],
               })
             );
             store.dispatch({ type: "user/added", payload: newUser });

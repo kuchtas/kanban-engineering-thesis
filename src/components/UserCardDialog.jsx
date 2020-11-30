@@ -18,7 +18,7 @@ import {
   Card as MaterialUICard,
 } from "@material-ui/core";
 // GraphQL
-import { Card, Board } from "../models/index";
+import { User, Card, Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux 
 import { useSelector } from "react-redux";
@@ -161,9 +161,17 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const addUser = async (user) => {
     const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
+    const userQuery = await DataStore.query(User, (u) => u.name("eq", user));
+
     await DataStore.save(
       Card.copyOf(cardQuery[0], (updated) => {
         updated.users = [...updated.users, user];
+      })
+    );
+
+    await DataStore.save(
+      User.copyOf(userQuery[0], (updated) => {
+        updated.cards = [...updated.cards, cardID];
       })
     );
   };
@@ -171,10 +179,19 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const deleteUser = async (user) => {
     const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
+    const userQuery = await DataStore.query(User, (u) => u.name("eq", user));
+
     await DataStore.save(
       Card.copyOf(cardQuery[0], (updated) => {
         const index = updated.users.indexOf(user);
         updated.users.splice(index, 1);
+      })
+    );
+
+    await DataStore.save(
+      User.copyOf(userQuery[0], (updated) => {
+        const index = updated.cards.indexOf(cardID);
+        updated.cards.splice(index, 1);
       })
     );
   };
