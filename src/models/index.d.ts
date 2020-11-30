@@ -37,6 +37,7 @@ export declare class Card {
   readonly endDate: string;
   readonly tag?: string;
   readonly users?: (string | null)[];
+  readonly points?: (string | null)[];
   constructor(init: ModelInit<Card>);
   static copyOf(source: Card, mutator: (draft: MutableModel<Card>) => MutableModel<Card> | void): Card;
 }

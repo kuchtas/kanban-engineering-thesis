@@ -41,6 +41,7 @@ const AddDoingCardDialog = ({
         users: [],
         startDate: startDate,
         endDate: endDate,
+        points: [],
       })
     );
     const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));

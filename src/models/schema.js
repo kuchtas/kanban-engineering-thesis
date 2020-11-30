@@ -161,6 +161,14 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                },
+                "points": {
+                    "name": "points",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 }
             },
             "syncable": true,
@@ -232,5 +240,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "44410cf5949283f5f9a1bf2801dc4027"
+    "version": "4f8178df7fb7c24ff53fef1ca191dbe2"
 };

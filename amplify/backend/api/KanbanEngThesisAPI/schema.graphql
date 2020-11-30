@@ -23,6 +23,7 @@ type Card @model {
   endDate: AWSDate!
   tag: String
   users: [String]
+  points: [String]
 }
 
 type Point @model {

@@ -106,6 +106,7 @@ export const onCreateCard = /* GraphQL */ `
       endDate
       tag
       users
+      points
       _version
       _deleted
       _lastChangedAt
@@ -126,6 +127,7 @@ export const onUpdateCard = /* GraphQL */ `
       endDate
       tag
       users
+      points
       _version
       _deleted
       _lastChangedAt
@@ -146,6 +148,7 @@ export const onDeleteCard = /* GraphQL */ `
       endDate
       tag
       users
+      points
       _version
       _deleted
       _lastChangedAt
