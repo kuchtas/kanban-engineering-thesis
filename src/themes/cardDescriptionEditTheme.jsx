@@ -15,10 +15,11 @@ export const cardDescriptionEditTheme = createMuiTheme({
       root: {
         "& $notchedOutline": {
           borderColor: "white",
+          backgroundColor: "rgba(224, 224, 231, 0.3)",
         },
         "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
           borderColor: "white",
-          backgroundColor: "rgba(224, 224, 231, 0.3)",
+          backgroundColor: "rgba(224, 224, 231, 0.5)",
           // Reset on touch devices, it doesn't add specificity
         },
         "&$focused $notchedOutline": {
