@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import store from "../store";
 // CSS
 import "./CardListsContainer.css";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // Components
 import { Grid, Card as MaterialUICard, Typography } from "@material-ui/core";
 import AddCard from "../components/AddCard";
@@ -17,14 +18,23 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Card } from "../models/index";
 
 const CardListsContainer = () => {
-  const { cardsToDo, cardsDoing, cardsDone } = useSelector(
+  const { cards, /*cardsToDo, cardsDoing, cardsDone*/ } = useSelector(
     (state) => state.cards
   );
   const { subscription } = useSelector((state) => state.chosenCard);
+  const [cardsToDo, setCardsToDo] = useState([])
+  const [cardsDoing, setCardsDoing] = useState([])
+  const [cardsDone, setCardsDone] = useState([])
   const [openTodoCardDialog, setAddTodoCardDialog] = useState(false);
   const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
   const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
   const [showUserCardDialog, setShowUserCardDialog] = useState(false);
+
+  useEffect(() => {
+    setCardsToDo(cards.filter((card) => card.status ==="TODO"));
+    setCardsDoing(cards.filter((card) => card.status ==="DOING"));
+    setCardsDone(cards.filter((card) => card.status ==="DONE"));
+  }, [cards]);
   let cardSubscription;
   const openAddTodoCardDialog = () => {
     setAddTodoCardDialog(true);
@@ -77,137 +87,245 @@ const CardListsContainer = () => {
     setShowUserCardDialog(false);
   };
 
+  const handleDragEnd = async (result) =>{
+    const {destination, source, draggableId } = result;
+    
+    if(!destination)
+      return;
+    
+    if(source.droppableId !== destination.droppableId){
+      if(source.droppableId === 'card-list-todo' && destination.droppableId === 'card-list-doing'){
+        const newCardsArray = [...cardsToDo];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsToDo(newCardsArray)
+        setCardsDoing([...cardsDoing, card])
+      }
+      if(source.droppableId === 'card-list-todo' && destination.droppableId === 'card-list-done'){
+        const newCardsArray = [...cardsToDo];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsToDo(newCardsArray)
+        setCardsDone([...cardsDone, card])
+      }
+      if(source.droppableId === 'card-list-doing' && destination.droppableId === 'card-list-todo')
+      {
+        const newCardsArray = [...cardsDoing];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsDoing(newCardsArray)
+        setCardsToDo([...cardsToDo, card])
+      }
+      if(source.droppableId === 'card-list-doing' && destination.droppableId === 'card-list-done'){
+        const newCardsArray = [...cardsDoing];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsDoing(newCardsArray)
+        setCardsDone([...cardsDone, card])
+      }
+      if(source.droppableId === 'card-list-done' && destination.droppableId === 'card-list-todo'){
+        const newCardsArray = [...cardsDone];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsDone(newCardsArray)
+        setCardsToDo([...cardsToDo, card])
+      }
+      if(source.droppableId === 'card-list-done' && destination.droppableId === 'card-list-doing'){
+        const newCardsArray = [...cardsDone];
+        const index = newCardsArray.findIndex(card => card.id === draggableId)
+        const [card] = newCardsArray.splice(index, 1);
+        setCardsDone(newCardsArray)
+        setCardsDoing([...cardsDoing, card])
+      }
+
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", draggableId));
+      switch(destination.droppableId){
+        case "card-list-todo":
+          await DataStore.save(
+            Card.copyOf(cardQuery[0], (updated) => {
+              updated.status = "TODO";
+            })
+          );
+          break;
+        case "card-list-doing":
+          await DataStore.save(
+            Card.copyOf(cardQuery[0], (updated) => {
+              updated.status = "DOING";
+            })
+          );
+          break;
+        case "card-list-done":
+          await DataStore.save(
+            Card.copyOf(cardQuery[0], (updated) => {
+              updated.status = "DONE";
+            })
+          );
+          break;
+        default:
+          return;
+      }      
+    }
+  }
+
   return (
     <React.Fragment>
-      <Grid container className="card-lists-container">
-        <Grid
-          item
-          xs={4}
-          sm={4}
-          md={4}
-          lg={4}
-          xl={4}
-          className="card-list-todo"
-        >
-          <MaterialUICard
-            variant="outlined"
-            className="card-list-header"
-            key="todo-header"
-          >
-            <Typography>TO DO</Typography>
-          </MaterialUICard>
-          <Grid item className="card-list">
-            {cardsToDo.map((card) => {
-              return (
-                <UserCard
-                  id={card.id}
-                  title={card.title}
-                  startDate={card.startDate}
-                  endDate={card.endDate}
-                  status={card.status}
-                  description={card.description}
-                  tag={card.tag}
-                  users={card.users}
-                  points={card.points}
-                  openCard={openUserCardDialog}
-                  key={card.id}
-                />
-              );
-            })}
-            <AddCard createCard={openAddTodoCardDialog} />
+      <DragDropContext onDragEnd={handleDragEnd}>
+          <Grid container className="card-lists-container">
+            <Grid
+              item
+              xs={4}
+              sm={4}
+              md={4}
+              lg={4}
+              xl={4}
+              className="card-list-todo"
+            >
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-header"
+                key="todo-header"
+              >
+                <Typography>TO DO</Typography>
+              </MaterialUICard>
+               <Droppable droppableId="card-list-todo">
+               {provided =>(
+                  <Grid item className="card-list" 
+                    innerRef={provided.innerRef} 
+                    {...provided.droppableProps}
+                  >
+                    {cardsToDo.map((card, index) => {
+                      return (
+                        <UserCard
+                          id={card.id}
+                          title={card.title}
+                          startDate={card.startDate}
+                          endDate={card.endDate}
+                          status={card.status}
+                          description={card.description}
+                          tag={card.tag}
+                          users={card.users}
+                          points={card.points}
+                          openCard={openUserCardDialog}
+                          key={card.id}
+                          index={index}
+                        />);
+                      })}
+                      {provided.placeholder}
+                      <AddCard createCard={openAddTodoCardDialog} />
+                  </Grid>
+                )}
+                </Droppable>
+              </Grid>
+            <Grid
+              item
+              xs={4}
+              sm={4}
+              md={4}
+              lg={4}
+              xl={4}
+              className="card-list-doing"
+            >
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-header"
+                key="doing-header"
+              >
+                <Typography>DOING</Typography>
+              </MaterialUICard>
+              <Droppable droppableId="card-list-doing">
+              {provided =>(
+                  <Grid item className="card-list" 
+                    innerRef={provided.innerRef} 
+                    {...provided.droppableProps}
+                  >
+                  {cardsDoing.map((card, index) => {
+                    return (
+                      <UserCard
+                        id={card.id}
+                        title={card.title}
+                        startDate={card.startDate}
+                        endDate={card.endDate}
+                        status={card.status}
+                        description={card.description}
+                        tag={card.tag}
+                        users={card.users}
+                        points={card.points}
+                        openCard={openUserCardDialog}
+                        key={card.id}
+                        index={index}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                  <AddCard createCard={openAddDoingCardDialog} />
+                </Grid>
+                  )}
+              </Droppable>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              sm={4}
+              md={4}
+              lg={4}
+              xl={4}
+              className="card-list-done"
+            >
+              <MaterialUICard
+                variant="outlined"
+                className="card-list-header"
+                key="done-header"
+              >
+                <Typography>DONE</Typography>
+              </MaterialUICard>
+              <Droppable droppableId="card-list-done">
+              {provided =>(
+                  <Grid item className="card-list" 
+                    innerRef={provided.innerRef} 
+                    {...provided.droppableProps}
+                  >
+                  {cardsDone.map((card, index) => {
+                    return (
+                      <UserCard
+                        id={card.id}
+                        title={card.title}
+                        startDate={card.startDate}
+                        endDate={card.endDate}
+                        status={card.status}
+                        description={card.description}
+                        tag={card.tag}
+                        users={card.users}
+                        points={card.points}
+                        openCard={openUserCardDialog}
+                        key={card.id}
+                        index={index}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                  <AddCard createCard={openAddDoneCardDialog} />
+                </Grid>
+              )}
+              </Droppable>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          sm={4}
-          md={4}
-          lg={4}
-          xl={4}
-          className="card-list-doing"
-        >
-          <MaterialUICard
-            variant="outlined"
-            className="card-list-header"
-            key="doing-header"
-          >
-            <Typography>DOING</Typography>
-          </MaterialUICard>
-          <Grid item className="card-list">
-            {cardsDoing.map((card) => {
-              return (
-                <UserCard
-                  id={card.id}
-                  title={card.title}
-                  startDate={card.startDate}
-                  endDate={card.endDate}
-                  status={card.status}
-                  description={card.description}
-                  tag={card.tag}
-                  users={card.users}
-                  points={card.points}
-                  openCard={openUserCardDialog}
-                  key={card.id}
-                />
-              );
-            })}
-            <AddCard createCard={openAddDoingCardDialog} />
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          sm={4}
-          md={4}
-          lg={4}
-          xl={4}
-          className="card-list-done"
-        >
-          <MaterialUICard
-            variant="outlined"
-            className="card-list-header"
-            key="done-header"
-          >
-            <Typography>DONE</Typography>
-          </MaterialUICard>
-          <Grid item className="card-list">
-            {cardsDone.map((card) => {
-              return (
-                <UserCard
-                  id={card.id}
-                  title={card.title}
-                  startDate={card.startDate}
-                  endDate={card.endDate}
-                  status={card.status}
-                  description={card.description}
-                  tag={card.tag}
-                  users={card.users}
-                  points={card.points}
-                  openCard={openUserCardDialog}
-                  key={card.id}
-                />
-              );
-            })}
-            <AddCard createCard={openAddDoneCardDialog} />
-          </Grid>
-        </Grid>
-      </Grid>
-      <AddTodoCardDialog
-        openAddTodoCardDialog={openTodoCardDialog}
-        closeAddTodoCardDialog={closeAddTodoCardDialog}
-      />
-      <AddDoingCardDialog
-        openAddDoingCardDialog={openDoingCardDialog}
-        closeAddDoingCardDialog={closeAddDoingCardDialog}
-      />
-      <AddDoneCardDialog
-        openAddDoneCardDialog={openDoneCardDialog}
-        closeAddDoneCardDialog={closeAddDoneCardDialog}
-      />
-      <UserCardDialog
-        showUserCardDialog={showUserCardDialog}
-        closeUserCardDialog={closeUserCardDialog}
-      />
+          <AddTodoCardDialog
+            openAddTodoCardDialog={openTodoCardDialog}
+            closeAddTodoCardDialog={closeAddTodoCardDialog}
+          />
+          <AddDoingCardDialog
+            openAddDoingCardDialog={openDoingCardDialog}
+            closeAddDoingCardDialog={closeAddDoingCardDialog}
+          />
+          <AddDoneCardDialog
+            openAddDoneCardDialog={openDoneCardDialog}
+            closeAddDoneCardDialog={closeAddDoneCardDialog}
+          />
+          <UserCardDialog
+            showUserCardDialog={showUserCardDialog}
+            closeUserCardDialog={closeUserCardDialog}
+          />
+      </DragDropContext>
     </React.Fragment>
   );
 };
