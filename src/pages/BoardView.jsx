@@ -31,7 +31,8 @@ const BoardView = ({ history, match }) => {
     const boardQuery = await DataStore.query(Board, (b) =>
       b.id("eq", match.params.id)
     );
-    store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
+    if (boardQuery !== undefined && boardQuery.length !== 0)
+      store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
     setLoadingBoard(false);
   };
 
