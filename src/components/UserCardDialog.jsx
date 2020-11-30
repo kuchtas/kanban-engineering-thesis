@@ -33,6 +33,7 @@ import LabelIcon from "@material-ui/icons/Label";
 import GroupIcon from "@material-ui/icons/Group";
 import AddUserToCard from "./AddUserToCard";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
+import CardPoints from "./CardPoints";
 
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
@@ -44,6 +45,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     description: cardDescription,
     tag: cardTag,
     users: cardUsers,
+    points: cardPoints,
   } = useSelector((state) => state.chosenCard);
   const { id: boardID } = useSelector((state) => state.board);
 
@@ -54,6 +56,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const [status, setStatus] = useState(cardStatus);
   const [tag, setTag] = useState(cardTag);
   const [users, setUsers] = useState(cardUsers);
+  const [points, setPoints] = useState(cardPoints);
   const [titleChanged, setTitleChanged] = useState(false);
   const [tagChanged, setTagChanged] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
@@ -66,6 +69,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     setStatus(cardStatus);
     setTag(cardTag);
     setUsers(cardUsers);
+    setPoints(cardPoints);
   }, [
     cardID,
     cardTitle,
@@ -75,6 +79,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     cardDescription,
     cardTag,
     cardUsers,
+    cardPoints,
   ]);
 
   const handleClose = () => {
@@ -279,20 +284,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
           <FormatListBulletedIcon />
           Points
         </Typography>
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Point 1"
-          />
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Point 2"
-          />
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Point 3"
-          />
-        </FormGroup>
+        <CardPoints />
         <Typography className="user-card-users-label" component={"span"}>
           <GroupIcon />
           Assigned members

@@ -240,7 +240,6 @@ export const syncPoints = /* GraphQL */ `
         id
         cardID
         title
-        description
         checked
         _version
         _deleted
@@ -259,7 +258,6 @@ export const getPoint = /* GraphQL */ `
       id
       cardID
       title
-      description
       checked
       _version
       _deleted
@@ -280,7 +278,6 @@ export const listPoints = /* GraphQL */ `
         id
         cardID
         title
-        description
         checked
         _version
         _deleted

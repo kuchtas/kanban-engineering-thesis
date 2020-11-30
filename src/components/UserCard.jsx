@@ -3,8 +3,18 @@ import { Card, CardContent, Typography, Chip } from "@material-ui/core";
 import "./UserCard.css";
 
 
-const UserCard = ({ id, title, startDate, endDate, openCard, status, description, tag, users}) => {
-
+const UserCard = ({
+  id,
+  title,
+  startDate,
+  endDate,
+  openCard,
+  status,
+  description,
+  tag,
+  users,
+  points,
+}) => {
   return (
     <Card
       variant="outlined"

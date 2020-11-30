@@ -46,7 +46,6 @@ export declare class Point {
   readonly id: string;
   readonly cardID: string;
   readonly title: string;
-  readonly description?: string;
   readonly checked: boolean;
   constructor(init: ModelInit<Point>);
   static copyOf(source: Point, mutator: (draft: MutableModel<Point>) => MutableModel<Point> | void): Point;

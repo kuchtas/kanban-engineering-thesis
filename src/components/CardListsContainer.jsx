@@ -108,6 +108,7 @@ const CardListsContainer = () => {
                   description={card.description}
                   tag={card.tag}
                   users={card.users}
+                  points={card.points}
                   openCard={openUserCardDialog}
                   key={card.id}
                 />
@@ -144,6 +145,7 @@ const CardListsContainer = () => {
                   description={card.description}
                   tag={card.tag}
                   users={card.users}
+                  points={card.points}
                   openCard={openUserCardDialog}
                   key={card.id}
                 />
@@ -180,6 +182,7 @@ const CardListsContainer = () => {
                   description={card.description}
                   tag={card.tag}
                   users={card.users}
+                  points={card.points}
                   openCard={openUserCardDialog}
                   key={card.id}
                 />

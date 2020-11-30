@@ -30,7 +30,6 @@ type Point @model {
   id: ID!
   cardID: ID!
   title: String!
-  description: String
   checked: Boolean!
 }
 

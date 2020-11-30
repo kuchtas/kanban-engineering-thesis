@@ -193,7 +193,6 @@ export const createPoint = /* GraphQL */ `
       id
       cardID
       title
-      description
       checked
       _version
       _deleted
@@ -212,7 +211,6 @@ export const updatePoint = /* GraphQL */ `
       id
       cardID
       title
-      description
       checked
       _version
       _deleted
@@ -231,7 +229,6 @@ export const deletePoint = /* GraphQL */ `
       id
       cardID
       title
-      description
       checked
       _version
       _deleted

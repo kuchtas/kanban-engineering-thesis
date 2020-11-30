@@ -7,6 +7,7 @@ const initialState = {
     description: "",
     tag: "",
     users: [],
+    points: [],
     subscription: "",
 }
 
@@ -25,6 +26,7 @@ export default function chosenCardReducer(state = initialState, action){
                 description: action.payload.description,
                 tag: action.payload.tag,
                 users: action.payload.users,
+                points: action.payload.points,
             }
             else{
                 return state;
