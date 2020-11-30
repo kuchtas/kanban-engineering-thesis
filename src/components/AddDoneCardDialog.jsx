@@ -76,7 +76,7 @@ const AddDoneCardDialog = ({
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <Typography>
+          <Typography component={"span"}>
             To create a new card you need to pass in it's title and deadlines
           </Typography>
         </DialogContentText>
