@@ -61,6 +61,7 @@ const AddUserToCard = ({ addUser, cardUsers }) => {
                     addUser(user);
                     closePopover();
                   }}
+                  key={user}
                 >
                   {user}
                 </ListItem>
