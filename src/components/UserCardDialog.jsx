@@ -34,6 +34,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import AddUserToCard from "./AddUserToCard";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
 import CardPoints from "./CardPoints";
+import { userCardDatesTheme } from "../themes/userCardDatesTheme";
 
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
@@ -53,23 +54,25 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const [description, setDescription] = useState(cardDescription);
   const [startDate, setStartDate] = useState(cardStartDate);
   const [endDate, setEndDate] = useState(cardEndDate);
-  const [status, setStatus] = useState(cardStatus);
+  // const [status, setStatus] = useState(cardStatus);
   const [tag, setTag] = useState(cardTag);
   const [users, setUsers] = useState(cardUsers);
-  const [points, setPoints] = useState(cardPoints);
+  // const [points, setPoints] = useState(cardPoints);
   const [titleChanged, setTitleChanged] = useState(false);
   const [tagChanged, setTagChanged] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
+  const [startDateChanged, setStartDateChanged] = useState(false);
+  const [endDateChanged, setEndDateChanged] = useState(false);
 
   useEffect(() => {
     setTitle(cardTitle);
     setDescription(cardDescription);
     setStartDate(cardStartDate);
     setEndDate(cardEndDate);
-    setStatus(cardStatus);
+    // setStatus(cardStatus);
     setTag(cardTag);
     setUsers(cardUsers);
-    setPoints(cardPoints);
+    // setPoints(cardPoints);
   }, [
     cardID,
     cardTitle,
@@ -112,7 +115,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       newTitle !== cardTitle &&
       newTitle !== null &&
       newTitle !== "" &&
-      titleChanged
+      titleChanged && newTitle.length < 120
     ) {
       console.log("UPDATING TITLE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
@@ -125,14 +128,14 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       setTitle(newTitle);
       setTitleChanged(false);
     } else {
-      setTitle(title);
+      setTitle(cardTitle);
     }
   };
 
   const tagClickAway = async () => {
     const newTag = tag.trim();
 
-    if (newTag !== cardTag && tagChanged) {
+    if (newTag !== cardTag && tagChanged && tag.length < 50) {
       console.log("UPDATING TAG");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
@@ -144,7 +147,45 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       setTag(newTag);
       setTagChanged(false);
     } else {
-      setTag(tag);
+      setTag(cardTag);
+    }
+  };
+
+  const startDateClickAway = async () => {
+    const newStartDate = startDate;
+
+    if (newStartDate !== cardStartDate && startDateChanged) {
+      console.log("UPDATING START DATE");
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
+
+      await DataStore.save(
+        Card.copyOf(cardQuery[0], (updated) => {
+          updated.startDate = newStartDate;
+        })
+      );
+      setStartDate(newStartDate);
+      setStartDateChanged(false);
+    } else {
+      setStartDate(startDate);
+    }
+  };
+
+  const endDateClickAway = async () => {
+    const newEndDate = endDate;
+
+    if (newEndDate !== cardEndDate && endDateChanged) {
+      console.log("UPDATING END DATE");
+      const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
+
+      await DataStore.save(
+        Card.copyOf(cardQuery[0], (updated) => {
+          updated.endDate = newEndDate;
+        })
+      );
+      setEndDate(newEndDate);
+      setEndDateChanged(false);
+    } else {
+      setEndDate(endDate);
     }
   };
 
@@ -220,6 +261,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
               variant="outlined"
               className="user-card-dialog-title"
               placeholder="Set a title..."
+              error={title.length>120}
             ></TextField>
           </ClickAwayListener>
           <LabelIcon />
@@ -233,6 +275,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
                 setTag(e.target.value);
                 setTagChanged(true);
               }}
+              error={tag.length > 50}
               value={tag}
               placeholder="Set a tag..."
             />
@@ -244,19 +287,48 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
         </DialogTitle>
       </MuiThemeProvider>
       <DialogContent>
-        <DialogContentText>
-          <Grid justify="center" container spacing={1}>
-            <Grid item>
-              <Typography component={"span"}>{cardStartDate}</Typography>
+        <MuiThemeProvider theme={userCardDatesTheme}>
+          <DialogContentText>
+            <Grid justify="center" container spacing={1}>
+              <Grid item>
+                <ClickAwayListener onClickAway={startDateClickAway}>
+                  <TextField
+                    className="user-card-dialog-textfield-startdate"
+                    margin="normal"
+                    type="date"
+                    variant="outlined"
+                    onChange={(e) => {
+                      setStartDate(e.target.value)
+                      setStartDateChanged(true)}
+                    }
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={startDate}
+                  />
+                </ClickAwayListener>
+              </Grid>
+              <Grid item>
+                <ClickAwayListener onClickAway={endDateClickAway}>
+                  <TextField
+                    className="user-card-dialog-textfield-enddate"
+                    margin="normal"
+                    type="date"
+                    variant="outlined"
+                    onChange={(e) => {
+                      setEndDate(e.target.value)
+                      setEndDateChanged(true)}
+                    }
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={endDate}
+                  />
+                </ClickAwayListener>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography component={"span"}>-</Typography>
-            </Grid>
-            <Grid item>
-              <Typography component={"span"}>{cardEndDate}</Typography>
-            </Grid>
-          </Grid>
-        </DialogContentText>
+          </DialogContentText>
+        </MuiThemeProvider>
         <Typography className="user-card-description-label" component={"span"}>
           <DescriptionIcon />
           Description
@@ -280,11 +352,11 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
             />
           </ClickAwayListener>
         </MuiThemeProvider>
-        <Typography className="user-card-points-label" component={"span"}>
+        {/* <Typography className="user-card-points-label" component={"span"}>
           <FormatListBulletedIcon />
           Points
         </Typography>
-        <CardPoints />
+        <CardPoints /> */}
         <Typography className="user-card-users-label" component={"span"}>
           <GroupIcon />
           Assigned members

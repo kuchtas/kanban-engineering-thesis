@@ -98,3 +98,11 @@
 .delete-card-dialog-delete-button:enabled{
     border: 1px red solid !important;
 }
+
+.user-card-dialog-textfield-startdate{
+    max-width: 165px;
+}
+
+.user-card-dialog-textfield-enddate{
+    max-width: 165px;
+}
