@@ -4,6 +4,14 @@
     margin: auto;
     overflow-wrap: anywhere;
     text-align: left;
+    border-color: rgb(232, 239, 247) !important;
+    background-color: rgb(223, 233, 243) !important;
+    background-image: linear-gradient(315deg,rgb(223, 233, 243) 0%, rgb(232, 239, 247) 74%);
+}
+
+.card-list-element:hover{
+    background-color: rgba(223, 233, 243, 0.5);
+    background-image: linear-gradient(315deg, rgba(223, 233, 243, 0.2) 0%, rgba(232, 239, 247, 0.2) 74%);
 }
 
 .card-list-element-content{
@@ -49,5 +57,56 @@
 
 .end-date-chip{
     margin-top: 2px;
+}
+
+
+.deadline-term-1{
+    border-color:rgb(15, 214, 79) !important;
+    background-color: rgb(248, 239, 66) !important;
+    background-image: linear-gradient(315deg, rgb(248, 239, 66) 0%,  rgb(15, 214, 79) 74%);
+}
+.deadline-term-1:hover{
+    background-color: rgba(248, 239, 66, 0.5) !important;
+    background-image: linear-gradient(315deg, rgba(248, 239, 66, 0.5) 0%, rgba(15, 214, 78, 0.5) 74%);
+}
+
+.deadline-term-2{
+    border-color:rgb(248, 239, 66) !important;
+    background-color: rgb(251, 176, 52) !important;
+    background-image: linear-gradient(315deg, rgb(251, 176, 52) 0%, rgb(248, 239, 66) 74%);
+}
+.deadline-term-2:hover{
+    background-color: rgba(251, 175, 52, 0.5) !important;
+    background-image: linear-gradient(315deg, rgba(251, 175, 52, 0.5) 0%, rgba(248, 239, 66, 0.5) 74%);
+}
+
+.deadline-term-3{
+    border-color:  rgb(251, 176, 52) !important;
+    background-color: rgb(249, 72, 74) !important;
+    background-image: linear-gradient(315deg, rgb(249, 72, 74) 0%, rgb(251, 176, 52) 74%);
+}
+.deadline-term-3:hover{
+    background-color: rgba(249, 72, 75, 0.5) !important;
+    background-image: linear-gradient(315deg, rgba(249, 72, 75, 0.5) 0%, rgba(251, 175, 52, 0.5) 74%);
+}
+
+.deadline-term-4{
+    border-color: rgb(249, 72, 74) !important;
+    background-color: rgb(249, 72, 74) !important;
+    background-image: linear-gradient(315deg, rgb(248, 21, 21) 0%, rgb(249, 72, 74) 74%);
+}
+.deadline-term-4:hover{
+    background-color: rgba(249, 72, 75, 0.5) !important;
+    background-image: linear-gradient(315deg, rgba(248, 21, 21, 0.5) 0%, rgba(249, 72, 75, 0.5) 74%);
+}
+
+.deadline-missed{
+    border-color: rgb(139, 147, 154) !important;
+    background-color: rgb(91, 100, 103);
+    background-image: linear-gradient(315deg, rgb(91, 100, 103) 0%, rgb(139, 147, 154) 74%);
+}
+.deadline-missed:hover{
+    background-color: rgba(91, 100, 103, 0.5);
+    background-image: linear-gradient(315deg, rgba(91, 100, 103, 0.5) 0%, rgba(139, 147, 154, 0.5) 74%);
 }
 

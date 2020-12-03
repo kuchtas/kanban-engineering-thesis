@@ -42,10 +42,6 @@
     min-width: 200px !important; 
 }
 
-.card-list-element:hover{
-    background-color: rgba(224, 224, 231, 0.1);
-}
-
 .card-list-header{
     border-radius: 5px 5px 0px 0px !important;
     border-top: 0px !important;
