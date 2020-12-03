@@ -42,9 +42,13 @@ export const globalTheme = createMuiTheme({
       },
     },
     MuiChip: {
+      outlined: {
+        backgroundColor: "#479dff",
+      },
       label: {
         paddingRight: "4px !important",
         paddingLeft: "4px !important",
+        color: "white",
       },
     },
   },
