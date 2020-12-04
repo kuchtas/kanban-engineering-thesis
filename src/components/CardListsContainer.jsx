@@ -13,6 +13,7 @@ import AddDoingCardDialog from "../components/AddDoingCardDialog";
 import AddDoneCardDialog from "../components/AddDoneCardDialog";
 import UserCardDialog from "./UserCardDialog";
 import UserCard from "../components/UserCard";
+import UserCardDone from "../components/UserCardDone";
 // GraphQL
 import { DataStore } from "@aws-amplify/datastore";
 import { Card } from "../models/index";
@@ -224,7 +225,7 @@ const CardListsContainer = () => {
           await DataStore.save(
             Card.copyOf(cardQuery[0], (updated) => {
               updated.status = "DONE";
-              updated.points = [doneStatus];
+              updated.points = [doneStatus || "deadline-term-0"];
             })
           );
           break;
@@ -362,16 +363,11 @@ const CardListsContainer = () => {
                 >
                   {cardsDone.map((card, index) => {
                     return (
-                      <UserCard
+                      <UserCardDone
                         id={card.id}
                         title={card.title}
                         startDate={card.startDate}
                         endDate={card.endDate}
-                        status={card.status}
-                        description={card.description}
-                        tag={card.tag}
-                        users={card.users}
-                        points={card.points}
                         timeLeftGroup={card.timeLeftGroup}
                         openCard={openUserCardDialog}
                         key={card.id}
