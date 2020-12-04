@@ -169,13 +169,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
-                },
-                "doneStatus": {
-                    "name": "doneStatus",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -240,5 +233,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "8e132ce2985cf101f774530e99641a18"
+    "version": "871fefcb62844d689451eb8b8a5cc737"
 };

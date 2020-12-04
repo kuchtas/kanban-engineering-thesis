@@ -42,7 +42,6 @@ const AddTodoCardDialog = ({
         startDate: startDate,
         endDate: endDate,
         points: [],
-        doneStatus: "",
       })
     );
     const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));

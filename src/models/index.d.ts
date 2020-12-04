@@ -38,7 +38,6 @@ export declare class Card {
   readonly tag?: string;
   readonly users?: (string | null)[];
   readonly points?: (string | null)[];
-  readonly doneStatus?: string;
   constructor(init: ModelInit<Card>);
   static copyOf(source: Card, mutator: (draft: MutableModel<Card>) => MutableModel<Card> | void): Card;
 }

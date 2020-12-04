@@ -24,7 +24,6 @@ type Card @model {
   tag: String
   users: [String]
   points: [String]
-  doneStatus: String
 }
 
 type Point @model {
