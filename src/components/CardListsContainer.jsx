@@ -125,7 +125,7 @@ const CardListsContainer = () => {
     const { destination, source, draggableId } = result;
 
     if (!destination) return;
-
+    let doneStatus;
     if (source.droppableId !== destination.droppableId) {
       if (
         source.droppableId === "card-list-todo" &&
@@ -148,6 +148,7 @@ const CardListsContainer = () => {
           (card) => card.id === draggableId
         );
         const [card] = newCardsArray.splice(index, 1);
+        doneStatus = card.timeLeftGroup;
         setCardsToDo(newCardsArray);
         setCardsDone([...cardsDone, card]);
       }
@@ -172,6 +173,7 @@ const CardListsContainer = () => {
           (card) => card.id === draggableId
         );
         const [card] = newCardsArray.splice(index, 1);
+        doneStatus = card.timeLeftGroup;
         setCardsDoing(newCardsArray);
         setCardsDone([...cardsDone, card]);
       }
@@ -222,6 +224,7 @@ const CardListsContainer = () => {
           await DataStore.save(
             Card.copyOf(cardQuery[0], (updated) => {
               updated.status = "DONE";
+              updated.points = [doneStatus];
             })
           );
           break;
