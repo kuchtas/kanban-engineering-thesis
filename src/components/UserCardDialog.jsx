@@ -35,7 +35,8 @@ import AddUserToCard from "./AddUserToCard";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
 import CardPoints from "./CardPoints";
 import { userCardDatesTheme } from "../themes/userCardDatesTheme";
-
+// utils
+import {setClassByDeadlineCloseness} from "../utils/deadline"
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
     id: cardID,
@@ -261,7 +262,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
               variant="outlined"
               className="user-card-dialog-title"
               placeholder="Set a title..."
-              error={title.length>120}
+              error={title.length > 120}
             ></TextField>
           </ClickAwayListener>
           <LabelIcon />
@@ -286,7 +287,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
           <Divider />
         </DialogTitle>
       </MuiThemeProvider>
-      <DialogContent>
+      <DialogContent className={"user-card-dialog-content-" + setClassByDeadlineCloseness(startDate, endDate)}>
         <MuiThemeProvider theme={userCardDatesTheme}>
           <DialogContentText>
             <Grid justify="center" container spacing={1}>
@@ -298,9 +299,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
                     type="date"
                     variant="outlined"
                     onChange={(e) => {
-                      setStartDate(e.target.value)
-                      setStartDateChanged(true)}
-                    }
+                      setStartDate(e.target.value);
+                      setStartDateChanged(true);
+                    }}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -316,9 +317,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
                     type="date"
                     variant="outlined"
                     onChange={(e) => {
-                      setEndDate(e.target.value)
-                      setEndDateChanged(true)}
-                    }
+                      setEndDate(e.target.value);
+                      setEndDateChanged(true);
+                    }}
                     InputLabelProps={{
                       shrink: true,
                     }}
