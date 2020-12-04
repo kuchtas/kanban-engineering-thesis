@@ -15,7 +15,8 @@
 }
 
 .page-header-wrapper{
-    background-color: var(--amplify-primary-color);
+    background-color: #2a2a72;
+    background-image: linear-gradient(315deg, var(--amplify-primary-color) 0%,  #2a2a72 94%);
 }
 
 .page-header{
