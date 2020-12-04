@@ -89,6 +89,8 @@
     margin-top: 3px;
     text-align: center;
     height: 25px;
+    background-color: rgba(224, 224, 231, 0.3) !important;
+    border-color: white !important;
 }
 
 .delete-card-dialog-delete-button{
