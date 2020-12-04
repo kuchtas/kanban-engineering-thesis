@@ -284,10 +284,15 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
           <Typography component={"span"} className="user-card-dialog-status">
             {cardStatus}
           </Typography>
-          <Divider />
+          {/* <Divider /> */}
         </DialogTitle>
       </MuiThemeProvider>
-      <DialogContent className={"user-card-dialog-content-" + setClassByDeadlineCloseness(startDate, endDate)}>
+      <DialogContent
+        className={
+          "user-card-dialog-content-" +
+          setClassByDeadlineCloseness(startDate, endDate)
+        }
+      >
         <MuiThemeProvider theme={userCardDatesTheme}>
           <DialogContentText>
             <Grid justify="center" container spacing={1}>
