@@ -161,7 +161,7 @@ export const syncCards = /* GraphQL */ `
         endDate
         tag
         users
-        points
+        doneStatus
         _version
         _deleted
         _lastChangedAt
@@ -185,7 +185,7 @@ export const getCard = /* GraphQL */ `
       endDate
       tag
       users
-      points
+      doneStatus
       _version
       _deleted
       _lastChangedAt
@@ -211,7 +211,7 @@ export const listCards = /* GraphQL */ `
         endDate
         tag
         users
-        points
+        doneStatus
         _version
         _deleted
         _lastChangedAt
