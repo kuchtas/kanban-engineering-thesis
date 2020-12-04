@@ -30,7 +30,7 @@ export const cardTitleEditTheme = createMuiTheme({
         paddingTop: "5px",
       },
       input: {
-        padding: "6px 2px 0px 7px;",
+        padding: "6px 7px 0px 7px;",
       },
     },
   },

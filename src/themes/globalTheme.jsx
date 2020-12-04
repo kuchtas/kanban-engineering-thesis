@@ -51,5 +51,10 @@ export const globalTheme = createMuiTheme({
         color: "white",
       },
     },
+    MuiDialog: {
+      paper: {
+        borderRadius: "15px",
+      },
+    },
   },
 });
