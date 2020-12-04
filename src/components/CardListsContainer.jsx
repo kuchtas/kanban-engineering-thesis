@@ -44,7 +44,17 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsToDo(newToDoCards);
+    setCardsToDo(
+      newToDoCards.sort((a, b) => {
+        if (a.timeLeftGroup < b.timeLeftGroup) {
+          return -1;
+        }
+        if (a.timeLeftGroup > b.timeLeftGroup) {
+          return 1;
+        }
+        return 0;
+      })
+    );
 
     const newDoingCards = cards
       .filter((card) => card.status === "DOING")
@@ -56,7 +66,17 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsDoing(newDoingCards);
+    setCardsDoing(
+      newDoingCards.sort((a, b) => {
+        if (a.timeLeftGroup < b.timeLeftGroup) {
+          return -1;
+        }
+        if (a.timeLeftGroup > b.timeLeftGroup) {
+          return 1;
+        }
+        return 0;
+      })
+    );
 
     const newDoneCards = cards
       .filter((card) => card.status === "DONE")
@@ -68,7 +88,17 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsDone(newDoneCards);
+    setCardsDone(
+      newDoneCards.sort((a, b) => {
+        if (a.timeLeftGroup < b.timeLeftGroup) {
+          return -1;
+        }
+        if (a.timeLeftGroup > b.timeLeftGroup) {
+          return 1;
+        }
+        return 0;
+      })
+    );
   }, [cards]);
 
   let cardSubscription;

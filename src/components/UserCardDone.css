@@ -1,8 +1,8 @@
-.done-undefined{
+.done-deadline-term-0{
     background-color: rgba(232, 239, 247, 0.5) !important;
     background-image: repeating-linear-gradient(135deg,  rgba(232, 239, 247, 0.5),  rgba(232, 239, 247, 0.5) 23px, rgba(223, 233, 243, 1) 23px, rgba(223, 233, 243, 1) 33px );
 }
-.done-undefined:hover{
+.done-deadline-term-0:hover{
     background-color: rgb(232, 239, 247) !important;
     background-image: repeating-linear-gradient(135deg,  rgba(232, 239, 247, 1),  rgba(232, 239, 247, 1) 23px, rgba(223, 233, 243, 1) 23px, rgba(223, 233, 243, 1) 33px );
 }
@@ -43,11 +43,11 @@
     background-image: repeating-linear-gradient(135deg,  rgba(249, 72, 74, 0.5),  rgba(249, 72, 74, 0.5) 23px, rgba(248, 21, 21, 0.5) 23px, rgba(248, 21, 21, 0.5) 33px );
 }
 
-.done-deadline-missed{
+.done-deadline-term-5{
     background-color: rgb(139, 147, 154) !important;
     background-image: repeating-linear-gradient(135deg,  rgba(139, 147, 154, 1),  rgba(139, 147, 154, 1) 23px, rgba(91, 100, 103, 0.8) 23px, rgba(91, 100, 103, 0.8) 33px );
 }
-.done-deadline-missed:hover{
+.done-deadline-term-5:hover{
     background-color: rgba(139, 147, 154, 0.5) !important;
     background-image: repeating-linear-gradient(135deg,  rgba(139, 147, 154, 0.5),  rgba(139, 147, 154, 0.5) 23px, rgba(91, 100, 103, 0.8) 23px, rgba(91, 100, 103, 0.8) 33px );
 }

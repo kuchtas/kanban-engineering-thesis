@@ -1,4 +1,6 @@
 export const setClassByDeadlineCloseness = (startDate, endDate) => {
+  if(new Date() - new Date(startDate) < 0 ) return "deadline-term-0"
+  else{
     if (new Date(endDate).setHours(23, 59, 59, 59) -
         new Date(startDate).setHours(0, 0, 0, 0) > 604800000) { //seven days
       let deadlineCloseness = Math.round(
@@ -14,12 +16,12 @@ export const setClassByDeadlineCloseness = (startDate, endDate) => {
           else if (deadlineCloseness > 75 && deadlineCloseness <= 100)
             return "deadline-term-4";
           else if (deadlineCloseness > 100) 
-            return "deadline-missed";
+            return "deadline-term-5";
     }   
     
     else if (new Date(endDate).setHours(23, 59, 59, 59) - // less 7 days left - 1
              new Date() < 0)
-              return "deadline-missed";
+              return "deadline-term-5";
     else if (new Date(startDate).setHours(0, 0, 0, 0) -
               new Date() > 0)
                return;
@@ -35,4 +37,5 @@ export const setClassByDeadlineCloseness = (startDate, endDate) => {
     else if (new Date(endDate).setHours(23, 59, 59, 59) -
               new Date(startDate).setHours(0, 0, 0, 0) > 0)
               return "deadline-term-4";
+  }
   };
