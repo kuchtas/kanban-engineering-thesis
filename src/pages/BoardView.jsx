@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // GraphQL
 import { Board, Card, User } from "../models/index";
-import { DataStore } from "@aws-amplify/datastore";
+import { DataStore, SortDirection } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
 import store from '../store';
@@ -82,8 +82,13 @@ const BoardView = ({ history, match }) => {
   }, [user]);
   
   const loadCards = async () => {
-    const cardsQuery = await DataStore.query(Card, (c) =>
-      c.boardID("eq", match.params.id)
+    const cardsQuery = await DataStore.query(
+      Card,
+      (c) => c.boardID("eq", match.params.id),
+      {
+        sort: (s) =>
+          s.endDate(SortDirection.ASCENDING).startDate(SortDirection.ASCENDING),
+      }
     );
     store.dispatch({ type: "cards/loaded", payload: cardsQuery });
     setLoadingCards(false);

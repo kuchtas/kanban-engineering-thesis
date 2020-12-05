@@ -21,9 +21,7 @@ import { Card } from "../models/index";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
 const CardListsContainer = () => {
-  const { cards /*cardsToDo, cardsDoing, cardsDone*/ } = useSelector(
-    (state) => state.cards
-  );
+  const { cards } = useSelector((state) => state.cards);
   const { subscription } = useSelector((state) => state.chosenCard);
   const [cardsToDo, setCardsToDo] = useState([]);
   const [cardsDoing, setCardsDoing] = useState([]);
@@ -32,6 +30,16 @@ const CardListsContainer = () => {
   const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
   const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
   const [showUserCardDialog, setShowUserCardDialog] = useState(false);
+
+  const cardSort = (a, b) => {
+    if (a.timeLeftGroup < b.timeLeftGroup) {
+      return 1;
+    }
+    if (a.timeLeftGroup > b.timeLeftGroup) {
+      return -1;
+    }
+    return 0;
+  };
 
   useEffect(() => {
     const newToDoCards = cards
@@ -44,17 +52,7 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsToDo(
-      newToDoCards.sort((a, b) => {
-        if (a.timeLeftGroup < b.timeLeftGroup) {
-          return -1;
-        }
-        if (a.timeLeftGroup > b.timeLeftGroup) {
-          return 1;
-        }
-        return 0;
-      })
-    );
+    setCardsToDo(newToDoCards.sort(cardSort));
 
     const newDoingCards = cards
       .filter((card) => card.status === "DOING")
@@ -66,17 +64,7 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsDoing(
-      newDoingCards.sort((a, b) => {
-        if (a.timeLeftGroup < b.timeLeftGroup) {
-          return -1;
-        }
-        if (a.timeLeftGroup > b.timeLeftGroup) {
-          return 1;
-        }
-        return 0;
-      })
-    );
+    setCardsDoing(newDoingCards.sort(cardSort));
 
     const newDoneCards = cards
       .filter((card) => card.status === "DONE")
@@ -88,17 +76,7 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsDone(
-      newDoneCards.sort((a, b) => {
-        if (a.timeLeftGroup < b.timeLeftGroup) {
-          return -1;
-        }
-        if (a.timeLeftGroup > b.timeLeftGroup) {
-          return 1;
-        }
-        return 0;
-      })
-    );
+    setCardsDone(newDoneCards.sort(cardSort));
   }, [cards]);
 
   let cardSubscription;
@@ -168,7 +146,7 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsToDo(newCardsArray);
-        setCardsDoing([...cardsDoing, card]);
+        setCardsDoing([...cardsDoing, card].sort(cardSort));
       }
       if (
         source.droppableId === "card-list-todo" &&
@@ -181,7 +159,7 @@ const CardListsContainer = () => {
         const [card] = newCardsArray.splice(index, 1);
         doneStatus = card.timeLeftGroup;
         setCardsToDo(newCardsArray);
-        setCardsDone([...cardsDone, card]);
+        setCardsDone([...cardsDone, card].sort(cardSort));
       }
       if (
         source.droppableId === "card-list-doing" &&
@@ -193,7 +171,7 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDoing(newCardsArray);
-        setCardsToDo([...cardsToDo, card]);
+        setCardsToDo([...cardsToDo, card].sort(cardSort));
       }
       if (
         source.droppableId === "card-list-doing" &&
@@ -206,7 +184,7 @@ const CardListsContainer = () => {
         const [card] = newCardsArray.splice(index, 1);
         doneStatus = card.timeLeftGroup;
         setCardsDoing(newCardsArray);
-        setCardsDone([...cardsDone, card]);
+        setCardsDone([...cardsDone, card].sort(cardSort));
       }
       if (
         source.droppableId === "card-list-done" &&
@@ -218,7 +196,7 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDone(newCardsArray);
-        setCardsToDo([...cardsToDo, card]);
+        setCardsToDo([...cardsToDo, card].sort(cardSort));
       }
       if (
         source.droppableId === "card-list-done" &&
@@ -230,7 +208,7 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDone(newCardsArray);
-        setCardsDoing([...cardsDoing, card]);
+        setCardsDoing([...cardsDoing, card].sort(cardSort));
       }
 
       const cardQuery = await DataStore.query(Card, (c) =>
