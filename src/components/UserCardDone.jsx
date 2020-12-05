@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, Typography, Chip } from "@material-ui/core";
+import { Card, CardContent, Typography, Chip, Grid } from "@material-ui/core";
 import "./UserCardDone.css";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -9,6 +9,7 @@ const UserCardDone = ({
   startDate,
   endDate,
   openCard,
+  tag,
   timeLeftGroup,
   index,
 }) => {
@@ -25,27 +26,42 @@ const UserCardDone = ({
           innerRef={provided.innerRef}
         >
           <CardContent className="card-list-element-content">
-            <Typography className="card-list-element-content-title">
-              {title}
-            </Typography>
-            <span className="card-dates-container">
-              <div className="start-date-chip-container">
-                <Chip
-                  label={startDate}
-                  variant="outlined"
-                  className="start-date-chip"
-                  color="primary"
-                />
-              </div>
-              <div className="end-date-chip-container">
-                <Chip
-                  label={endDate}
-                  variant="outlined"
-                  className="end-date-chip"
-                  color="primary"
-                />
-              </div>
-            </span>
+            <Grid container >
+              <Grid item xs={12} className="card-list-element-content-tag-container">
+                {tag ? (
+                  <Typography className="card-list-element-content-tag">
+                    {tag}
+                  </Typography>
+                ) : null}
+              </Grid>
+              <Grid container alignItems="center">
+                <Grid item  className="card-list-element-content-title-container">
+                  <Typography className="card-list-element-content-title">
+                    {title}
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <span className="card-dates-container">
+                    <div className="start-date-chip-container">
+                      <Chip
+                        label={startDate}
+                        variant="outlined"
+                        className="start-date-chip"
+                        color="primary"
+                      />
+                    </div>
+                    <div className="end-date-chip-container">
+                      <Chip
+                        label={endDate}
+                        variant="outlined"
+                        className="end-date-chip"
+                        color="primary"
+                      />
+                    </div>
+                  </span>
+                </Grid>
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       )}

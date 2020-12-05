@@ -136,7 +136,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const tagClickAway = async () => {
     const newTag = tag.trim();
 
-    if (newTag !== cardTag && tagChanged && tag.length < 50) {
+    if (newTag !== cardTag && tagChanged && tag.length <= 30) {
       console.log("UPDATING TAG");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
@@ -276,7 +276,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
                 setTag(e.target.value);
                 setTagChanged(true);
               }}
-              error={tag.length > 50}
+              error={tag.length > 30}
               value={tag}
               placeholder="Set a tag..."
             />

@@ -30,20 +30,53 @@
     justify-content: center;
 }
 
+.card-list-element-content-title-container{
+    display: table-cell;
+    background-color: rgba(255,255,255,0.25);
+    min-height: 66px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left: 8px !important;
+    width: calc(100% - 96px)
+}
 .card-list-element-content-title{
+    min-height: 66px;
     padding-left: 10px;
+    padding-right: 10px;
     float: left;
-    width: calc(100% - 95px);
     margin: 0px !important;
     display: flex;
     align-items: center;
-    background-color: rgba(255,255,255,0.25);
     border-radius: 10px;
 }
 
-.card-dates-container{
-    float: right;
+.card-list-element-content-tag-container{
+    justify-content: center;
+    display: flex;
+}
+
+.card-list-element-content-tag{
+    display: inline-block;
     padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.25);
+    max-width: 80%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 5px !important;
+    font-size: 0.75rem !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.08333em !important;
+    text-transform: uppercase !important;
+}
+
+.card-dates-container{
+    float: left;
+    padding-left: 5px;
+    width: 100%;
 }
 
 .start-date-chip-container{

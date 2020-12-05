@@ -379,6 +379,7 @@ const CardListsContainer = () => {
                         timeLeftGroup={card.timeLeftGroup}
                         openCard={openUserCardDialog}
                         key={card.id}
+                        tag={card.tag}
                         index={index}
                       />
                     );
