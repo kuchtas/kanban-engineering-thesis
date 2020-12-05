@@ -24,18 +24,18 @@ export const setClassByDeadlineCloseness = (startDate, endDate) => {
               return "deadline-term-5";
     else if (new Date(startDate).setHours(0, 0, 0, 0) -
               new Date() > 0)
-               return;
+               return "deadline-term-0";
     else if (new Date(endDate).setHours(23, 59, 59, 59) -
-             new Date(startDate).setHours(0, 0, 0, 0) > 518400000) // less 6 days left - 2
+              new Date() > 518400000) // less 6 days left - 2
               return "deadline-term-1";
     else if (new Date(endDate).setHours(23, 59, 59, 59) -
-             new Date(startDate).setHours(0, 0, 0, 0) > 345600000) // less 4 days left - 3
+              new Date() > 345600000) // less 4 days left - 3
               return "deadline-term-2";
     else if (new Date(endDate).setHours(23, 59, 59, 59) -
-              new Date(startDate).setHours(0, 0, 0, 0) > 172800000) // less 2 days left - 4
+              new Date() > 172800000) // less 2 days left - 4
               return "deadline-term-3";
     else if (new Date(endDate).setHours(23, 59, 59, 59) -
-              new Date(startDate).setHours(0, 0, 0, 0) > 0)
+              new Date() > 0)
               return "deadline-term-4";
   }
   };
