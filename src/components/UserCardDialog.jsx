@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Dialog,
@@ -9,34 +9,34 @@ import {
   TextField,
   Button,
   MuiThemeProvider,
-  Divider,
+  // Divider,
   Grid,
-  FormControlLabel,
-  Checkbox,
-  FormGroup,
+  // FormControlLabel,
+  // Checkbox,
+  // FormGroup,
   ClickAwayListener,
   Card as MaterialUICard,
 } from "@material-ui/core";
 // GraphQL
 import { User, Card, Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
-// Redux 
+// Redux
 import { useSelector } from "react-redux";
 // CSS
 import "./UserCardDialog.css";
 import { cardTitleEditTheme } from "../themes/cardTitleEditTheme";
-import {deleteButtonTheme} from "../themes/deleteButtonTheme";
+import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { cardDescriptionEditTheme } from "../themes/cardDescriptionEditTheme";
-import DescriptionIcon from '@material-ui/icons/Description';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import DescriptionIcon from "@material-ui/icons/Description";
+// import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import LabelIcon from "@material-ui/icons/Label";
 import GroupIcon from "@material-ui/icons/Group";
 import AddUserToCard from "./AddUserToCard";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
-import CardPoints from "./CardPoints";
+// import CardPoints from "./CardPoints";
 import { userCardDatesTheme } from "../themes/userCardDatesTheme";
 // utils
-import {setClassByDeadlineCloseness} from "../utils/deadline"
+import { setClassByDeadlineCloseness } from "../utils/deadline";
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
     id: cardID,
@@ -105,7 +105,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       setDescription(newDescription);
       setDescriptionChanged(false);
     } else {
-      setDescription(description);
+      setDescription(cardDescription);
     }
   };
 
@@ -116,7 +116,8 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       newTitle !== cardTitle &&
       newTitle !== null &&
       newTitle !== "" &&
-      titleChanged && newTitle.length < 120
+      titleChanged &&
+      newTitle.length < 120
     ) {
       console.log("UPDATING TITLE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
@@ -155,7 +156,11 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const startDateClickAway = async () => {
     const newStartDate = startDate;
 
-    if (newStartDate !== cardStartDate && startDateChanged) {
+    if (
+      newStartDate !== cardStartDate &&
+      startDateChanged &&
+      endDate > startDate
+    ) {
       console.log("UPDATING START DATE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
@@ -167,14 +172,14 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       setStartDate(newStartDate);
       setStartDateChanged(false);
     } else {
-      setStartDate(startDate);
+      setStartDate(cardStartDate);
     }
   };
 
   const endDateClickAway = async () => {
     const newEndDate = endDate;
 
-    if (newEndDate !== cardEndDate && endDateChanged) {
+    if (newEndDate !== cardEndDate && endDateChanged && endDate > startDate) {
       console.log("UPDATING END DATE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
@@ -186,7 +191,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       setEndDate(newEndDate);
       setEndDateChanged(false);
     } else {
-      setEndDate(endDate);
+      setEndDate(cardEndDate);
     }
   };
 
