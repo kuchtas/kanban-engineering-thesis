@@ -59,6 +59,12 @@ const AddTodoCardDialog = ({
     closeAddTodoCardDialog();
   };
 
+  const clearInputs = () => {
+    setTitle("");
+    setStartDate(null);
+    setEndDate(null);
+  };
+
   useEffect(() => {
     title.length > 120 ? setTitleTooLong(true) : setTitleTooLong(false);
   }, [title]);
@@ -68,6 +74,7 @@ const AddTodoCardDialog = ({
       className="add-todo-card-dialog"
       open={openAddTodoCardDialog}
       onClose={closeAddTodoCardDialog}
+      onEnter={clearInputs}
       fullWidth
     >
       <DialogTitle className="add-todo-card-dialog-title">
@@ -104,6 +111,7 @@ const AddTodoCardDialog = ({
             shrink: true,
           }}
           fullWidth
+          error={startDate > endDate}
         />
         <TextField
           className="add-todo-card-dialog-textfield-enddate"
@@ -116,6 +124,7 @@ const AddTodoCardDialog = ({
             shrink: true,
           }}
           fullWidth
+          error={startDate > endDate}
         />
       </DialogContent>
       <DialogActions>
@@ -135,7 +144,8 @@ const AddTodoCardDialog = ({
             startDate === null ||
             endDate === null ||
             title === "" ||
-            titleTooLong
+            titleTooLong ||
+            startDate > endDate
           }
           className="add-todo-card-dialog-add-button"
         >
