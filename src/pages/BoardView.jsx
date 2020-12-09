@@ -4,10 +4,10 @@ import { Board, Card, User } from "../models/index";
 import { DataStore, SortDirection } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
-import store from '../store';
+import store from "../store";
 // CSS
 import "./BoardView.css";
-// Components 
+// Components
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 import InvalidUserError from "../components/InvalidUserError";
@@ -22,9 +22,6 @@ const BoardView = ({ history, match }) => {
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
-  // const [loadingTodoCards, setLoadingTodoCards] = useState(true);
-  // const [loadingDoingCards, setLoadingDoingCards] = useState(true);
-  // const [loadingDoneCards, setLoadingDoneCards] = useState(true);
   const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
   const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
 
@@ -45,24 +42,6 @@ const BoardView = ({ history, match }) => {
         console.log(c.opType);
         loadCards();
       });
-      // const subscriptionTodo = DataStore.observe(Card, (c) =>
-      //   c.boardID("eq", match.params.id).status("eq", "TODO")
-      // ).subscribe((c) => {
-      //   console.log(c.opType);
-      //   loadTodoCards();
-      // });
-      // const subscriptionDoing = DataStore.observe(Card, (c) =>
-      //   c.boardID("eq", match.params.id).status("eq", "DOING")
-      // ).subscribe((c) => {
-      //   console.log(c.opType);
-      //   loadDoingCards();
-      // });
-      // const subscriptionDone = DataStore.observe(Card, (c) =>
-      //   c.boardID("eq", match.params.id).status("eq", "DONE")
-      // ).subscribe((c) => {
-      //   console.log(c.opType);
-      //   loadDoneCards();
-      // });
 
       const subscriptionOnBoard = DataStore.observe(Board, (b) =>
         b.id("eq", match.params.id)
@@ -73,14 +52,11 @@ const BoardView = ({ history, match }) => {
 
       return () => {
         subscriptionOnCards.unsubscribe();
-        // subscriptionTodo.unsubscribe();
-        // subscriptionDoing.unsubscribe();
-        // subscriptionDone.unsubscribe();
         subscriptionOnBoard.unsubscribe();
-      };;
+      };
     }
   }, [user]);
-  
+
   const loadCards = async () => {
     const cardsQuery = await DataStore.query(
       Card,
@@ -94,30 +70,6 @@ const BoardView = ({ history, match }) => {
     setLoadingCards(false);
   };
 
-  // const loadTodoCards = async () => {
-  //   const cardsToDoQuery = await DataStore.query(Card, (c) =>
-  //     c.boardID("eq", match.params.id).status("eq", "TODO")
-  //   );
-  //   store.dispatch({ type: "cards/todoloaded", payload: cardsToDoQuery });
-  //   setLoadingTodoCards(false);
-  // };
-
-  // const loadDoingCards = async () => {
-  //   const cardsDoingQuery = await DataStore.query(Card, (c) =>
-  //     c.boardID("eq", match.params.id).status("eq", "DOING")
-  //   );
-  //   store.dispatch({ type: "cards/doingloaded", payload: cardsDoingQuery });
-  //   setLoadingDoingCards(false);
-  // };
-
-  // const loadDoneCards = async () => {
-  //   const cardsDoneQuery = await DataStore.query(Card, (c) =>
-  //     c.boardID("eq", match.params.id).status("eq", "DONE")
-  //   );
-  //   store.dispatch({ type: "cards/doneloaded", payload: cardsDoneQuery });
-  //   setLoadingDoneCards(false);
-  // };
-
   const deleteBoard = async () => {
     const boardQuery = await DataStore.query(Board, (b) =>
       b.id("eq", match.params.id)
@@ -128,7 +80,7 @@ const BoardView = ({ history, match }) => {
     );
 
     console.log(userQuery);
-    userQuery.forEach( async (userQuery) => {
+    userQuery.forEach(async (userQuery) => {
       console.log(userQuery);
       await DataStore.save(
         User.copyOf(userQuery, (updated) => {
@@ -136,7 +88,7 @@ const BoardView = ({ history, match }) => {
           updated.boards.splice(index, 1);
         })
       );
-    })
+    });
 
     await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
     store.dispatch({ type: "cards/deleted", payload: [] });
@@ -185,13 +137,10 @@ const BoardView = ({ history, match }) => {
   const closeMemberAdditionDialog = () => {
     setOpenAddMemberDialog(false);
   };
-  
+
   useEffect(() => {
     if (loadingBoard) loadBoard();
     if (loadingCards) loadCards();
-    // if (loadingTodoCards) loadTodoCards();
-    // if (loadingDoingCards) loadDoingCards();
-    // if (loadingDoneCards) loadDoneCards();
   });
 
   useEffect(() => {
@@ -200,12 +149,7 @@ const BoardView = ({ history, match }) => {
 
   return (
     <React.Fragment>
-      {
-      // loadingTodoCards ||
-      // loadingDoingCards ||
-      // loadingDoneCards ||
-      loadingCards ||
-      loadingBoard ? (
+      {loadingCards || loadingBoard ? (
         <div className="board-view-page">
           {/* display spinner when loading */}
           <Navigation history={history} />
@@ -219,12 +163,7 @@ const BoardView = ({ history, match }) => {
             openBoardDeletionDialog={openBoardDeletionDialog}
             openMemberAdditionDialog={openMemberAdditionDialog}
           />
-          <CardListsContainer
-            // loadTodoCards={loadTodoCards}
-            // loadDoingCards={loadDoingCards}
-            // loadDoneCards={loadDoneCards}
-            loadCards={loadCards}
-          />
+          <CardListsContainer loadCards={loadCards} />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}
