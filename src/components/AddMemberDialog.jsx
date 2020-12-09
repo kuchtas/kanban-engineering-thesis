@@ -16,6 +16,7 @@ import React, { useState } from "react";
 // CSS
 import "./AddMemberDialog.css";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
+import { placeholderDeleteUserFromCardTheme } from "../themes/placeholderDeleteUserFromCardTheme";
 
 const AddMemberDialog = ({
   openAddMemberDialog,
@@ -55,17 +56,24 @@ const AddMemberDialog = ({
                 className="card-dialog-user"
                 key={user}
               >
-                {user}
-                <MuiThemeProvider theme={deleteUserFromCardTheme}>
-                  {user !== currentUser ? (
+                <Typography className="card-dialog-user-title">
+                  {user}
+                </Typography>
+
+                {user !== currentUser ? (
+                  <MuiThemeProvider theme={deleteUserFromCardTheme}>
                     <Button
                       className="delete-user-from-card-button"
                       onClick={() => deleteMember(user)}
                     >
                       X
                     </Button>
-                  ) : null}
-                </MuiThemeProvider>
+                  </MuiThemeProvider>
+                ) : (
+                  <MuiThemeProvider theme={placeholderDeleteUserFromCardTheme}>
+                    <Button className="placeholder-button">X</Button>
+                  </MuiThemeProvider>
+                )}
               </MaterialUICard>
             );
           })}

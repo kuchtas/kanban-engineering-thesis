@@ -1,135 +1,168 @@
-.user-card-dialog-title-container{
-    padding-bottom: 3px !important;
+.user-card-dialog-title-container {
+  padding-bottom: 3px !important;
 }
 
-.user-card-dialog-title{
-    
+.user-card-dialog-title {
 }
 
-.user-card-description-label{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: -4px !important;
-    margin-bottom: 3px !important;
+.user-card-description-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -4px !important;
+  margin-bottom: 3px !important;
 }
 
-.user-card-tag-label{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: -4px !important;
-    margin-bottom: 3px !important;
+.user-card-tag-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -4px !important;
+  margin-bottom: 3px !important;
 }
 
-.user-card-tag-dialog-textfield{
-    margin-top: 0px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+.user-card-tag-dialog-textfield {
+  margin-top: 0px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-.user-card-points-label{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: -4px !important;
-    margin-bottom: 3px !important;
+.user-card-points-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -4px !important;
+  margin-bottom: 3px !important;
 }
 
-.user-card-dialog-status{
-    float: right;
-    margin-top: 2px !important;
+.user-card-dialog-status {
+  float: right;
+  margin-top: 2px !important;
 }
 
-.user-card-description-dialog-textfield{
-    margin-top: 0px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+.user-card-description-dialog-textfield {
+  margin-top: 0px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
-.user-card-description-dialog-textfield::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+.user-card-description-dialog-textfield::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
-.user-card-users-label{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: -4px !important;
-    margin-bottom: 3px !important;
+.user-card-users-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -4px !important;
+  margin-bottom: 3px !important;
 }
 
-.card-dialog-users-container{
-    min-height: 0px;
-    max-height: 100px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+.card-dialog-users-container {
+  min-height: 0px;
+  max-height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
-.card-dialog-users-container::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+.card-dialog-users-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
-.delete-user-from-card-button{
-    color:red !important;
-    float: right;
-    padding: 0px !important;
-    min-width: 15px !important;
+.delete-user-from-card-button {
+  color: red !important;
+  float: right;
+  padding: 0px !important;
+  min-width: 15px !important;
 }
 
-.card-dialog-user{
-    width: 98%;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid rgb(224, 224, 231);
-    margin-top: 3px;
-    text-align: center;
-    height: 25px;
-    background-color: rgba(224, 224, 231, 0.3) !important;
-    border-color: white !important;
+.card-dialog-user-title {
+  display: inline-block;
+  width: calc(100% - 15px);
+  /* left: 15px; */
+  margin: 0px !important;
+  margin-right: 0px !important;
+  /* max-width: 70px; */
+  position: relative;
+  left: 15px;
+}
+.card-dialog-user {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgb(224, 224, 231);
+  margin-top: 3px;
+  text-align: center;
+  height: 25px;
+  background-color: rgba(224, 224, 231, 0.3) !important;
+  border-color: white !important;
 }
 
-.delete-card-dialog-delete-button{
-    color: red !important;
+.delete-card-dialog-delete-button {
+  color: red !important;
 }
 
-.delete-card-dialog-delete-button:enabled{
-    border: 1px red solid !important;
+.delete-card-dialog-delete-button:enabled {
+  border: 1px red solid !important;
 }
 
-.user-card-dialog-textfield-startdate{
-    max-width: 165px;
+.user-card-dialog-textfield-startdate {
+  max-width: 165px;
 }
 
-.user-card-dialog-textfield-enddate{
-    max-width: 165px;
+.user-card-dialog-textfield-enddate {
+  max-width: 165px;
 }
 
-.user-card-dialog-content-deadline-term-0{
-    background-color: rgba(223, 233, 243, 0.1) !important;
-    background-image: linear-gradient(315deg,rgba(223, 233, 243, 0.5) 0%, rgba(232, 239, 247, 0.5) 74%);
+.user-card-dialog-content-deadline-term-0 {
+  background-color: rgba(223, 233, 243, 0.1) !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(223, 233, 243, 0.5) 0%,
+    rgba(232, 239, 247, 0.5) 74%
+  );
 }
-.user-card-dialog-content-deadline-term-1{
-    background-color: rgba(248, 239, 66, 0.1) !important;
-    background-image: linear-gradient(315deg, rgba(248, 239, 66,0.5) 0%,  rgba(15, 214, 79,0.5) 74%);
+.user-card-dialog-content-deadline-term-1 {
+  background-color: rgba(248, 239, 66, 0.1) !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(248, 239, 66, 0.5) 0%,
+    rgba(15, 214, 79, 0.5) 74%
+  );
 }
-.user-card-dialog-content-deadline-term-2{
-    background-color: rgba(251, 176, 52, 0.1) !important;
-    background-image: linear-gradient(315deg, rgba(251, 176, 52,0.5) 0%, rgba(248, 239, 66,0.5) 74%);
+.user-card-dialog-content-deadline-term-2 {
+  background-color: rgba(251, 176, 52, 0.1) !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(251, 176, 52, 0.5) 0%,
+    rgba(248, 239, 66, 0.5) 74%
+  );
 }
-.user-card-dialog-content-deadline-term-3{
-    background-color: rgba(249, 72, 74, 0.1) !important;
-    background-image: linear-gradient(315deg, rgba(249, 72, 74,0.5) 0%, rgba(251, 176, 52,0.5) 74%);
+.user-card-dialog-content-deadline-term-3 {
+  background-color: rgba(249, 72, 74, 0.1) !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(249, 72, 74, 0.5) 0%,
+    rgba(251, 176, 52, 0.5) 74%
+  );
 }
-.user-card-dialog-content-deadline-term-4{
-    background-color: rgba(249, 72, 74, 0.1) !important;
-    background-image: linear-gradient(315deg, rgba(248, 21, 21,0.5) 0%, rgba(249, 72, 74,0.5) 74%);
+.user-card-dialog-content-deadline-term-4 {
+  background-color: rgba(249, 72, 74, 0.1) !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(248, 21, 21, 0.5) 0%,
+    rgba(249, 72, 74, 0.5) 74%
+  );
 }
-.user-card-dialog-content-deadline-term-5{
-    background-color: rgba(91, 100, 103, 0.1);
-    background-image: linear-gradient(315deg, rgba(91, 100, 103,0.5) 0%, rgba(139, 147, 154,0.5) 74%);
+.user-card-dialog-content-deadline-term-5 {
+  background-color: rgba(91, 100, 103, 0.1);
+  background-image: linear-gradient(
+    315deg,
+    rgba(91, 100, 103, 0.5) 0%,
+    rgba(139, 147, 154, 0.5) 74%
+  );
 }

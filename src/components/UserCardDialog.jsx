@@ -380,7 +380,9 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
                 className="card-dialog-user"
                 key={user}
               >
-                {user}
+                <Typography className="card-dialog-user-title">
+                  {user}
+                </Typography>
                 <MuiThemeProvider theme={deleteUserFromCardTheme}>
                   <Button
                     className="delete-user-from-card-button"

@@ -1,0 +1,6 @@
+.placeholder-button {
+  color: transparent !important;
+  float: right;
+  padding: 0px !important;
+  min-width: 15px !important;
+}
