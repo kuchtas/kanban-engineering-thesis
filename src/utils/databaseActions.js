@@ -25,3 +25,23 @@ export const deleteCard = async (cID, bID) => {
 
   await DataStore.delete(cardQuery[0]);
 };
+
+export const deleteUser = async (user, cID) => {
+  const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cID));
+
+  const userQuery = await DataStore.query(User, (u) => u.name("eq", user));
+
+  await DataStore.save(
+    Card.copyOf(cardQuery[0], (updated) => {
+      const index = updated.users.indexOf(user);
+      updated.users.splice(index, 1);
+    })
+  );
+
+  await DataStore.save(
+    User.copyOf(userQuery[0], (updated) => {
+      const index = updated.cards.indexOf(cID);
+      updated.cards.splice(index, 1);
+    })
+  );
+};

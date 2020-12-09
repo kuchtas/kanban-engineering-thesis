@@ -16,7 +16,7 @@ import BoardViewHeader from "../components/BoardViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
 // utils
-
+import { deleteUser } from "../utils/databaseActions";
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
   const { id, users } = useSelector((state) => state.board);
@@ -127,6 +127,9 @@ const BoardView = ({ history, match }) => {
       b.id("eq", match.params.id)
     );
     const userQuery = await DataStore.query(User, (u) => u.name("eq", member));
+    const cardQuery = await DataStore.query(Card, (c) =>
+      c.users("contains", member)
+    );
 
     if (userQuery.length !== 0 && boardQuery.length !== 0) {
       await DataStore.save(
@@ -142,6 +145,10 @@ const BoardView = ({ history, match }) => {
           updated.boards.splice(index, 1);
         })
       );
+
+      cardQuery.forEach(async (card) => {
+        await deleteUser(member, card.id);
+      });
     }
   };
 
