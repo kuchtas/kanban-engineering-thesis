@@ -59,6 +59,7 @@ const BoardView = ({ history, match }) => {
       });
 
       return () => {
+        console.log("unsubsribing from cards and boards in BoardView");
         subscriptionOnCards.unsubscribe();
         subscriptionOnBoard.unsubscribe();
       };
