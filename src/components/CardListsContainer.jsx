@@ -4,21 +4,21 @@ import { useSelector } from "react-redux";
 import store from "../store";
 // CSS
 import "./CardListsContainer.css";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 // Components
-import { Grid, Card as MaterialUICard, Typography } from "@material-ui/core";
-import AddCard from "../components/AddCard";
+import { Grid } from "@material-ui/core";
 import AddTodoCardDialog from "../components/AddTodoCardDialog";
 import AddDoingCardDialog from "../components/AddDoingCardDialog";
 import AddDoneCardDialog from "../components/AddDoneCardDialog";
 import UserCardDialog from "./UserCardDialog";
-import UserCard from "../components/UserCard";
-import UserCardDone from "../components/UserCardDone";
 // GraphQL
 import { DataStore } from "@aws-amplify/datastore";
 import { Card } from "../models/index";
 // Utils
 import { setClassByDeadlineCloseness } from "../utils/deadline";
+import TodoList from "./TodoList";
+import DoingList from "./DoingList";
+import DoneList from "./DoneList";
 
 const CardListsContainer = () => {
   const { cards } = useSelector((state) => state.cards);
@@ -30,8 +30,11 @@ const CardListsContainer = () => {
   const [openDoingCardDialog, setAddDoingCardDialog] = useState(false);
   const [openDoneCardDialog, setAddDoneCardDialog] = useState(false);
   const [showUserCardDialog, setShowUserCardDialog] = useState(false);
+  const [sortTodoByDeadline, setSortTodoByDeadline] = useState(true);
+  const [sortDoingByDeadline, setSortDoingByDeadline] = useState(true);
+  const [sortDoneByDeadline, setSortDoneByDeadline] = useState(true);
 
-  const cardSort = (a, b) => {
+  const deadlineSort = (a, b) => {
     if (a.timeLeftGroup < b.timeLeftGroup) {
       return 1;
     }
@@ -39,6 +42,35 @@ const CardListsContainer = () => {
       return -1;
     }
     return 0;
+  };
+
+  const tagSort = (a, b) => {
+    if (a.tag.toLowerCase() < b.tag.toLowerCase()) {
+      return -1;
+    }
+    if (a.tag.toLowerCase() > b.tag.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const changeSortTodoMethodDeadline = () => {
+    setSortTodoByDeadline(true);
+  };
+  const changeSortTodoMethodTag = () => {
+    setSortTodoByDeadline(false);
+  };
+  const changeSortDoingMethodDeadline = () => {
+    setSortDoingByDeadline(true);
+  };
+  const changeSortDoingMethodTag = () => {
+    setSortDoingByDeadline(false);
+  };
+  const changeSortDoneMethodDeadline = () => {
+    setSortDoneByDeadline(true);
+  };
+  const changeSortDoneMethodTag = () => {
+    setSortDoneByDeadline(false);
   };
 
   useEffect(() => {
@@ -52,19 +84,23 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsToDo(newToDoCards.sort(cardSort));
+    setCardsToDo(
+      newToDoCards.sort(sortTodoByDeadline ? deadlineSort : tagSort)
+    );
 
     const newDoingCards = cards
       .filter((card) => card.status === "DOING")
       .map((a) => ({ ...a }));
-      newDoingCards.forEach(
+    newDoingCards.forEach(
       (card) =>
         (card.timeLeftGroup = setClassByDeadlineCloseness(
           card.startDate,
           card.endDate
         ))
     );
-    setCardsDoing(newDoingCards.sort(cardSort));
+    setCardsDoing(
+      newDoingCards.sort(sortDoingByDeadline ? deadlineSort : tagSort)
+    );
 
     const newDoneCards = cards
       .filter((card) => card.status === "DONE")
@@ -76,8 +112,10 @@ const CardListsContainer = () => {
           card.endDate
         ))
     );
-    setCardsDone(newDoneCards.sort(cardSort));
-  }, [cards]);
+    setCardsDone(
+      newDoneCards.sort(sortDoneByDeadline ? deadlineSort : tagSort)
+    );
+  }, [cards, sortDoneByDeadline, sortDoingByDeadline, sortTodoByDeadline]);
 
   let cardSubscription;
   const openAddTodoCardDialog = () => {
@@ -146,7 +184,11 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsToDo(newCardsArray);
-        setCardsDoing([...cardsDoing, card].sort(cardSort));
+        setCardsDoing(
+          [...cardsDoing, card].sort(
+            sortDoingByDeadline ? deadlineSort : tagSort
+          )
+        );
       }
       if (
         source.droppableId === "card-list-todo" &&
@@ -159,7 +201,9 @@ const CardListsContainer = () => {
         const [card] = newCardsArray.splice(index, 1);
         doneStatus = card.timeLeftGroup;
         setCardsToDo(newCardsArray);
-        setCardsDone([...cardsDone, card].sort(cardSort));
+        setCardsDone(
+          [...cardsDone, card].sort(sortDoneByDeadline ? deadlineSort : tagSort)
+        );
       }
       if (
         source.droppableId === "card-list-doing" &&
@@ -171,7 +215,9 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDoing(newCardsArray);
-        setCardsToDo([...cardsToDo, card].sort(cardSort));
+        setCardsToDo(
+          [...cardsToDo, card].sort(sortTodoByDeadline ? deadlineSort : tagSort)
+        );
       }
       if (
         source.droppableId === "card-list-doing" &&
@@ -184,7 +230,9 @@ const CardListsContainer = () => {
         const [card] = newCardsArray.splice(index, 1);
         doneStatus = card.timeLeftGroup;
         setCardsDoing(newCardsArray);
-        setCardsDone([...cardsDone, card].sort(cardSort));
+        setCardsDone(
+          [...cardsDone, card].sort(sortDoneByDeadline ? deadlineSort : tagSort)
+        );
       }
       if (
         source.droppableId === "card-list-done" &&
@@ -196,7 +244,9 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDone(newCardsArray);
-        setCardsToDo([...cardsToDo, card].sort(cardSort));
+        setCardsToDo(
+          [...cardsToDo, card].sort(sortTodoByDeadline ? deadlineSort : tagSort)
+        );
       }
       if (
         source.droppableId === "card-list-done" &&
@@ -208,7 +258,11 @@ const CardListsContainer = () => {
         );
         const [card] = newCardsArray.splice(index, 1);
         setCardsDone(newCardsArray);
-        setCardsDoing([...cardsDoing, card].sort(cardSort));
+        setCardsDoing(
+          [...cardsDoing, card].sort(
+            sortDoingByDeadline ? deadlineSort : tagSort
+          )
+        );
       }
 
       const cardQuery = await DataStore.query(Card, (c) =>
@@ -247,149 +301,27 @@ const CardListsContainer = () => {
     <React.Fragment>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Grid container className="card-lists-container">
-          <Grid
-            item
-            xs={4}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-            className="card-list-todo"
-          >
-            <MaterialUICard
-              variant="outlined"
-              className="card-list-header"
-              key="todo-header"
-            >
-              <Typography>TO DO</Typography>
-            </MaterialUICard>
-            <Droppable droppableId="card-list-todo">
-              {(provided) => (
-                <Grid
-                  item
-                  className="card-list"
-                  innerRef={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {cardsToDo.map((card, index) => {
-                    return (
-                      <UserCard
-                        id={card.id}
-                        title={card.title}
-                        startDate={card.startDate}
-                        endDate={card.endDate}
-                        status={card.status}
-                        description={card.description}
-                        tag={card.tag}
-                        users={card.users}
-                        points={card.points}
-                        timeLeftGroup={card.timeLeftGroup}
-                        openCard={openUserCardDialog}
-                        key={card.id}
-                        index={index}
-                      />
-                    );
-                  })}
-                  {provided.placeholder}
-                  <AddCard createCard={openAddTodoCardDialog} />
-                </Grid>
-              )}
-            </Droppable>
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-            className="card-list-doing"
-          >
-            <MaterialUICard
-              variant="outlined"
-              className="card-list-header"
-              key="doing-header"
-            >
-              <Typography>DOING</Typography>
-            </MaterialUICard>
-            <Droppable droppableId="card-list-doing">
-              {(provided) => (
-                <Grid
-                  item
-                  className="card-list"
-                  innerRef={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {cardsDoing.map((card, index) => {
-                    return (
-                      <UserCard
-                        id={card.id}
-                        title={card.title}
-                        startDate={card.startDate}
-                        endDate={card.endDate}
-                        status={card.status}
-                        description={card.description}
-                        tag={card.tag}
-                        users={card.users}
-                        points={card.points}
-                        timeLeftGroup={card.timeLeftGroup}
-                        openCard={openUserCardDialog}
-                        key={card.id}
-                        index={index}
-                      />
-                    );
-                  })}
-                  {provided.placeholder}
-                  <AddCard createCard={openAddDoingCardDialog} />
-                </Grid>
-              )}
-            </Droppable>
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-            className="card-list-done"
-          >
-            <MaterialUICard
-              variant="outlined"
-              className="card-list-header"
-              key="done-header"
-            >
-              <Typography>DONE</Typography>
-            </MaterialUICard>
-            <Droppable droppableId="card-list-done">
-              {(provided) => (
-                <Grid
-                  item
-                  className="card-list"
-                  innerRef={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {cardsDone.map((card, index) => {
-                    return (
-                      <UserCardDone
-                        id={card.id}
-                        title={card.title}
-                        startDate={card.startDate}
-                        endDate={card.endDate}
-                        timeLeftGroup={card.timeLeftGroup}
-                        openCard={openUserCardDialog}
-                        key={card.id}
-                        tag={card.tag}
-                        index={index}
-                      />
-                    );
-                  })}
-                  {provided.placeholder}
-                  <AddCard createCard={openAddDoneCardDialog} />
-                </Grid>
-              )}
-            </Droppable>
-          </Grid>
+          <TodoList
+            cardsToDo={cardsToDo}
+            openUserCardDialog={openUserCardDialog}
+            openAddTodoCardDialog={openAddTodoCardDialog}
+            changeSortTodoMethodDeadline={changeSortTodoMethodDeadline}
+            changeSortTodoMethodTag={changeSortTodoMethodTag}
+          />
+          <DoingList
+            cardsDoing={cardsDoing}
+            openUserCardDialog={openUserCardDialog}
+            openAddDoingCardDialog={openAddDoingCardDialog}
+            changeSortDoingMethodDeadline={changeSortDoingMethodDeadline}
+            changeSortDoingMethodTag={changeSortDoingMethodTag}
+          />
+          <DoneList
+            cardsDone={cardsDone}
+            openUserCardDialog={openUserCardDialog}
+            openAddDoneCardDialog={openAddDoneCardDialog}
+            changeSortDoneMethodDeadline={changeSortDoneMethodDeadline}
+            changeSortDoneMethodTag={changeSortDoneMethodTag}
+          />
         </Grid>
         <AddTodoCardDialog
           openAddTodoCardDialog={openTodoCardDialog}
