@@ -82,6 +82,7 @@ const BoardView = ({ history, match }) => {
         User.copyOf(userQuery, (updated) => {
           const index = updated.boards.indexOf(match.params.id);
           updated.boards.splice(index, 1);
+          if (updated.boards.length === 0) updated.cards = [];
         })
       );
     });
