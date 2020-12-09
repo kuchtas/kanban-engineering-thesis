@@ -18,6 +18,7 @@ import { globalTheme } from "./themes/globalTheme";
 import About from "./pages/About";
 import BoardList from "./pages/BoardList";
 import BoardView from "./pages/BoardView";
+import StatisticsView from "./pages/StatisticsView";
 // GraphQl
 import { User } from "./models/index";
 //Redux
@@ -95,6 +96,7 @@ function App() {
                 <Route path="/home" component={BoardList} />
                 <Route path="/board/:id" component={BoardView} exact={true} />
                 <Route path="/about" component={About} exact={true} />
+                <Route path="/board/:id/statistics" component={StatisticsView} exact={true} />
               </Switch>
             </Router>
           </Provider>

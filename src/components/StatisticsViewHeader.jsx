@@ -13,11 +13,11 @@ import {
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./BoardViewHeader.css";
+import "./StatisticsViewHeader.css";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 
-const BoardViewHeader = ({
+const StatisticsViewHeader = ({
   openBoardDeletionDialog,
   openMemberAdditionDialog,
   history,
@@ -51,13 +51,16 @@ const BoardViewHeader = ({
     }
   };
   return (
-    <Toolbar className="board-view-page-header-container" disableGutters={true}>
+    <Toolbar
+      className="statistics-view-page-header-container"
+      disableGutters={true}
+    >
       <MuiThemeProvider theme={boardTitleEditTheme}>
         <ClickAwayListener onClickAway={handleClickAway}>
           <TextField
-            key="board-title-form"
+            key="statistics-title-form"
             variant="outlined"
-            className="board-view-page-header-title"
+            className="statistics-view-page-header-title"
             margin="dense"
             onChange={(e) => setEditableTitle(e.target.value)}
             error={editableTitle?.length > 120}
@@ -71,15 +74,15 @@ const BoardViewHeader = ({
         </ClickAwayListener>
       </MuiThemeProvider>
       <Button
-        className="board-view-page-header-button-statistics"
+        className="statistics-view-page-header-button-statistics"
         variant="outlined"
         color="primary"
-        onClick={() => history.push(`${id}/statistics`)}
+        onClick={() => history.push(`/board/${id}`)}
       >
-        Statistics
+        Board
       </Button>
       <Button
-        className="board-view-page-header-button-members"
+        className="statistics-view-page-header-button-members"
         variant="outlined"
         color="primary"
         onClick={openMemberAdditionDialog}
@@ -88,7 +91,7 @@ const BoardViewHeader = ({
       </Button>
       <MuiThemeProvider theme={deleteButtonTheme}>
         <Button
-          className="board-view-page-header-button-delete"
+          className="statistics-view-page-header-button-delete"
           variant="outlined"
           color="primary"
           onClick={openBoardDeletionDialog}
@@ -100,4 +103,4 @@ const BoardViewHeader = ({
   );
 };
 
-export default BoardViewHeader;
+export default StatisticsViewHeader;

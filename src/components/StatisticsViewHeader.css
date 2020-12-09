@@ -1,9 +1,9 @@
-.board-view-page-header-container {
+.statistics-view-page-header-container {
   min-height: 30px !important;
   text-align: center;
 }
 
-.board-view-page-header-title {
+.statistics-view-page-header-title {
   /* margin-left: 8px; */
   max-height: 30px;
   max-width: 1000px;
@@ -12,7 +12,7 @@
   margin-right: 5px !important;
 }
 
-.board-view-page-header-button-delete {
+.statistics-view-page-header-button-delete {
   color: red !important;
   padding: 1px !important;
   padding-left: 5px !important;
@@ -23,7 +23,7 @@
   margin-right: 8px !important;
 }
 
-.board-view-page-header-button-members {
+.statistics-view-page-header-button-members {
   /* color: red !important; */
   padding: 1px !important;
   padding-left: 5px !important;
@@ -35,7 +35,7 @@
   /* margin-right: 8px; */
 }
 
-.board-view-page-header-button-statistics {
+.statistics-view-page-header-button-statistics {
   padding: 1px !important;
   padding-left: 5px !important;
   padding-right: 5px !important;

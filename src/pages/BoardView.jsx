@@ -4,7 +4,6 @@ import { Board, Card, User } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
-import store from "../store";
 // CSS
 import "./BoardView.css";
 // Components
@@ -17,7 +16,6 @@ import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
 // utils
 import {
-  deleteUser,
   loadBoard,
   loadCards,
   deleteBoard,
