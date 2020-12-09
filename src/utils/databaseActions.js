@@ -53,6 +53,15 @@ export const loadBoard = async (boardID) => {
     store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
 };
 
+export const loadBoards = async (name) => {
+  const boardsQuery = await DataStore.query(Board, (b) =>
+    b.users("contains", name)
+  );
+  return boardsQuery.sort((a, b) =>
+    a._lastChangedAt > b._lastChangedAt ? -1 : 1
+  );
+};
+
 export const loadCards = async (boardID) => {
   const cardsQuery = await DataStore.query(
     Card,
@@ -136,5 +145,28 @@ export const deleteMember = async (boardID, member) => {
     cardQuery.forEach(async (card) => {
       await deleteUser(member, card.id);
     });
+  }
+};
+
+export const createBoard = async (newBoardTitle, username) => {
+  if (newBoardTitle !== null && newBoardTitle !== "") {
+    const newBoard = await DataStore.save(
+      new Board({
+        title: newBoardTitle,
+        users: [username],
+        cards: [],
+      })
+    );
+
+    const userQuery = await DataStore.query(User, (u) =>
+      u.name("eq", username)
+    );
+    console.log("query", userQuery);
+
+    await DataStore.save(
+      User.copyOf(userQuery[0], (updated) => {
+        updated.boards = [...updated.boards, newBoard.id];
+      })
+    );
   }
 };

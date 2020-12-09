@@ -20,71 +20,49 @@ import {
   Divider,
   FormHelperText,
 } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
+import { loadBoards, createBoard } from "../utils/databaseActions";
 
-
-const BoardList = ({history}) => {
+const BoardList = ({ history }) => {
   const { user } = useSelector((state) => state.user);
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openCreateBoardDialog, setOpenCreateBoardDialog] = useState(false);
   const [newBoardTitle, setNewBoardTitle] = useState("");
 
-
-  const loadBoards = async () => {
-    const boardsQuery = await DataStore.query(Board, (b) =>
-      b.users("contains", user.name)
-    );
-    boardsQuery.sort((a, b) => (a._lastChangedAt > b._lastChangedAt ? -1 : 1));
+  const loadBoardsBoardList = async () => {
+    const boardsQuery = await loadBoards(user.name);
     setBoards(boardsQuery);
     setLoading(false);
   };
 
   useEffect(() => {
     if (user !== null) {
-        loadBoards();
-        const subscription = DataStore.observe(Board, (b) =>
-          b.users("contains", user.name)
-        ).subscribe((b) => {
-          console.log(b.opType);
-          loadBoards();
-        });
+      loadBoardsBoardList(user.name);
+      const subscription = DataStore.observe(Board, (b) =>
+        b.users("contains", user.name)
+      ).subscribe((b) => {
+        console.log(b.opType);
+        loadBoardsBoardList(user.name);
+      });
 
-        return () => {
-          subscription.unsubscribe();
-        };
-      }
+      return () => {
+        console.log("unsubsribing from board table");
+        subscription.unsubscribe();
+      };
+    }
   }, [user]);
 
-  const createBoard = async () => {
-    if(newBoardTitle!==null && newBoardTitle!==""){
-      const newBoard = await DataStore.save(
-        new Board({
-          title: newBoardTitle,
-          users: [user.name],
-          cards: [],
-        })
-      );
-  
-      const userQuery = await DataStore.query(User, (u) =>
-        u.name("eq", user.name)
-      );
-      console.log("query", userQuery);
-  
-      await DataStore.save(
-        User.copyOf(userQuery[0], (updated) => {
-          updated.boards = [...updated.boards, newBoard.id];
-        })
-      );
-    }
+  const createBoardBoardList = async () => {
+    createBoard(newBoardTitle, user.name);
     setOpenCreateBoardDialog(false);
   };
 
-  const openBoard = (board) =>{
+  const openBoard = (board) => {
     history.push(`/board/${board.id}`);
-  }
+  };
 
   const openBoardCreationDialog = () => {
     setNewBoardTitle(null);
@@ -177,7 +155,7 @@ const BoardList = ({history}) => {
                 onChange={(e) => setNewBoardTitle(e.target.value.trim())}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    createBoard();
+                    createBoardBoardList(newBoardTitle, user.name);
                   }
                 }}
               />
@@ -191,7 +169,7 @@ const BoardList = ({history}) => {
                 Cancel
               </Button>
               <Button
-                onClick={createBoard}
+                onClick={() => createBoardBoardList(newBoardTitle, user.name)}
                 color="primary"
                 variant="outlined"
                 disabled={
