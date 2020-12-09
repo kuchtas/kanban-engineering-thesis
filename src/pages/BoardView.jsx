@@ -15,6 +15,7 @@ import CardListsContainer from "../components/CardListsContainer";
 import BoardViewHeader from "../components/BoardViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
+// utils
 
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -71,17 +72,12 @@ const BoardView = ({ history, match }) => {
   };
 
   const deleteBoard = async () => {
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id)
-    );
-
     const userQuery = await DataStore.query(User, (u) =>
       u.boards("contains", match.params.id)
     );
-
     console.log(userQuery);
+
     userQuery.forEach(async (userQuery) => {
-      console.log(userQuery);
       await DataStore.save(
         User.copyOf(userQuery, (updated) => {
           const index = updated.boards.indexOf(match.params.id);
@@ -90,9 +86,13 @@ const BoardView = ({ history, match }) => {
       );
     });
 
+    const boardQuery = await DataStore.query(Board, (b) =>
+      b.id("eq", match.params.id)
+    );
     await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
+
     store.dispatch({ type: "cards/deleted", payload: [] });
-    DataStore.delete(boardQuery[0]);
+    await DataStore.delete(boardQuery[0]);
     history.push("/home");
 
     setOpenDeleteBoardDialog(false);
