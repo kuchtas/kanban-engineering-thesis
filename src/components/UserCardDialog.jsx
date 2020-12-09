@@ -37,6 +37,7 @@ import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
 import { userCardDatesTheme } from "../themes/userCardDatesTheme";
 // utils
 import { setClassByDeadlineCloseness } from "../utils/deadline";
+import { deleteCard } from "../utils/databaseActions";
 const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const {
     id: cardID,
@@ -193,21 +194,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     } else {
       setEndDate(cardEndDate);
     }
-  };
-
-  const deleteCard = async () => {
-    const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
-    const boardQuery = await DataStore.query(Board, (b) => b.id("eq", boardID));
-
-    await DataStore.save(
-      Board.copyOf(boardQuery[0], (updated) => {
-        const index = updated.cards.indexOf(cardID);
-        updated.cards.splice(index, 1);
-      })
-    );
-
-    DataStore.delete(cardQuery[0]);
-    handleClose();
   };
 
   const addUser = async (user) => {
@@ -400,7 +386,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
       <DialogActions>
         <MuiThemeProvider theme={deleteButtonTheme}>
           <Button
-            onClick={deleteCard}
+            onClick={() => deleteCard(cardID, boardID)}
             color="primary"
             variant="outlined"
             className="delete-card-dialog-delete-button"
