@@ -119,7 +119,29 @@ const BoardView = ({ history, match }) => {
         })
       );
     }
-    setOpenAddMemberDialog(false);
+  };
+
+  const deleteMember = async (member) => {
+    const boardQuery = await DataStore.query(Board, (b) =>
+      b.id("eq", match.params.id)
+    );
+    const userQuery = await DataStore.query(User, (u) => u.name("eq", member));
+
+    if (userQuery.length !== 0 && boardQuery.length !== 0) {
+      await DataStore.save(
+        Board.copyOf(boardQuery[0], (updated) => {
+          const index = updated.users.indexOf(member);
+          updated.users.splice(index, 1);
+        })
+      );
+
+      await DataStore.save(
+        User.copyOf(userQuery[0], (updated) => {
+          const index = updated.boards.indexOf(id);
+          updated.boards.splice(index, 1);
+        })
+      );
+    }
   };
 
   const openBoardDeletionDialog = () => {
@@ -173,6 +195,9 @@ const BoardView = ({ history, match }) => {
             openAddMemberDialog={openAddMemberDialog}
             closeMemberAdditionDialog={closeMemberAdditionDialog}
             addMember={addMember}
+            deleteMember={deleteMember}
+            users={users}
+            currentUser={user.name}
           />
         </div>
       ) : (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // GraphQL
 import { Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
@@ -14,20 +14,23 @@ import {
 import { useSelector } from "react-redux";
 // CSS
 import "./BoardViewHeader.css";
-import {deleteButtonTheme} from "../themes/deleteButtonTheme";
+import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 
-const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) => {
+const BoardViewHeader = ({
+  openBoardDeletionDialog,
+  openMemberAdditionDialog,
+}) => {
   const { id, title } = useSelector((state) => state.board);
   const [editableTitle, setEditableTitle] = useState(title);
 
   useEffect(() => {
     setEditableTitle(title);
   }, [title]);
-  
-  const handleClickAway = async () =>{
-    const newTitle = editableTitle.trim()
-    
+
+  const handleClickAway = async () => {
+    const newTitle = editableTitle.trim();
+
     if (
       newTitle !== title &&
       newTitle !== null &&
@@ -45,7 +48,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
     } else {
       setEditableTitle(title);
     }
-  }
+  };
   return (
     <Toolbar className="board-view-page-header-container" disableGutters={true}>
       <MuiThemeProvider theme={boardTitleEditTheme}>
@@ -72,7 +75,7 @@ const BoardViewHeader = ({ openBoardDeletionDialog, openMemberAdditionDialog }) 
         color="primary"
         onClick={openMemberAdditionDialog}
       >
-        Add a member
+        See members
       </Button>
       <MuiThemeProvider theme={deleteButtonTheme}>
         <Button
