@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // GraphQL
 import { Board, Card, User } from "../models/index";
-import { DataStore, SortDirection } from "@aws-amplify/datastore";
+import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
 import store from "../store";
@@ -16,7 +16,14 @@ import BoardViewHeader from "../components/BoardViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
 // utils
-import { deleteUser } from "../utils/databaseActions";
+import {
+  deleteUser,
+  loadBoard,
+  loadCards,
+  deleteBoard,
+  addMember,
+  deleteMember,
+} from "../utils/databaseActions";
 const BoardView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
   const { id, users } = useSelector((state) => state.board);
@@ -30,12 +37,8 @@ const BoardView = ({ history, match }) => {
     if (!loadingBoard) setUserValid(users.includes(user.name));
   }, [id, user, loadingBoard, users]);
 
-  const loadBoard = async () => {
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id)
-    );
-    if (boardQuery !== undefined && boardQuery.length !== 0)
-      store.dispatch({ type: "board/loaded", payload: boardQuery[0] });
+  const loadBoardBoardView = async () => {
+    await loadBoard(match.params.id);
     setLoadingBoard(false);
   };
 
@@ -45,14 +48,14 @@ const BoardView = ({ history, match }) => {
         c.boardID("eq", match.params.id)
       ).subscribe((c) => {
         console.log(c.opType);
-        loadCards();
+        loadCardsBoardView();
       });
 
       const subscriptionOnBoard = DataStore.observe(Board, (b) =>
         b.id("eq", match.params.id)
       ).subscribe((b) => {
         if (b.opType === "DELETE") history.push("/home");
-        if (b.opType === "UPDATE") loadBoard();
+        if (b.opType === "UPDATE") loadBoardBoardView();
       });
 
       return () => {
@@ -62,98 +65,15 @@ const BoardView = ({ history, match }) => {
     }
   }, [user]);
 
-  const loadCards = async () => {
-    const cardsQuery = await DataStore.query(
-      Card,
-      (c) => c.boardID("eq", match.params.id),
-      {
-        sort: (s) =>
-          s.endDate(SortDirection.ASCENDING).startDate(SortDirection.ASCENDING),
-      }
-    );
-    store.dispatch({ type: "cards/loaded", payload: cardsQuery });
+  const loadCardsBoardView = async () => {
+    await loadCards(match.params.id);
     setLoadingCards(false);
   };
 
-  const deleteBoard = async () => {
-    const userQuery = await DataStore.query(User, (u) =>
-      u.boards("contains", match.params.id)
-    );
-    console.log(userQuery);
-
-    userQuery.forEach(async (userQuery) => {
-      await DataStore.save(
-        User.copyOf(userQuery, (updated) => {
-          const index = updated.boards.indexOf(match.params.id);
-          updated.boards.splice(index, 1);
-          if (updated.boards.length === 0) updated.cards = [];
-        })
-      );
-    });
-
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id)
-    );
-    await DataStore.delete(Card, (c) => c.boardID("eq", match.params.id));
-
-    store.dispatch({ type: "cards/deleted", payload: [] });
-    await DataStore.delete(boardQuery[0]);
+  const deleteBoardBoardView = async () => {
+    await deleteBoard(match.params.id);
     history.push("/home");
-
     setOpenDeleteBoardDialog(false);
-  };
-
-  const addMember = async (member) => {
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id).users("notContains", member)
-    );
-    const userQuery = await DataStore.query(User, (u) =>
-      u.name("eq", member).boards("notContains", match.params.id)
-    );
-
-    if (userQuery.length !== 0 && boardQuery.length !== 0) {
-      await DataStore.save(
-        Board.copyOf(boardQuery[0], (updated) => {
-          updated.users = [...updated.users, member];
-        })
-      );
-
-      await DataStore.save(
-        User.copyOf(userQuery[0], (updated) => {
-          updated.boards = [...updated.boards, match.params.id];
-        })
-      );
-    }
-  };
-
-  const deleteMember = async (member) => {
-    const boardQuery = await DataStore.query(Board, (b) =>
-      b.id("eq", match.params.id)
-    );
-    const userQuery = await DataStore.query(User, (u) => u.name("eq", member));
-    const cardQuery = await DataStore.query(Card, (c) =>
-      c.users("contains", member)
-    );
-
-    if (userQuery.length !== 0 && boardQuery.length !== 0) {
-      await DataStore.save(
-        Board.copyOf(boardQuery[0], (updated) => {
-          const index = updated.users.indexOf(member);
-          updated.users.splice(index, 1);
-        })
-      );
-
-      await DataStore.save(
-        User.copyOf(userQuery[0], (updated) => {
-          const index = updated.boards.indexOf(id);
-          updated.boards.splice(index, 1);
-        })
-      );
-
-      cardQuery.forEach(async (card) => {
-        await deleteUser(member, card.id);
-      });
-    }
   };
 
   const openBoardDeletionDialog = () => {
@@ -173,8 +93,8 @@ const BoardView = ({ history, match }) => {
   };
 
   useEffect(() => {
-    if (loadingBoard) loadBoard();
-    if (loadingCards) loadCards();
+    if (loadingBoard) loadBoardBoardView();
+    if (loadingCards) loadCardsBoardView();
   });
 
   return (
@@ -192,12 +112,13 @@ const BoardView = ({ history, match }) => {
           <BoardViewHeader
             openBoardDeletionDialog={openBoardDeletionDialog}
             openMemberAdditionDialog={openMemberAdditionDialog}
+            history={history}
           />
-          <CardListsContainer loadCards={loadCards} />
+          <CardListsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}
-            deleteBoard={deleteBoard}
+            deleteBoard={deleteBoardBoardView}
           />
           <AddMemberDialog
             openAddMemberDialog={openAddMemberDialog}
@@ -206,6 +127,7 @@ const BoardView = ({ history, match }) => {
             deleteMember={deleteMember}
             users={users}
             currentUser={user.name}
+            boardID={match.params.id}
           />
         </div>
       ) : (

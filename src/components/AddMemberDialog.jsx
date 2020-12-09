@@ -25,6 +25,7 @@ const AddMemberDialog = ({
   deleteMember,
   users,
   currentUser,
+  boardID,
 }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -64,7 +65,7 @@ const AddMemberDialog = ({
                   <MuiThemeProvider theme={deleteUserFromCardTheme}>
                     <Button
                       className="delete-user-from-card-button"
-                      onClick={() => deleteMember(user)}
+                      onClick={() => deleteMember(boardID, user)}
                     >
                       X
                     </Button>
@@ -94,7 +95,8 @@ const AddMemberDialog = ({
           onChange={(e) => checkEmailValid(e.target.value.trim())}
           onKeyPress={(e) => {
             if (e.key === "Enter" && validEmail) {
-              addMember(emailAddress);
+              addMember(boardID, emailAddress);
+              setEmailAddress("");
             }
           }}
           value={emailAddress}
@@ -111,7 +113,10 @@ const AddMemberDialog = ({
         </Button>
         {/* <MuiThemeProvider theme={deleteButtonTheme}> */}
         <Button
-          onClick={() => addMember(emailAddress)}
+          onClick={() => {
+            addMember(boardID, emailAddress);
+            setEmailAddress("");
+          }}
           color="primary"
           variant="outlined"
           disabled={!validEmail}
