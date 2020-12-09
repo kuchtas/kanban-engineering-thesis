@@ -26,6 +26,10 @@ const BoardView = ({ history, match }) => {
   const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
   const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
 
+  useEffect(() => {
+    if (!loadingBoard) setUserValid(users.includes(user.name));
+  }, [id, user, loadingBoard, users]);
+
   const loadBoard = async () => {
     const boardQuery = await DataStore.query(Board, (b) =>
       b.id("eq", match.params.id)
@@ -172,10 +176,6 @@ const BoardView = ({ history, match }) => {
     if (loadingBoard) loadBoard();
     if (loadingCards) loadCards();
   });
-
-  useEffect(() => {
-    if (!loadingBoard) setUserValid(users.includes(user.name));
-  }, [id]);
 
   return (
     <React.Fragment>
