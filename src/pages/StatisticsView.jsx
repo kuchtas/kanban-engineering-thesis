@@ -9,8 +9,16 @@ import { useSelector } from "react-redux";
 import { Board, Card, User } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // utils
-import { loadBoard, loadCards } from "../utils/databaseActions";
+import {
+  loadBoard,
+  loadCards,
+  deleteBoard,
+  addMember,
+  deleteMember,
+} from "../utils/databaseActions";
 import StatisticsViewHeader from "../components/StatisticsViewHeader";
+import DeleteBoardDialog from "../components/DeleteBoardDialog";
+import AddMemberDialog from "../components/AddMemberDialog";
 
 const StatisticsView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -18,6 +26,8 @@ const StatisticsView = ({ history, match }) => {
   const [userValid, setUserValid] = useState(true);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [loadingCards, setLoadingCards] = useState(true);
+  const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
+  const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
 
   useEffect(() => {
     if (!loadingBoard) setUserValid(users.includes(user.name));
@@ -31,6 +41,28 @@ const StatisticsView = ({ history, match }) => {
   const loadCardsStatisticsView = async () => {
     await loadCards(match.params.id);
     setLoadingCards(false);
+  };
+
+  const deleteBoardStatisticsView = async () => {
+    await deleteBoard(match.params.id);
+    history.push("/home");
+    setOpenDeleteBoardDialog(false);
+  };
+
+  const openBoardDeletionDialog = () => {
+    setOpenDeleteBoardDialog(true);
+  };
+
+  const closeBoardDeletionDialog = () => {
+    setOpenDeleteBoardDialog(false);
+  };
+
+  const openMemberAdditionDialog = () => {
+    setOpenAddMemberDialog(true);
+  };
+
+  const closeMemberAdditionDialog = () => {
+    setOpenAddMemberDialog(false);
   };
 
   useEffect(() => {
@@ -75,9 +107,23 @@ const StatisticsView = ({ history, match }) => {
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
           <StatisticsViewHeader
-            // openBoardDeletionDialog={openBoardDeletionDialog}
-            // openMemberAdditionDialog={openMemberAdditionDialog}
+            openBoardDeletionDialog={openBoardDeletionDialog}
+            openMemberAdditionDialog={openMemberAdditionDialog}
             history={history}
+          />
+          <DeleteBoardDialog
+            openDeleteBoardDialog={openDeleteBoardDialog}
+            closeBoardDeletionDialog={closeBoardDeletionDialog}
+            deleteBoard={deleteBoardStatisticsView}
+          />
+          <AddMemberDialog
+            openAddMemberDialog={openAddMemberDialog}
+            closeMemberAdditionDialog={closeMemberAdditionDialog}
+            addMember={addMember}
+            deleteMember={deleteMember}
+            users={users}
+            currentUser={user.name}
+            boardID={match.params.id}
           />
         </div>
       ) : (
