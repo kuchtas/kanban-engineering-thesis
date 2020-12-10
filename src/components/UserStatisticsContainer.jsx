@@ -95,19 +95,31 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
         </Grid>
       </Grid>
       <Grid container xs={12} className="statistics-user-lists-container">
-        <Grid container xs={4} className="statistics-user-todo-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-user-todo-container enter-user-statistics-todo"
+        >
           <Grid item xs={12} className="statistics-user-list-title">
             TO DO
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
-        <Grid container xs={4} className="statistics-user-doing-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-user-doing-container enter-user-statistics-doing"
+        >
           <Grid item xs={12} className="statistics-user-list-title">
             DOING
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
-        <Grid container xs={4} className="statistics-user-done-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-user-done-container enter-user-statistics-done"
+        >
           <Grid item xs={12} className="statistics-user-list-title">
             DONE
           </Grid>

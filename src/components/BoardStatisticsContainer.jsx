@@ -77,19 +77,31 @@ const BoardStatisticsContainer = () => {
         </Grid>
       </Grid>
       <Grid container xs={12} className="statistics-board-lists-container">
-        <Grid container xs={4} className="statistics-board-todo-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-board-todo-container enter-board-statistics-todo"
+        >
           <Grid item xs={12} className="statistics-board-list-title">
             TO DO
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
-        <Grid container xs={4} className="statistics-board-doing-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-board-doing-container enter-board-statistics-doing"
+        >
           <Grid item xs={12} className="statistics-board-list-title">
             DOING
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
-        <Grid container xs={4} className="statistics-board-done-container">
+        <Grid
+          container
+          xs={4}
+          className="statistics-board-done-container enter-board-statistics-done"
+        >
           <Grid item xs={12} className="statistics-board-list-title">
             DONE
           </Grid>

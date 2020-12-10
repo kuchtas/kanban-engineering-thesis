@@ -48,3 +48,75 @@
   border-right: 0px !important;
   background-color: rgb(224, 224, 231) !important;
 }
+
+.enter-user-statistics-todo {
+  -webkit-animation: enter-user-statistics-todo 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: enter-user-statistics-todo 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.15s;
+}
+@-webkit-keyframes enter-user-statistics-todo {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes enter-user-statistics-todo {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.enter-user-statistics-doing {
+  -webkit-animation: enter-user-statistics-doing 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: enter-user-statistics-doing 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.2s;
+}
+@-webkit-keyframes enter-user-statistics-doing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes enter-user-statistics-doing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.enter-user-statistics-done {
+  -webkit-animation: enter-user-statistics-done 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: enter-user-statistics-done 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.25s;
+}
+@-webkit-keyframes enter-user-statistics-done {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes enter-user-statistics-done {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
