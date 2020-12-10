@@ -29,7 +29,15 @@ const DoneList = ({
     setSortMenuAnchorElement(null);
   };
   return (
-    <Grid item xs={4} sm={4} md={4} lg={4} xl={4} className="card-list-done">
+    <Grid
+      item
+      xs={4}
+      sm={4}
+      md={4}
+      lg={4}
+      xl={4}
+      className="card-list-done enter-done"
+    >
       <MaterialUICard
         variant="outlined"
         className="card-list-header"

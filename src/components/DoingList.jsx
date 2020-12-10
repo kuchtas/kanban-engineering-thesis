@@ -28,8 +28,17 @@ const DoingList = ({
   const handleDoingSortMenuClose = () => {
     setSortMenuAnchorElement(null);
   };
+
   return (
-    <Grid item xs={4} sm={4} md={4} lg={4} xl={4} className="card-list-doing">
+    <Grid
+      item
+      xs={4}
+      sm={4}
+      md={4}
+      lg={4}
+      xl={4}
+      className="card-list-doing enter-doing"
+    >
       <MaterialUICard
         variant="outlined"
         className="card-list-header"
