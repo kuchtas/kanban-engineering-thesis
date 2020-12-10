@@ -160,7 +160,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     if (
       newStartDate !== cardStartDate &&
       startDateChanged &&
-      endDate > startDate
+      endDate >= startDate
     ) {
       console.log("UPDATING START DATE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
@@ -180,7 +180,7 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const endDateClickAway = async () => {
     const newEndDate = endDate;
 
-    if (newEndDate !== cardEndDate && endDateChanged && endDate > startDate) {
+    if (newEndDate !== cardEndDate && endDateChanged && endDate >= startDate) {
       console.log("UPDATING END DATE");
       const cardQuery = await DataStore.query(Card, (c) => c.id("eq", cardID));
 
