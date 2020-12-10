@@ -114,7 +114,7 @@ const StatisticsView = ({ history, match }) => {
             history={history}
           />
           <BoardStatisticsContainer />
-          <UserStatisticsContainer currentUser={user.name} />
+          <UserStatisticsContainer currentUser={user.name} users={users} />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}

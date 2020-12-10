@@ -1,11 +1,11 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, MenuItem, Select, Typography } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
 import "./UserStatisticsContainer.css";
 import CardTypesStatistics from "./CardTypesStatistics";
-const UserStatisticsContainer = ({ currentUser }) => {
+const UserStatisticsContainer = ({ currentUser, users }) => {
   const { cards } = useSelector((state) => state.cards);
   const [usersTasks, setUsersTasks] = useState([]);
   const [missedTasks, setMissedTasks] = useState([]);
@@ -74,12 +74,23 @@ const UserStatisticsContainer = ({ currentUser }) => {
       <Grid container xs={12} className="statistics-user-total-container">
         <Grid item xs={6} className="statistics-user-total-cards">
           <Typography>
-            Total number of {chosenUser} tasks: {usersTasks.length}
+            Total number of{" "}
+            <Select
+              value={chosenUser}
+              onChange={(e) => setChosenUser(e.target.value)}
+            >
+              {users.map((user) => (
+                <MenuItem value={user} key={user}>
+                  {user}
+                </MenuItem>
+              ))}
+            </Select>{" "}
+            tasks: {usersTasks.length}
           </Typography>
         </Grid>
         <Grid item xs={6} className="statistics-user-total-missed-cards">
           <Typography>
-            Total number of missed tasks with this user: {missedTasks.length}
+            Total number of missed tasks with this member: {missedTasks.length}
           </Typography>
         </Grid>
       </Grid>
