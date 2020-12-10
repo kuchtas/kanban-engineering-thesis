@@ -1,0 +1,21 @@
+.statistics-user-container {
+  border: 1px solid black;
+  border-bottom: 0px;
+  min-height: 45.5vh;
+}
+
+.statistics-user-total-container,
+.statistics-user-total-cards,
+.statistics-user-total-missed-cards {
+  text-align: center;
+}
+
+.statistics-user-todo-container,
+.statistics-user-doing-container,
+.statistics-user-done-container {
+  justify-content: center;
+  border: 1px solid black;
+  border-bottom: 0px;
+  border-right: 0px;
+  min-height: 410px;
+}

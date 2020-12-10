@@ -1,0 +1,6 @@
+.statistics-card-type-item {
+  min-height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

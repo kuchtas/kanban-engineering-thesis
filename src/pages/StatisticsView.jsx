@@ -19,6 +19,8 @@ import {
 import StatisticsViewHeader from "../components/StatisticsViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
+import BoardStatisticsContainer from "../components/BoardStatisticsContainer";
+import UserStatisticsContainer from "../components/UserStatisticsContainer";
 
 const StatisticsView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -111,6 +113,8 @@ const StatisticsView = ({ history, match }) => {
             openMemberAdditionDialog={openMemberAdditionDialog}
             history={history}
           />
+          <BoardStatisticsContainer />
+          <UserStatisticsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}
