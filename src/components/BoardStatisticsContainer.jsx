@@ -58,8 +58,13 @@ const BoardStatisticsContainer = () => {
   }, [cardsToDo, cardsDoing, cardsDone]);
 
   return (
-    <Grid container color="black" className="statistics-board-container">
-      <Grid container className="statistics-board-total-container">
+    <Grid
+      container
+      xs={12}
+      color="black"
+      className="statistics-board-container"
+    >
+      <Grid container xs={12} className="statistics-board-total-container">
         <Grid item xs={6} className="statistics-board-total-cards">
           <Typography>
             Total number of tasks on this board: {cards.length}
@@ -71,20 +76,20 @@ const BoardStatisticsContainer = () => {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container className="statistics-board-lists-container">
-        <Grid container className="statistics-board-todo-container">
+      <Grid container xs={12} className="statistics-board-lists-container">
+        <Grid container xs={4} className="statistics-board-todo-container">
           <Grid item xs={12} className="statistics-board-list-title">
             TO DO
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
-        <Grid container className="statistics-board-doing-container">
+        <Grid container xs={4} className="statistics-board-doing-container">
           <Grid item xs={12} className="statistics-board-list-title">
             DOING
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
-        <Grid container className="statistics-board-done-container">
+        <Grid container xs={4} className="statistics-board-done-container">
           <Grid item xs={12} className="statistics-board-list-title">
             DONE
           </Grid>
