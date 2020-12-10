@@ -39,8 +39,8 @@
 
 .statistics-card-list-element-content-cardpercent-container {
   background-color: rgba(255, 255, 255, 0.25);
-  min-width: 80px;
-  max-width: 90px !important;
+  min-width: 120px;
+  max-width: 120px !important;
   min-height: 50px;
   border-radius: 10px;
   vertical-align: middle;
