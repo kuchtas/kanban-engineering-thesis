@@ -60,14 +60,16 @@ const FlowView = ({ history, match }) => {
         task.title,
         `<p style="font-size: 20px; margin: 0px; padding: 10px;">${
           task.title
-        }</p><hr style="margin-left: 10px; margin-right: 10px;" />
-        <p style="font-size: 20px; margin: 0px; padding: 10px;">Users:${
+        }</p><hr style="margin-left: 5px; margin-right: 5px; margin-top: 0px; margin-bottom: 0px;" />
+        <p style="font-size: 20px; margin: 0px; padding: 10px; padding-top: 0px; padding-bottom: 0px;">Users:${
           task.users.length !== 0
             ? task.users.map((user) => `<br>${user}`)
             : " No one is assigned to this task"
         }</p>
-        <hr style="margin-left: 10px; margin-right: 10px;" />
-        <p style="font-size: 20px; margin: 0px; padding: 10px;">Duration: ${
+        <hr style="margin-left: 5px; margin-right: 5px; " />
+        <p style="font-size: 20px; margin: 0px; padding: 10px; padding-top: 0px;">${
+          task.startDate
+        } - ${task.endDate} <br>Duration: ${
           (new Date(task.endDate).getTime() -
             new Date(task.startDate).getTime() +
             86400000) /
