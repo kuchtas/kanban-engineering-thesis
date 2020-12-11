@@ -1,4 +1,4 @@
-.flow-chart-container {
+.timeline-chart-container {
   height: 91vh;
   width: 93%;
   margin-left: auto !important;
@@ -9,7 +9,7 @@
   /* overflow-y: auto; */
 }
 
-.flow-chart {
+.timeline-chart {
   margin-right: auto !important;
   margin-left: auto !important;
 }

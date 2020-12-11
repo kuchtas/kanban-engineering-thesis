@@ -71,12 +71,12 @@ const BoardViewHeader = ({
         </ClickAwayListener>
       </MuiThemeProvider>
       <Button
-        className="board-view-page-header-button-flow"
+        className="board-view-page-header-button-timeline"
         variant="outlined"
         color="primary"
-        onClick={() => history.push(`${id}/flow`)}
+        onClick={() => history.push(`${id}/timeline`)}
       >
-        Flow
+        timeline
       </Button>
       <Button
         className="board-view-page-header-button-statistics"

@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "react-google-charts";
-import "./FlowChartContainer.css";
+import "./TimelineChartContainer.css";
 import Loading from "./Loading";
 
 const columns = [
@@ -11,9 +11,9 @@ const columns = [
   { type: "date", id: "End" },
 ];
 
-const FlowChartContainer = ({ rows }) => {
+const TimelineChartContainer = ({ rows }) => {
   return (
-    <div className="flow-chart-container">
+    <div className="timeline-chart-container">
       {rows.length === 0 ? (
         <div
           style={{
@@ -37,11 +37,11 @@ const FlowChartContainer = ({ rows }) => {
             timeline: { showRowLabels: false },
             chartArea: { width: "100%", height: "100%" },
           }}
-          className="flow-chart enter-todo"
+          className="timeline-chart enter-todo"
         />
       )}
     </div>
   );
 };
 
-export default FlowChartContainer;
+export default TimelineChartContainer;

@@ -13,11 +13,11 @@ import {
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./FlowViewHeader.css";
+import "./TimelineViewHeader.css";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 
-const FlowViewHeader = ({
+const TimelineViewHeader = ({
   openBoardDeletionDialog,
   openMemberAdditionDialog,
   history,
@@ -51,13 +51,16 @@ const FlowViewHeader = ({
     }
   };
   return (
-    <Toolbar className="flow-view-page-header-container" disableGutters={true}>
+    <Toolbar
+      className="timeline-view-page-header-container"
+      disableGutters={true}
+    >
       <MuiThemeProvider theme={boardTitleEditTheme}>
         <ClickAwayListener onClickAway={handleClickAway}>
           <TextField
-            key="flow-title-form"
+            key="timeline-title-form"
             variant="outlined"
-            className="flow-view-page-header-title"
+            className="timeline-view-page-header-title"
             margin="dense"
             onChange={(e) => setEditableTitle(e.target.value)}
             error={editableTitle?.length > 120}
@@ -71,7 +74,7 @@ const FlowViewHeader = ({
         </ClickAwayListener>
       </MuiThemeProvider>
       <Button
-        className="flow-view-page-header-button-board"
+        className="timeline-view-page-header-button-board"
         variant="outlined"
         color="primary"
         onClick={() => history.push(`/board/${id}`)}
@@ -79,7 +82,7 @@ const FlowViewHeader = ({
         Board
       </Button>
       <Button
-        className="flow-view-page-header-button-statistics"
+        className="timeline-view-page-header-button-statistics"
         variant="outlined"
         color="primary"
         onClick={() => history.push(`/board/${id}/statistics`)}
@@ -87,7 +90,7 @@ const FlowViewHeader = ({
         Statistics
       </Button>
       <Button
-        className="flow-view-page-header-button-members"
+        className="timeline-view-page-header-button-members"
         variant="outlined"
         color="primary"
         onClick={openMemberAdditionDialog}
@@ -96,7 +99,7 @@ const FlowViewHeader = ({
       </Button>
       <MuiThemeProvider theme={deleteButtonTheme}>
         <Button
-          className="flow-view-page-header-button-delete"
+          className="timeline-view-page-header-button-delete"
           variant="outlined"
           color="primary"
           onClick={openBoardDeletionDialog}
@@ -108,4 +111,4 @@ const FlowViewHeader = ({
   );
 };
 
-export default FlowViewHeader;
+export default TimelineViewHeader;

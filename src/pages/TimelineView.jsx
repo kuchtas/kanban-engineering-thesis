@@ -5,12 +5,12 @@ import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./FlowView.css";
+import "./TimelineView.css";
 // Components
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 import InvalidUserError from "../components/InvalidUserError";
-import FlowViewHeader from "../components/FlowViewHeader";
+import TimelineViewHeader from "../components/TimelineViewHeader";
 import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
 // utils
@@ -21,10 +21,10 @@ import {
   addMember,
   deleteMember,
 } from "../utils/databaseActions";
-import FlowChartContainer from "../components/FlowChartContainer";
+import TimelineChartContainer from "../components/TimelineChartContainer";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
-const FlowView = ({ history, match }) => {
+const TimelineView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
   const { id, users } = useSelector((state) => state.board);
   const { cards } = useSelector((state) => state.cards);
@@ -35,6 +35,7 @@ const FlowView = ({ history, match }) => {
   const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
   const [timelineTasks, setTimelineTasks] = useState([]);
   const [rows, setRows] = useState([]);
+
   useEffect(() => {
     if (cards.length !== 0) {
       const newTimelineTasks = cards
@@ -95,7 +96,7 @@ const FlowView = ({ history, match }) => {
     if (!loadingBoard) setUserValid(users.includes(user.name));
   }, [id, user, loadingBoard, users]);
 
-  const loadBoardFlowView = async () => {
+  const loadBoardTimelineView = async () => {
     await loadBoard(match.params.id);
     setLoadingBoard(false);
   };
@@ -106,14 +107,14 @@ const FlowView = ({ history, match }) => {
         c.boardID("eq", match.params.id)
       ).subscribe((c) => {
         console.log(c.opType);
-        loadCardsFlowView();
+        loadCardsTimelineView();
       });
 
       const subscriptionOnBoard = DataStore.observe(Board, (b) =>
         b.id("eq", match.params.id)
       ).subscribe((b) => {
         if (b.opType === "DELETE") history.push("/home");
-        if (b.opType === "UPDATE") loadBoardFlowView();
+        if (b.opType === "UPDATE") loadBoardTimelineView();
       });
 
       return () => {
@@ -124,12 +125,12 @@ const FlowView = ({ history, match }) => {
     }
   }, [user]);
 
-  const loadCardsFlowView = async () => {
+  const loadCardsTimelineView = async () => {
     await loadCards(match.params.id);
     setLoadingCards(false);
   };
 
-  const deleteBoardFlowView = async () => {
+  const deleteBoardTimelineView = async () => {
     await deleteBoard(match.params.id);
     history.push("/home");
     setOpenDeleteBoardDialog(false);
@@ -152,32 +153,32 @@ const FlowView = ({ history, match }) => {
   };
 
   useEffect(() => {
-    if (loadingBoard) loadBoardFlowView();
-    if (loadingCards) loadCardsFlowView();
+    if (loadingBoard) loadBoardTimelineView();
+    if (loadingCards) loadCardsTimelineView();
   });
 
   return (
     <React.Fragment>
       {loadingCards || loadingBoard ? (
-        <div className="flow-view-page">
+        <div className="timeline-view-page">
           {/* display spinner when loading */}
           <Navigation history={history} />
           <Loading />
         </div>
       ) : userValid ? (
-        <div className="flow-view-page">
+        <div className="timeline-view-page">
           {/* if all is loaded and user is a part of the board display it */}
           <Navigation history={history} />
-          <FlowViewHeader
+          <TimelineViewHeader
             openBoardDeletionDialog={openBoardDeletionDialog}
             openMemberAdditionDialog={openMemberAdditionDialog}
             history={history}
           />
-          <FlowChartContainer rows={rows} />
+          <TimelineChartContainer rows={rows} />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}
-            deleteBoard={deleteBoardFlowView}
+            deleteBoard={deleteBoardTimelineView}
           />
           <AddMemberDialog
             openAddMemberDialog={openAddMemberDialog}
@@ -190,7 +191,7 @@ const FlowView = ({ history, match }) => {
           />
         </div>
       ) : (
-        <div className="flow-view-page-invalid-user-error">
+        <div className="timeline-view-page-invalid-user-error">
           {/* if user is not a part of the board they cannot see it */}
           <Navigation history={history} />
           <InvalidUserError history={history} />
@@ -200,4 +201,4 @@ const FlowView = ({ history, match }) => {
   );
 };
 
-export default FlowView;
+export default TimelineView;

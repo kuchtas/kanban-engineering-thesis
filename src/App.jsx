@@ -24,7 +24,7 @@ import { User } from "./models/index";
 //Redux
 import store from "./store";
 import { Provider } from "react-redux";
-import FlowView from "./pages/FlowView";
+import TimelineView from "./pages/TimelineView";
 
 function App() {
   // window.LOG_LEVEL = "DEBUG";
@@ -102,7 +102,11 @@ function App() {
                 component={StatisticsView}
                 exact={true}
               />
-              <Route path="/board/:id/flow" component={FlowView} exact={true} />
+              <Route
+                path="/board/:id/timeline"
+                component={TimelineView}
+                exact={true}
+              />
             </Switch>
           </Router>
         </Provider>
