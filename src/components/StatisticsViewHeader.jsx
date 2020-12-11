@@ -74,6 +74,14 @@ const StatisticsViewHeader = ({
         </ClickAwayListener>
       </MuiThemeProvider>
       <Button
+        className="statistics-view-page-header-button-flow"
+        variant="outlined"
+        color="primary"
+        onClick={() => history.push(`/board/${id}/flow`)}
+      >
+        Flow
+      </Button>
+      <Button
         className="statistics-view-page-header-button-statistics"
         variant="outlined"
         color="primary"

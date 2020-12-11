@@ -7,10 +7,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import history from './history';
+import history from "./history";
 // CSS
 import "./App.css";
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from "@material-ui/core/styles";
 import { globalTheme } from "./themes/globalTheme";
 // components
 
@@ -22,8 +22,9 @@ import StatisticsView from "./pages/StatisticsView";
 // GraphQl
 import { User } from "./models/index";
 //Redux
-import store from './store';
+import store from "./store";
 import { Provider } from "react-redux";
+import FlowView from "./pages/FlowView";
 
 function App() {
   // window.LOG_LEVEL = "DEBUG";
@@ -87,19 +88,24 @@ function App() {
   return (
     <div id="app-root">
       <ThemeProvider theme={globalTheme}>
-          <Provider store={store}>
-            <Router history={history}>
-              <Switch>
-                <Route exact path="/">
-                  <Redirect to="/home" />
-                </Route>
-                <Route path="/home" component={BoardList} />
-                <Route path="/board/:id" component={BoardView} exact={true} />
-                <Route path="/about" component={About} exact={true} />
-                <Route path="/board/:id/statistics" component={StatisticsView} exact={true} />
-              </Switch>
-            </Router>
-          </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Switch>
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
+              <Route path="/home" component={BoardList} />
+              <Route path="/board/:id" component={BoardView} exact={true} />
+              <Route path="/about" component={About} exact={true} />
+              <Route
+                path="/board/:id/statistics"
+                component={StatisticsView}
+                exact={true}
+              />
+              <Route path="/board/:id/flow" component={FlowView} exact={true} />
+            </Switch>
+          </Router>
+        </Provider>
       </ThemeProvider>
     </div>
   );
