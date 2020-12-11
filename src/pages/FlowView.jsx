@@ -24,12 +24,6 @@ import {
 import FlowChartContainer from "../components/FlowChartContainer";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
-let rows = [
-  //   ["1", "George Washington", new Date(1789, 3, 30), new Date(1797, 2, 4)],
-  //   ["2", "John Adams", new Date(1797, 2, 4), new Date(1801, 2, 4)],
-  //   ["3", "Thomas Jefferson", new Date(1801, 2, 4), new Date(1809, 2, 4)],
-];
-
 const FlowView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
   const { id, users } = useSelector((state) => state.board);
@@ -40,7 +34,7 @@ const FlowView = ({ history, match }) => {
   const [openDeleteBoardDialog, setOpenDeleteBoardDialog] = useState(false);
   const [openAddMemberDialog, setOpenAddMemberDialog] = useState(false);
   const [timelineTasks, setTimelineTasks] = useState([]);
-
+  const [rows, setRows] = useState([]);
   useEffect(() => {
     if (cards.length !== 0) {
       const newTimelineTasks = cards
@@ -59,23 +53,31 @@ const FlowView = ({ history, match }) => {
   }, [cards]);
 
   useEffect(() => {
+    let newRows = [];
     timelineTasks.forEach((task, index) => {
-      rows[index] = [
+      newRows[index] = [
         task.title,
         task.title,
-        `<p style="font-size: 20px; margin: 0px; padding: 0px;">Task: ${
+        `<p style="font-size: 20px; margin: 0px; padding: 10px;">${
           task.title
-        }</p><br>
-        <p style="font-size: 20px; margin: 0px; padding: 0px;">Users:${
+        }</p><hr style="margin-left: 10px; margin-right: 10px;" />
+        <p style="font-size: 20px; margin: 0px; padding: 10px;">Users:${
           task.users.length !== 0
             ? task.users.map((user) => `<br>${user}`)
-            : " none"
-        }</p>`,
+            : " No one is assigned to this task"
+        }</p>
+        <hr style="margin-left: 10px; margin-right: 10px;" />
+        <p style="font-size: 20px; margin: 0px; padding: 10px;">Duration: ${
+          (new Date(task.endDate).getTime() -
+            new Date(task.startDate).getTime() +
+            86400000) /
+          86400000
+        } day/s</p>`,
         new Date(task.startDate),
         new Date(task.endDate),
       ];
     });
-    console.log("ROWS", rows);
+    setRows(newRows);
   }, [timelineTasks]);
 
   useEffect(() => {

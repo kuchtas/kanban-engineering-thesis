@@ -1,6 +1,7 @@
 import React from "react";
 import Chart from "react-google-charts";
 import "./FlowChartContainer.css";
+import Loading from "./Loading";
 
 const columns = [
   { type: "string", id: "Term" },
@@ -22,7 +23,7 @@ const FlowChartContainer = ({ rows }) => {
           columns={columns}
           rows={rows}
           chartType="Timeline"
-          loader={<div>Loading Chart</div>}
+          loader={<Loading />}
           options={{
             timeline: { showRowLabels: false },
             tooltip: { isHtml: true },
