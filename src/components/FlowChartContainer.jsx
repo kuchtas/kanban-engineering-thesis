@@ -37,7 +37,7 @@ const FlowChartContainer = ({ rows }) => {
             timeline: { showRowLabels: false },
             chartArea: { width: "100%", height: "100%" },
           }}
-          className="flow-chart"
+          className="flow-chart enter-todo"
         />
       )}
     </div>
