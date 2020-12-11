@@ -63,8 +63,14 @@ const FlowView = ({ history, match }) => {
       rows[index] = [
         task.title,
         task.title,
-        `Task: ${task.title}<br><br>
-        Users:${task.users.map((user) => `<br>${user}`)}`,
+        `<p style="font-size: 20px; margin: 0px; padding: 0px;">Task: ${
+          task.title
+        }</p><br>
+        <p style="font-size: 20px; margin: 0px; padding: 0px;">Users:${
+          task.users.length !== 0
+            ? task.users.map((user) => `<br>${user}`)
+            : " none"
+        }</p>`,
         new Date(task.startDate),
         new Date(task.endDate),
       ];
