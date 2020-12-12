@@ -21,6 +21,7 @@ import DeleteBoardDialog from "../components/DeleteBoardDialog";
 import AddMemberDialog from "../components/AddMemberDialog";
 import BoardStatisticsContainer from "../components/BoardStatisticsContainer";
 import UserStatisticsContainer from "../components/UserStatisticsContainer";
+import TagStatisticsContainer from "../components/TagStatisticsContainer";
 
 const StatisticsView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -115,6 +116,7 @@ const StatisticsView = ({ history, match }) => {
           />
           <BoardStatisticsContainer />
           <UserStatisticsContainer currentUser={user.name} users={users} />
+          <TagStatisticsContainer />
           <DeleteBoardDialog
             openDeleteBoardDialog={openDeleteBoardDialog}
             closeBoardDeletionDialog={closeBoardDeletionDialog}

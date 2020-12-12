@@ -1,23 +1,23 @@
-.statistics-board-container {
+.statistics-tag-container {
   /* border: 1px solid black; */
   border-bottom: 0px;
   min-height: 30vh;
 }
 
-.statistics-board-total-container,
-.statistics-board-total-cards,
-.statistics-board-total-missed-cards {
+.statistics-tag-total-container,
+.statistics-tag-total-cards,
+.statistics-tag-total-missed-cards {
   text-align: center;
   align-self: center;
 }
-.statistics-board-total-container {
+.statistics-tag-total-container {
   background-color: rgba(224, 224, 231, 0.3);
   border: 1px solid rgb(224, 224, 231);
 }
 
-.statistics-board-todo-container,
-.statistics-board-doing-container,
-.statistics-board-done-container {
+.statistics-tag-todo-container,
+.statistics-tag-doing-container,
+.statistics-tag-done-container {
   justify-content: center;
   border: 1px solid black;
   border-bottom: 0px;
@@ -28,18 +28,18 @@
   background-color: rgba(224, 224, 231, 0.3);
   border: 1px solid rgb(224, 224, 231);
 }
-.statistics-board-todo-container {
+.statistics-tag-todo-container {
   margin-left: auto;
 }
-.statistics-board-doing-container {
+.statistics-tag-doing-container {
   margin-left: auto;
   margin-right: auto;
 }
-.statistics-board-done-container {
+.statistics-tag-done-container {
   margin-right: auto;
 }
 
-.statistics-board-list-title {
+.statistics-tag-list-title {
   max-height: 20px;
   text-align: center;
   border-radius: 5px 5px 0px 0px !important;
@@ -49,19 +49,20 @@
   background-color: rgb(224, 224, 231) !important;
 }
 
-.enter-board-statistics-todo {
+.enter-tag-statistics-todo {
   -webkit-animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.3s;
 }
 
-.enter-board-statistics-doing {
+.enter-tag-statistics-doing {
   -webkit-animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: 0.05s;
+  animation-delay: 0.35s;
 }
 
-.enter-board-statistics-done {
+.enter-tag-statistics-done {
   -webkit-animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: 0.1s;
+  animation-delay: 0.4s;
 }

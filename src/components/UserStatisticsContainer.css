@@ -1,7 +1,7 @@
 .statistics-user-container {
   /* border: 1px solid black; */
   border-bottom: 0px;
-  min-height: 45.5vh;
+  min-height: 30vh;
 }
 
 .statistics-user-total-container,
@@ -22,7 +22,7 @@
   border: 1px solid black;
   border-bottom: 0px;
   /* border-right: 0px; */
-  min-height: 410px;
+  min-height: 271px;
   max-width: 500px !important;
   min-width: 200px !important;
   background-color: rgba(224, 224, 231, 0.3);

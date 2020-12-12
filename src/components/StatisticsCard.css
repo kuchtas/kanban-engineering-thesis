@@ -1,5 +1,7 @@
 .statistics-card-list-element {
-  height: 60px;
+  height: 30px;
+  padding-bottom: 2px;
+  padding-top: 2px;
 }
 
 .statistics-card-list-element-content {
@@ -12,8 +14,8 @@
   -webkit-align-items: center;
   align-items: center;
   justify-content: center;
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
+  padding-top: 3px !important;
+  /* padding-bottom: 5px !important; */
   padding-right: 5px !important;
   padding-left: 5px !important;
 }
@@ -22,7 +24,7 @@
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: 10px;
   min-width: 156px;
-  min-height: 50px;
+  min-height: 15px;
   vertical-align: middle;
   width: 100%;
   text-align: -webkit-center;
@@ -41,7 +43,7 @@
   background-color: rgba(255, 255, 255, 0.25);
   min-width: 120px;
   max-width: 120px !important;
-  min-height: 50px;
+  min-height: 15px;
   border-radius: 10px;
   vertical-align: middle;
   width: 100%;

@@ -1,5 +1,5 @@
 .statistics-card-type-item {
-  min-height: 65px;
+  min-height: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
