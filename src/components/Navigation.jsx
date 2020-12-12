@@ -1,7 +1,7 @@
 import React from "react";
 // Redux
 import { useSelector } from "react-redux";
-// GraphQL 
+// GraphQL
 import { Auth, DataStore } from "aws-amplify";
 // Components
 import {
@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 // CSS
 import "./Navigation.css";
-import {signOutButtonTheme} from "../themes/singOutButtonTheme";
+import { signOutButtonTheme } from "../themes/singOutButtonTheme";
 
 const Navigation = ({ history }) => {
   const { user } = useSelector((state) => state.user);
@@ -27,18 +27,22 @@ const Navigation = ({ history }) => {
   const handleClick = () => history.push("/home");
 
   return (
-    <div className="page-header-wrapper" onClick={handleClick}>
+    <div className="page-header-wrapper">
       <Toolbar className="page-header" disableGutters={true}>
-        <Typography variant="h5" className="page-header-title">
+        <Typography
+          variant="h5"
+          className="page-header-title"
+          onClick={handleClick}
+        >
           Kanbannos
         </Typography>
         {user && (
           <Typography className="navigation-username">{user.name}</Typography>
         )}
         <MuiThemeProvider theme={signOutButtonTheme}>
-            <Button className="sign-out-button" onClick={logOut}>
-              Sign out
-            </Button>
+          <Button className="sign-out-button" onClick={logOut}>
+            Sign out
+          </Button>
         </MuiThemeProvider>
       </Toolbar>
     </div>
