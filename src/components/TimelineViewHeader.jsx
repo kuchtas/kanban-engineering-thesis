@@ -95,7 +95,7 @@ const TimelineViewHeader = ({
         color="primary"
         onClick={openMemberAdditionDialog}
       >
-        See members
+        Members
       </Button>
       <MuiThemeProvider theme={deleteButtonTheme}>
         <Button

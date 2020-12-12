@@ -79,12 +79,11 @@ const AddMemberDialog = ({
             );
           })}
         </Grid>
-        <DialogContentText>
+        <DialogContentText style={{ marginBottom: "0px", marginTop: "15px" }}>
           <Typography component={"span"}>
             Type in new user's e-mail address
           </Typography>
         </DialogContentText>
-        {/* <MuiThemeProvider theme={deleteTextFieldTheme}> */}
         <TextField
           className="add-member-dialog-textfield"
           autoFocus
@@ -101,7 +100,6 @@ const AddMemberDialog = ({
           }}
           value={emailAddress}
         />
-        {/* </MuiThemeProvider> */}
       </DialogContent>
       <DialogActions>
         <Button
@@ -111,7 +109,6 @@ const AddMemberDialog = ({
         >
           Cancel
         </Button>
-        {/* <MuiThemeProvider theme={deleteButtonTheme}> */}
         <Button
           onClick={() => {
             addMember(boardID, emailAddress);

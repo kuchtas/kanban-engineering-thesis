@@ -9,6 +9,7 @@
 .statistics-user-total-missed-cards {
   text-align: center;
   align-self: center;
+  border-left: 1px solid rgb(224, 224, 231);
 }
 .statistics-user-total-container {
   background-color: rgba(224, 224, 231, 0.3);
