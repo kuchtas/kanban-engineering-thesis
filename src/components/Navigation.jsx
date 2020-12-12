@@ -20,6 +20,7 @@ const Navigation = ({ history }) => {
   const logOut = async () => {
     await DataStore.clear();
     localStorage.clear();
+    history.push("/home");
     Auth.signOut();
     window.location.reload();
   };
