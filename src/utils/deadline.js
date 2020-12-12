@@ -7,7 +7,7 @@ export const setClassByDeadlineCloseness = (startDate, endDate) => {
         ((new Date() - new Date(startDate).setHours(0, 0, 0, 0)) /
           (new Date(endDate).setHours(23, 59, 59, 59) -
             new Date(startDate).setHours(0, 0, 0, 0))) *  100);
-          if (deadlineCloseness > 0 && deadlineCloseness <= 25)
+          if (deadlineCloseness >= 0 && deadlineCloseness <= 25)
             return "deadline-term-1";
           else if (deadlineCloseness > 25 && deadlineCloseness <= 50)
             return "deadline-term-2";

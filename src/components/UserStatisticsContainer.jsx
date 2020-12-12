@@ -52,20 +52,15 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
         (card) => card.status === "DONE" && card.users.includes(chosenUser)
       )
       .map((a) => ({ ...a }));
-    newDoneCards.forEach(
-      (card) =>
-        (card.timeLeftGroup = setClassByDeadlineCloseness(
-          card.startDate,
-          card.endDate
-        ))
-    );
     setCardsDone(newDoneCards);
   }, [cards, chosenUser]);
 
   useEffect(() => {
-    const missedCards = [...cardsToDo, ...cardsDoing, ...cardsDone].filter(
-      (card) => card.timeLeftGroup === "deadline-term-5"
-    );
+    const missedCards = [
+      ...cardsToDo.filter((card) => card.timeLeftGroup === "deadline-term-5"),
+      ...cardsDoing.filter((card) => card.timeLeftGroup === "deadline-term-5"),
+      ...cardsDone.filter((card) => card.points[0] === "deadline-term-5"),
+    ];
     setMissedTasks(missedCards);
   }, [cardsToDo, cardsDoing, cardsDone]);
 

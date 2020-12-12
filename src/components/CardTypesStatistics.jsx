@@ -11,29 +11,34 @@ const CardTypesStatistics = ({ cards, done = false }) => {
   const [blackCards, setBlackCards] = useState([]);
 
   useEffect(() => {
-    const newWhiteCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-0"
-    );
+    const newWhiteCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-0")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-0");
     setWhiteCards(newWhiteCards);
-    const newGreenCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-1"
-    );
+
+    const newGreenCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-1")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-1");
     setGreenCards(newGreenCards);
-    const newYellowCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-2"
-    );
+
+    const newYellowCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-2")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-2");
     setYellowCards(newYellowCards);
-    const newOrangeCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-3"
-    );
+
+    const newOrangeCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-3")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-3");
     setOrangeCards(newOrangeCards);
-    const newRedCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-4"
-    );
+
+    const newRedCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-4")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-4");
     setRedCards(newRedCards);
-    const newBlackCards = cards.filter(
-      (card) => card.timeLeftGroup === "deadline-term-5"
-    );
+
+    const newBlackCards = done
+      ? cards.filter((card) => card.points[0] === "deadline-term-5")
+      : cards.filter((card) => card.timeLeftGroup === "deadline-term-5");
     setBlackCards(newBlackCards);
   }, [cards]);
   return (
