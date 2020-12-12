@@ -25,8 +25,8 @@ const StatisticsCard = ({ cardNumber, totalCards, term }) => {
           >
             <Typography className="statistics-card-list-element-content-cardpercent">
               {totalCards === 0
-                ? `Total: 0.00%`
-                : `Total: ${((cardNumber / totalCards) * 100).toFixed(2)}%`}
+                ? `0.00%`
+                : `${((cardNumber / totalCards) * 100).toFixed(2)}%`}
             </Typography>
           </Grid>
         </Grid>

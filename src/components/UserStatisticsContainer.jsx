@@ -94,7 +94,8 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
         </Grid>
         <Grid item xs={6} className="statistics-user-total-missed-cards">
           <Typography>
-            Total number of missed tasks with this member: {missedTasks.length}
+            Total number of missed tasks with this member assigned:{" "}
+            {missedTasks.length}
           </Typography>
         </Grid>
       </Grid>
@@ -105,7 +106,7 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
           className="statistics-user-todo-container enter-user-statistics-todo"
         >
           <Grid item xs={12} className="statistics-user-list-title">
-            TO DO
+            TO DO - {cardsToDo.length}
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
@@ -115,7 +116,7 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
           className="statistics-user-doing-container enter-user-statistics-doing"
         >
           <Grid item xs={12} className="statistics-user-list-title">
-            DOING
+            DOING - {cardsDoing.length}
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
@@ -125,7 +126,7 @@ const UserStatisticsContainer = ({ currentUser, users }) => {
           className="statistics-user-done-container enter-user-statistics-done"
         >
           <Grid item xs={12} className="statistics-user-list-title">
-            DONE
+            DONE - {cardsDone.length}
           </Grid>
           <CardTypesStatistics cards={cardsDone} done="true" />
         </Grid>

@@ -103,7 +103,7 @@ const TagStatisticsContainer = () => {
           className="statistics-tag-todo-container enter-tag-statistics-todo"
         >
           <Grid item xs={12} className="statistics-tag-list-title">
-            TO DO
+            TO DO - {cardsToDo.length}
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
@@ -113,7 +113,7 @@ const TagStatisticsContainer = () => {
           className="statistics-tag-doing-container enter-tag-statistics-doing"
         >
           <Grid item xs={12} className="statistics-tag-list-title">
-            DOING
+            DOING - {cardsDoing.length}
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
@@ -123,7 +123,7 @@ const TagStatisticsContainer = () => {
           className="statistics-tag-done-container enter-tag-statistics-done"
         >
           <Grid item xs={12} className="statistics-tag-list-title">
-            DONE
+            DONE - {cardsDone.length}
           </Grid>
           <CardTypesStatistics cards={cardsDone} done="true" />
         </Grid>

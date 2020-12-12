@@ -78,7 +78,7 @@ const BoardStatisticsContainer = () => {
           className="statistics-board-todo-container enter-board-statistics-todo"
         >
           <Grid item xs={12} className="statistics-board-list-title">
-            TO DO
+            TO DO - {cardsToDo.length}
           </Grid>
           <CardTypesStatistics cards={cardsToDo} />
         </Grid>
@@ -88,7 +88,7 @@ const BoardStatisticsContainer = () => {
           className="statistics-board-doing-container enter-board-statistics-doing"
         >
           <Grid item xs={12} className="statistics-board-list-title">
-            DOING
+            DOING - {cardsDoing.length}
           </Grid>
           <CardTypesStatistics cards={cardsDoing} />
         </Grid>
@@ -98,7 +98,7 @@ const BoardStatisticsContainer = () => {
           className="statistics-board-done-container enter-board-statistics-done"
         >
           <Grid item xs={12} className="statistics-board-list-title">
-            DONE
+            DONE - {cardsDone.length}
           </Grid>
           <CardTypesStatistics cards={cardsDone} done="true" />
         </Grid>
