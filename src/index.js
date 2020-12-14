@@ -2,14 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import AppWithAuth from "./AppWithAuth";
-import Amplify, { DataStore, ServiceWorker } from "aws-amplify";
+import Amplify, { DataStore } from "aws-amplify";
 import awsExports from "./aws-exports";
 import reportWebVitals from "./reportWebVitals";
-import * as serviceWorker from "./service-worker";
 
 Amplify.configure(awsExports);
 DataStore.configure(awsExports);
-const sw = new ServiceWorker();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,5 +20,3 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-// serviceWorker.register();
-sw.register();
