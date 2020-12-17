@@ -7,7 +7,6 @@ import {
   DialogActions,
   TextField,
   Button,
-  MuiThemeProvider,
   FormHelperText,
   Divider,
 } from "@material-ui/core";
@@ -19,6 +18,7 @@ import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
 import "./AddDoneCardDialog.css";
+import { setClassByDeadlineCloseness } from "../utils/deadline";
 
 const AddDoneCardDialog = ({
   openAddDoneCardDialog,
@@ -41,7 +41,7 @@ const AddDoneCardDialog = ({
         users: [],
         startDate: startDate,
         endDate: endDate,
-        points: [""],
+        points: [setClassByDeadlineCloseness(startDate, endDate)],
       })
     );
     const boardQuery = await DataStore.query(Board, (b) => b.id("eq", id));
