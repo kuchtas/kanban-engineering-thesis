@@ -35,23 +35,23 @@ const CardListsContainer = () => {
   const [sortDoneByDeadline, setSortDoneByDeadline] = useState(true);
 
   const deadlineSort = (a, b) => {
-    if (a.timeLeftGroup < b.timeLeftGroup) {
-      return 1;
-    }
-    if (a.timeLeftGroup > b.timeLeftGroup) {
-      return -1;
-    }
-    return 0;
+    return a.timeLeftGroup < b.timeLeftGroup
+      ? 1
+      : a.timeLeftGroup > b.timeLeftGroup
+      ? -1
+      : 0;
   };
 
   const tagSort = (a, b) => {
-    if (a.tag.toLowerCase() < b.tag.toLowerCase()) {
-      return -1;
-    }
-    if (a.tag.toLowerCase() > b.tag.toLowerCase()) {
-      return 1;
-    }
-    return 0;
+    return a.tag.toLowerCase() < b.tag.toLowerCase()
+      ? -1
+      : a.tag.toLowerCase() > b.tag.toLowerCase()
+      ? 1
+      : 0 || a.timeLeftGroup < b.timeLeftGroup
+      ? 1
+      : a.timeLeftGroup > b.timeLeftGroup
+      ? -1
+      : 0;
   };
 
   const changeSortTodoMethodDeadline = () => {
