@@ -15,7 +15,6 @@ import { globalTheme } from "./themes/globalTheme";
 // components
 
 // pages
-import About from "./pages/About";
 import BoardList from "./pages/BoardList";
 import BoardView from "./pages/BoardView";
 import StatisticsView from "./pages/StatisticsView";
@@ -83,7 +82,6 @@ function App() {
       Auth.signOut();
     }
   };
-  /////////////////////////////////////////////////////////////////////////////// over this line is to be recycled in real version
 
   return (
     <div id="app-root">
@@ -96,7 +94,6 @@ function App() {
               </Route>
               <Route path="/home" component={BoardList} />
               <Route path="/board/:id" component={BoardView} exact={true} />
-              <Route path="/about" component={About} exact={true} />
               <Route
                 path="/board/:id/statistics"
                 component={StatisticsView}
