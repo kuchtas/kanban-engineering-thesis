@@ -27,7 +27,7 @@ const TimelineChartContainer = ({ rows }) => {
       ) : (
         <Chart
           width={"100%"}
-          height={50 * rows.length < 900 ? 50 * rows.length : "100%"}
+          height={50 * rows.length < 900 ? 100 + 50 * rows.length : "100%"}
           columns={columns}
           rows={rows}
           chartType="Timeline"
