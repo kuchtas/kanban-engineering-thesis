@@ -11,6 +11,7 @@ import {
   Button,
   Grid,
   Card as MaterialUICard,
+  FormHelperText,
 } from "@material-ui/core";
 import React, { useState } from "react";
 // CSS
@@ -29,6 +30,7 @@ const AddMemberDialog = ({
 }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [validEmail, setValidEmail] = useState(false);
+  const [correctUser, setCorrectUser] = useState(true);
 
   const checkEmailValid = (email) => {
     setEmailAddress(email);
@@ -92,14 +94,17 @@ const AddMemberDialog = ({
           variant="outlined"
           fullWidth
           onChange={(e) => checkEmailValid(e.target.value.trim())}
-          onKeyPress={(e) => {
+          onKeyPress={async (e) => {
             if (e.key === "Enter" && validEmail) {
-              addMember(boardID, emailAddress);
+              setCorrectUser(await addMember(boardID, emailAddress));
               setEmailAddress("");
             }
           }}
           value={emailAddress}
         />
+        <FormHelperText error={true} hidden={correctUser}>
+          This user either does not exist or is already a member of the board
+        </FormHelperText>
       </DialogContent>
       <DialogActions>
         <Button
@@ -110,8 +115,8 @@ const AddMemberDialog = ({
           Cancel
         </Button>
         <Button
-          onClick={() => {
-            addMember(boardID, emailAddress);
+          onClick={async () => {
+            setCorrectUser(await addMember(boardID, emailAddress));
             setEmailAddress("");
           }}
           color="primary"

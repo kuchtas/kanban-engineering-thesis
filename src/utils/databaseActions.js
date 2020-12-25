@@ -98,6 +98,7 @@ export const deleteBoard = async (boardID) => {
 };
 
 export const addMember = async (boardID, member) => {
+  let success = true;
   const boardQuery = await DataStore.query(Board, (b) =>
     b.id("eq", boardID).users("notContains", member)
   );
@@ -117,7 +118,10 @@ export const addMember = async (boardID, member) => {
         updated.boards = [...updated.boards, boardID];
       })
     );
+  } else {
+    success = false;
   }
+  return success;
 };
 
 export const deleteMember = async (boardID, member) => {
