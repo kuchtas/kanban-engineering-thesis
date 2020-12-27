@@ -41,6 +41,9 @@ const CardListsContainer = () => {
       ? -1
       : 0;
   };
+  const deadlineSortDone = (a, b) => {
+    return a.points[0] < b.points[0] ? 1 : a.points[0] > b.points[0] ? -1 : 0;
+  };
 
   const tagSort = (a, b) => {
     return a.tag.toLowerCase() < b.tag.toLowerCase()
@@ -50,6 +53,17 @@ const CardListsContainer = () => {
       : 0 || a.timeLeftGroup < b.timeLeftGroup
       ? 1
       : a.timeLeftGroup > b.timeLeftGroup
+      ? -1
+      : 0;
+  };
+  const tagSortDone = (a, b) => {
+    return a.tag.toLowerCase() < b.tag.toLowerCase()
+      ? -1
+      : a.tag.toLowerCase() > b.tag.toLowerCase()
+      ? 1
+      : 0 || a.points[0] < b.points[0]
+      ? 1
+      : a.points[0] > b.points[0]
       ? -1
       : 0;
   };
@@ -113,7 +127,7 @@ const CardListsContainer = () => {
         ))
     );
     setCardsDone(
-      newDoneCards.sort(sortDoneByDeadline ? deadlineSort : tagSort)
+      newDoneCards.sort(sortDoneByDeadline ? deadlineSortDone : tagSortDone)
     );
   }, [cards, sortDoneByDeadline, sortDoingByDeadline, sortTodoByDeadline]);
 
