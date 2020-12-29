@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // GraphQL
-import { Board, Card, User } from "../models/index";
+import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
@@ -59,7 +59,7 @@ const BoardView = ({ history, match }) => {
         subscriptionOnCards.unsubscribe();
         subscriptionOnBoard.unsubscribe();
       };
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const loadCardsBoardView = async () => {

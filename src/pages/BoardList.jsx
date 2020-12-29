@@ -41,7 +41,7 @@ const BoardList = ({ history }) => {
         console.log("unsubsribing from board table");
         subscription.unsubscribe();
       };
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const createBoardBoardList = async () => {
@@ -79,7 +79,11 @@ const BoardList = ({ history }) => {
           <div id="board-list-page">
             <Grid container className="board-list-container" spacing={2}>
               {boards.map((board) => (
-                <BoardListElement board={board} openBoard={openBoard} />
+                <BoardListElement
+                  board={board}
+                  openBoard={openBoard}
+                  key={board.id}
+                />
               ))}
               <BoardListAddElement
                 openBoardCreationDialog={openBoardCreationDialog}

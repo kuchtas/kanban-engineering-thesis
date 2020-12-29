@@ -9,16 +9,12 @@ import {
   TextField,
   Button,
   MuiThemeProvider,
-  // Divider,
   Grid,
-  // FormControlLabel,
-  // Checkbox,
-  // FormGroup,
   ClickAwayListener,
   Card as MaterialUICard,
 } from "@material-ui/core";
 // GraphQL
-import { User, Card, Board } from "../models/index";
+import { User, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
@@ -56,10 +52,8 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
   const [description, setDescription] = useState(cardDescription);
   const [startDate, setStartDate] = useState(cardStartDate);
   const [endDate, setEndDate] = useState(cardEndDate);
-  // const [status, setStatus] = useState(cardStatus);
   const [tag, setTag] = useState(cardTag);
   const [users, setUsers] = useState(cardUsers);
-  // const [points, setPoints] = useState(cardPoints);
   const [titleChanged, setTitleChanged] = useState(false);
   const [tagChanged, setTagChanged] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
@@ -71,10 +65,8 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
     setDescription(cardDescription);
     setStartDate(cardStartDate);
     setEndDate(cardEndDate);
-    // setStatus(cardStatus);
     setTag(cardTag);
     setUsers(cardUsers);
-    // setPoints(cardPoints);
   }, [
     cardID,
     cardTitle,
@@ -261,7 +253,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
           <Typography component={"span"} className="user-card-dialog-status">
             {cardStatus}
           </Typography>
-          {/* <Divider /> */}
         </DialogTitle>
       </MuiThemeProvider>
       <DialogContent
@@ -337,11 +328,6 @@ const UserCardDialog = ({ showUserCardDialog, closeUserCardDialog }) => {
             />
           </ClickAwayListener>
         </MuiThemeProvider>
-        {/* <Typography className="user-card-points-label" component={"span"}>
-          <FormatListBulletedIcon />
-          Points
-        </Typography>
-        <CardPoints /> */}
         <Typography className="user-card-users-label" component={"span"}>
           <GroupIcon />
           Assigned members

@@ -85,7 +85,7 @@ const TimelineView = ({ history, match }) => {
         subscriptionOnCards.unsubscribe();
         subscriptionOnBoard.unsubscribe();
       };
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const loadCardsTimelineView = async () => {

@@ -39,7 +39,7 @@ const CardTypesStatistics = ({ cards, done = false }) => {
     const newBlackCards = done
       ? cards.filter((card) => card.points[0] === "deadline-term-5")
       : cards.filter((card) => card.timeLeftGroup === "deadline-term-5");
-    setBlackCards(newBlackCards);
+    setBlackCards(newBlackCards); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards]);
   return (
     <>

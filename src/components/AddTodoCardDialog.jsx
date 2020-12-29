@@ -7,7 +7,6 @@ import {
   DialogActions,
   TextField,
   Button,
-  MuiThemeProvider,
   FormHelperText,
   Divider,
 } from "@material-ui/core";
@@ -51,7 +50,6 @@ const AddTodoCardDialog = ({
         updated.cards = [...updated.cards, newCard.id];
       })
     );
-    // store.dispatch({ type: "cards/todoadded", payload: newCard });
     setTitle("");
     setStartDate(null);
     setEndDate(null);

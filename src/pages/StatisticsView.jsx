@@ -6,7 +6,7 @@ import InvalidUserError from "../components/InvalidUserError";
 // Redux
 import { useSelector } from "react-redux";
 // GraphQL
-import { Board, Card, User } from "../models/index";
+import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // utils
 import {
@@ -89,7 +89,7 @@ const StatisticsView = ({ history, match }) => {
         subscriptionOnCards.unsubscribe();
         subscriptionOnBoard.unsubscribe();
       };
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
