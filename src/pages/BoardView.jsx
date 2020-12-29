@@ -4,8 +4,6 @@ import { Board, Card, User } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
-// CSS
-import "./BoardView.css";
 // Components
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";

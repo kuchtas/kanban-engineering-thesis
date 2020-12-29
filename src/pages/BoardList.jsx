@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // GraphQl
-import { Board, User } from "../models/index";
+import { Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
-import "./BoardList.css";
+import "../styles/BoardList.css"
 // Components
 import {
   Grid,
