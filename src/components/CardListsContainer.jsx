@@ -312,7 +312,7 @@ const CardListsContainer = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Grid container className="card-lists-container">
           <TodoList
@@ -354,7 +354,7 @@ const CardListsContainer = () => {
           closeUserCardDialog={closeUserCardDialog}
         />
       </DragDropContext>
-    </React.Fragment>
+    </>
   );
 };
 

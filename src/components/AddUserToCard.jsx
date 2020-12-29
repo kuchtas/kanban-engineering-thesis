@@ -25,7 +25,7 @@ const AddUserToCard = ({ addUser, cardUsers }) => {
   }, [boardUsers, cardUsers]);
 
   return (
-    <React.Fragment>
+    <>
       <Card
         variant="outlined"
         className="card-dialog-add-user"
@@ -70,7 +70,7 @@ const AddUserToCard = ({ addUser, cardUsers }) => {
           </List>
         )}
       </Popover>
-    </React.Fragment>
+    </>
   );
 };
 

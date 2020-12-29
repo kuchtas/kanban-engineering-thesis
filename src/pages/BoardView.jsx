@@ -95,7 +95,7 @@ const BoardView = ({ history, match }) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       {loadingCards || loadingBoard ? (
         <div className="board-view-page">
           {/* display spinner when loading */}
@@ -134,7 +134,7 @@ const BoardView = ({ history, match }) => {
           <InvalidUserError history={history} />
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

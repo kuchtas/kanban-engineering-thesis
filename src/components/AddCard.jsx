@@ -7,7 +7,7 @@ import "../styles/AddCard.css";
 
 const AddCard = ({ createCard }) => {
   return (
-    <React.Fragment>
+    <>
       <Card
         variant="outlined"
         className="card-list-element-add-card"
@@ -15,7 +15,7 @@ const AddCard = ({ createCard }) => {
       >
         <AddIcon fontSize="default" />
       </Card>
-    </React.Fragment>
+    </>
   );
 };
 

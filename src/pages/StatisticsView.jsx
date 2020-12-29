@@ -98,7 +98,7 @@ const StatisticsView = ({ history, match }) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       {loadingCards || loadingBoard ? (
         <div className="statistics-view-page">
           {/* display spinner when loading */}
@@ -139,7 +139,7 @@ const StatisticsView = ({ history, match }) => {
           <InvalidUserError history={history} />
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
