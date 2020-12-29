@@ -19,6 +19,12 @@ import { setClassByDeadlineCloseness } from "../utils/deadline";
 import TodoList from "./TodoList";
 import DoingList from "./DoingList";
 import DoneList from "./DoneList";
+import {
+  deadlineSort,
+  tagSort,
+  deadlineSortDone,
+  tagSortDone,
+} from "../utils/sort";
 
 const CardListsContainer = () => {
   const { cards } = useSelector((state) => state.cards);
@@ -33,40 +39,6 @@ const CardListsContainer = () => {
   const [sortTodoByDeadline, setSortTodoByDeadline] = useState(true);
   const [sortDoingByDeadline, setSortDoingByDeadline] = useState(true);
   const [sortDoneByDeadline, setSortDoneByDeadline] = useState(true);
-
-  const deadlineSort = (a, b) => {
-    return a.timeLeftGroup < b.timeLeftGroup
-      ? 1
-      : a.timeLeftGroup > b.timeLeftGroup
-      ? -1
-      : 0;
-  };
-  const deadlineSortDone = (a, b) => {
-    return a.points[0] < b.points[0] ? 1 : a.points[0] > b.points[0] ? -1 : 0;
-  };
-
-  const tagSort = (a, b) => {
-    return a.tag.toLowerCase() < b.tag.toLowerCase()
-      ? -1
-      : a.tag.toLowerCase() > b.tag.toLowerCase()
-      ? 1
-      : 0 || a.timeLeftGroup < b.timeLeftGroup
-      ? 1
-      : a.timeLeftGroup > b.timeLeftGroup
-      ? -1
-      : 0;
-  };
-  const tagSortDone = (a, b) => {
-    return a.tag.toLowerCase() < b.tag.toLowerCase()
-      ? -1
-      : a.tag.toLowerCase() > b.tag.toLowerCase()
-      ? 1
-      : 0 || a.points[0] < b.points[0]
-      ? 1
-      : a.points[0] > b.points[0]
-      ? -1
-      : 0;
-  };
 
   const changeSortTodoMethodDeadline = () => {
     setSortTodoByDeadline(true);
