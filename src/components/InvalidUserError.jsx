@@ -1,5 +1,5 @@
 // CSS
-import "./InvalidUserError.css";
+import "../styles/InvalidUserError.css";
 
 const InvalidUserError = ({ history }) => {
   return (

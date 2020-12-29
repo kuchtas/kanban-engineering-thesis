@@ -13,7 +13,7 @@ import {
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./BoardViewHeader.css";
+import "../styles/BoardViewHeader.css";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 

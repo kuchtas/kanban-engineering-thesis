@@ -1,7 +1,7 @@
 import { Card, Popover, Typography, List, ListItem } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import "./AddUserToCard.css";
+import "../styles/AddUserToCard.css";
 import { useSelector } from "react-redux";
 
 const AddUserToCard = ({ addUser, cardUsers }) => {

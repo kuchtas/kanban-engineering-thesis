@@ -1,5 +1,5 @@
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
-import "./StatisticsCard.css";
+import "../styles/StatisticsCard.css";
 const StatisticsCard = ({ cardNumber, totalCards, term }) => {
   return (
     <Card

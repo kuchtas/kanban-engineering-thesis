@@ -11,7 +11,7 @@ import UserCard from "../components/UserCard";
 import AddCard from "../components/AddCard";
 // CSS
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import "./TodoList.css";
+import "../styles/TodoList.css";
 
 const TodoList = ({
   cardsToDo,

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
-import "./BoardStatisticsContainer.css";
+import "../styles/BoardStatisticsContainer.css";
 import CardTypesStatistics from "./CardTypesStatistics";
 const BoardStatisticsContainer = () => {
   const { cards } = useSelector((state) => state.cards);

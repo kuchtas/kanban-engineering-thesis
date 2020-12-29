@@ -14,7 +14,7 @@ import { useState } from "react";
 // CSS
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { deleteTextFieldTheme } from "../themes/deleteTextFieldTheme";
-import "./DeleteBoardDialog.css";
+import "../styles/DeleteBoardDialog.css";
 const DeleteBoardDialog = ({
   openDeleteBoardDialog,
   closeBoardDeletionDialog,

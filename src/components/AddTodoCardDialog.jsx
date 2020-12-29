@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
-import "./AddTodoCardDialog.css";
+import "../styles/AddTodoCardDialog.css";
 
 const AddTodoCardDialog = ({
   openAddTodoCardDialog,

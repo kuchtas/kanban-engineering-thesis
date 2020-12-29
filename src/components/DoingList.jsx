@@ -11,7 +11,7 @@ import UserCard from "../components/UserCard";
 import AddCard from "../components/AddCard";
 // CSS
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import "./DoingList.css";
+import "../styles/DoingList.css";
 
 const DoingList = ({
   cardsDoing,

@@ -3,7 +3,7 @@ import React from "react";
 import { Card } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 // CSS
-import "./AddCard.css";
+import "../styles/AddCard.css";
 
 const AddCard = ({ createCard }) => {
   return (

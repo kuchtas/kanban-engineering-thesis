@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import store from "../store";
 // CSS
-import "./CardListsContainer.css";
+import "../styles/CardListsContainer.css";
 import { DragDropContext } from "react-beautiful-dnd";
 // Components
 import { Grid } from "@material-ui/core";

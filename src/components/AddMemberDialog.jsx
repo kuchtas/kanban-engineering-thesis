@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 // CSS
-import "./AddMemberDialog.css";
+import "../styles/AddMemberDialog.css";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
 import { placeholderDeleteUserFromCardTheme } from "../themes/placeholderDeleteUserFromCardTheme";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography, Chip, Grid } from "@material-ui/core";
-import "./UserCardDone.css";
+import "../styles/UserCardDone.css";
 import { Draggable } from "react-beautiful-dnd";
 
 const UserCardDone = ({

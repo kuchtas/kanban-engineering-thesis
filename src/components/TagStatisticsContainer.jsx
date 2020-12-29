@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
-import "./TagStatisticsContainer.css";
+import "../styles/TagStatisticsContainer.css";
 import CardTypesStatistics from "./CardTypesStatistics";
 import { tagUserStatisticsSelectTheme } from "../themes/tagUserStatisticsSelectTheme";
 const TagStatisticsContainer = () => {

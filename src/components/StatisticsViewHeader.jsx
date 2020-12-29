@@ -13,7 +13,7 @@ import {
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./StatisticsViewHeader.css";
+import "../styles/StatisticsViewHeader.css";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { boardTitleEditTheme } from "../themes/boardTitleEditTheme";
 

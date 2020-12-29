@@ -11,7 +11,7 @@ import {
   MuiThemeProvider,
 } from "@material-ui/core";
 // CSS
-import "./Navigation.css";
+import "../styles/Navigation.css";
 import { signOutButtonTheme } from "../themes/singOutButtonTheme";
 
 const Navigation = ({ history }) => {

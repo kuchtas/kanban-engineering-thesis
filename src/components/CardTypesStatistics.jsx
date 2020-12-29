@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { useState, useEffect } from "react";
-import "./CardTypesStatistics.css";
+import "../styles/CardTypesStatistics.css";
 import StatisticsCard from "./StatisticsCard";
 const CardTypesStatistics = ({ cards, done = false }) => {
   const [whiteCards, setWhiteCards] = useState([]);

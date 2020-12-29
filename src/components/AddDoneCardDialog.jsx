@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
-import "./AddDoneCardDialog.css";
+import "../styles/AddDoneCardDialog.css";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
 
 const AddDoneCardDialog = ({

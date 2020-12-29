@@ -23,7 +23,7 @@ import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
 // CSS
-import "./UserCardDialog.css";
+import "../styles/UserCardDialog.css";
 import { cardTitleEditTheme } from "../themes/cardTitleEditTheme";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { cardDescriptionEditTheme } from "../themes/cardDescriptionEditTheme";

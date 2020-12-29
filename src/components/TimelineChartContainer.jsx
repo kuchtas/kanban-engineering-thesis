@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "react-google-charts";
-import "./TimelineChartContainer.css";
+import "../styles/TimelineChartContainer.css";
 import Loading from "./Loading";
 
 const columns = [
