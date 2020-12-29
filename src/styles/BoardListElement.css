@@ -1,0 +1,18 @@
+.board-list-element {
+  min-width: 300px;
+  text-align: center;
+}
+
+.board-list-card {
+  margin-right: 16px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+
+.board-list-card:hover {
+  color: var(--amplify-primary-color);
+  border-color: var(--amplify-primary-color);
+}

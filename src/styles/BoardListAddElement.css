@@ -1,0 +1,13 @@
+.board-list-card-add {
+  margin-right: 16px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+
+.board-list-card-add:hover {
+  color: var(--amplify-primary-color);
+  border-color: var(--amplify-primary-color);
+}

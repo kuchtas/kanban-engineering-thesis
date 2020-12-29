@@ -4,26 +4,15 @@ import { useSelector } from "react-redux";
 import { Board } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // CSS
-import "../styles/BoardList.css"
+import "../styles/BoardList.css";
 // Components
-import {
-  Grid,
-  Card,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
-  Button,
-  Divider,
-  FormHelperText,
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { Grid } from "@material-ui/core";
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 import { loadBoards, createBoard } from "../utils/databaseActions";
+import BoardListElement from "../components/BoardListElement";
+import BoardListAddElement from "../components/BoardListAddElement";
+import AddBoardDialog from "../components/AddBoardDialog";
 
 const BoardList = ({ history }) => {
   const { user } = useSelector((state) => state.user);
@@ -73,116 +62,39 @@ const BoardList = ({ history }) => {
     setOpenCreateBoardDialog(false);
   };
 
+  const changeBoardTitle = (e) => {
+    setNewBoardTitle(e.target.value.trim());
+  };
+
   return (
     <div className="board-list-page-container">
       {loading ? (
-        <React.Fragment>
+        <>
           <Navigation history={history} />
           <Loading />
-        </React.Fragment>
+        </>
       ) : (
-        <React.Fragment>
+        <>
           <Navigation history={history} />
           <div id="board-list-page">
             <Grid container className="board-list-container" spacing={2}>
               {boards.map((board) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  lg={4}
-                  xl={4}
-                  className="board-list-element"
-                  key={board.id}
-                >
-                  <Card
-                    variant="outlined"
-                    className="board-list-card radial-out"
-                    onClick={() => openBoard(board)}
-                  >
-                    <Typography>{board.title}</Typography>
-                  </Card>
-                </Grid>
+                <BoardListElement board={board} openBoard={openBoard} />
               ))}
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={4}
-                xl={4}
-                className="board-list-element"
-              >
-                <Card
-                  variant="outlined"
-                  className="board-list-card-add radial-out"
-                  onClick={openBoardCreationDialog}
-                >
-                  <AddIcon fontSize="large" />
-                </Card>
-              </Grid>
+              <BoardListAddElement
+                openBoardCreationDialog={openBoardCreationDialog}
+              />
             </Grid>
           </div>
-          <Dialog
-            className="create-board-dialog"
-            open={openCreateBoardDialog}
-            onClose={closeBoardCreationDialog}
-            fullWidth
-          >
-            <DialogTitle className="create-board-dialog-title">
-              Name your new board
-              <Divider />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                This name will be visible for all of its users.
-              </DialogContentText>
-              <FormHelperText
-                style={{ color: "red" }}
-                hidden={newBoardTitle?.length < 120}
-              >
-                Title can not be empty or longer than 120 characters
-              </FormHelperText>
-              <TextField
-                className="create-board-dialog-textfield"
-                autoFocus
-                margin="normal"
-                label="Name"
-                type="text"
-                variant="outlined"
-                fullWidth
-                onChange={(e) => setNewBoardTitle(e.target.value.trim())}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    createBoardBoardList(newBoardTitle, user.name);
-                  }
-                }}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={closeBoardCreationDialog}
-                color="primary"
-                variant="outlined"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => createBoardBoardList(newBoardTitle, user.name)}
-                color="primary"
-                variant="outlined"
-                disabled={
-                  newBoardTitle === "" ||
-                  newBoardTitle === null ||
-                  newBoardTitle.length > 120
-                }
-              >
-                Create
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </React.Fragment>
+          <AddBoardDialog
+            openCreateBoardDialog={openCreateBoardDialog}
+            closeBoardCreationDialog={closeBoardCreationDialog}
+            newBoardTitle={newBoardTitle}
+            createBoardBoardList={createBoardBoardList}
+            changeBoardTitle={changeBoardTitle}
+            user={user}
+          />
+        </>
       )}
     </div>
   );
