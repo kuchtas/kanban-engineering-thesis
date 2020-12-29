@@ -51,7 +51,6 @@ const AddDoneCardDialog = ({
         updated.cards = [...updated.cards, newCard.id];
       })
     );
-    // store.dispatch({ type: "cards/doneadded", payload: newCard });
     setTitle("");
     setStartDate(null);
     setEndDate(null);

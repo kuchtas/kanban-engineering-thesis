@@ -45,7 +45,6 @@ const TimelineViewHeader = ({
           updated.title = newTitle;
         })
       );
-      // store.dispatch({ type: "board/changedtitle", payload: newTitle })
     } else {
       setEditableTitle(title);
     }

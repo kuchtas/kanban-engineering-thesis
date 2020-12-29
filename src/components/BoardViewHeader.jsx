@@ -45,7 +45,6 @@ const BoardViewHeader = ({
           updated.title = newTitle;
         })
       );
-      // store.dispatch({ type: "board/changedtitle", payload: newTitle })
     } else {
       setEditableTitle(title);
     }
@@ -76,7 +75,7 @@ const BoardViewHeader = ({
         color="primary"
         onClick={() => history.push(`${id}/timeline`)}
       >
-        timeline
+        Timeline
       </Button>
       <Button
         className="board-view-page-header-button-statistics"

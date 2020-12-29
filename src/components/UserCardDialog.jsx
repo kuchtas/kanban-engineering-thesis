@@ -24,12 +24,10 @@ import { cardTitleEditTheme } from "../themes/cardTitleEditTheme";
 import { deleteButtonTheme } from "../themes/deleteButtonTheme";
 import { cardDescriptionEditTheme } from "../themes/cardDescriptionEditTheme";
 import DescriptionIcon from "@material-ui/icons/Description";
-// import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import LabelIcon from "@material-ui/icons/Label";
 import GroupIcon from "@material-ui/icons/Group";
 import AddUserToCard from "./AddUserToCard";
 import { deleteUserFromCardTheme } from "../themes/deleteUserFromCardTheme";
-// import CardPoints from "./CardPoints";
 import { userCardDatesTheme } from "../themes/userCardDatesTheme";
 // utils
 import { setClassByDeadlineCloseness } from "../utils/deadline";
