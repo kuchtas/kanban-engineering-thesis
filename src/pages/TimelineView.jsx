@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // GraphQL
-import { Board, Card, User } from "../models/index";
+import { Board, Card } from "../models/index";
 import { DataStore } from "@aws-amplify/datastore";
 // Redux
 import { useSelector } from "react-redux";
@@ -21,6 +21,7 @@ import {
 } from "../utils/databaseActions";
 import TimelineChartContainer from "../components/TimelineChartContainer";
 import { setClassByDeadlineCloseness } from "../utils/deadline";
+import { prepareTimelineData } from "../utils/timelineActions";
 
 const TimelineView = ({ history, match }) => {
   const { user } = useSelector((state) => state.user);
@@ -52,41 +53,7 @@ const TimelineView = ({ history, match }) => {
   }, [cards]);
 
   useEffect(() => {
-    let newRows = [];
-    timelineTasks.forEach((task, index) => {
-      newRows[index] = [
-        task.title,
-        task.title,
-        `<p style="font-size: 25px; font-weight: bold; margin: 0px; padding: 10px; padding-bottom: 0px; text-align: center;">${
-          task.title
-        }<br>${
-          task.tag.length !== 0
-            ? `
-            <p style="font-size: 15px; margin: 0px; text-align: center; padding-bottom: 0px;">
-              ${task.tag}
-            </p>`
-            : `
-            <p style="font-size: 15px; margin: 0px; text-align: center; padding-bottom: 0px;">
-            </p>`
-        }</p><hr style="margin-left: 5px; margin-right: 5px; margin-top: 0px; margin-bottom: 0px;" />
-        <p style="font-size: 20px; margin: 0px; padding: 10px; padding-top: 0px; padding-bottom: 0px; text-align: center;">Users:${
-          task.users.length !== 0
-            ? task.users.map((user) => `<br>${user}`)
-            : " No one is assigned to this task"
-        }</p>
-        <hr style="margin-left: 5px; margin-right: 5px; " />
-        <p style="font-size: 20px; margin: 0px; padding: 10px; padding-top: 0px; text-align: center;">${
-          task.startDate
-        } - ${task.endDate} <br>Duration: ${
-          (new Date(task.endDate).getTime() -
-            new Date(task.startDate).getTime() +
-            86400000) /
-          86400000
-        } day/s</p>`,
-        new Date(task.startDate),
-        new Date(task.endDate),
-      ];
-    });
+    const newRows = prepareTimelineData(timelineTasks);
     setRows(newRows);
   }, [timelineTasks]);
 
@@ -104,7 +71,6 @@ const TimelineView = ({ history, match }) => {
       const subscriptionOnCards = DataStore.observe(Card, (c) =>
         c.boardID("eq", match.params.id)
       ).subscribe((c) => {
-        console.log(c.opType);
         loadCardsTimelineView();
       });
 
@@ -116,7 +82,6 @@ const TimelineView = ({ history, match }) => {
       });
 
       return () => {
-        console.log("unsubsribing from cards and boards in BoardView");
         subscriptionOnCards.unsubscribe();
         subscriptionOnBoard.unsubscribe();
       };
@@ -156,7 +121,7 @@ const TimelineView = ({ history, match }) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       {loadingCards || loadingBoard ? (
         <div className="timeline-view-page">
           {/* display spinner when loading */}
@@ -195,7 +160,7 @@ const TimelineView = ({ history, match }) => {
           <InvalidUserError history={history} />
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
