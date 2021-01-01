@@ -16,3 +16,16 @@ A serverless web application created as my engineering thesis.
   - React Router
   - react-beautiful-dnd
   - React Google Charts
+
+### 🕹 Features
+  - register an account
+  - create and delete project boards, edit their information
+  - create and delete board tasks
+  - easily track tasks status and their deadline closeness by color
+  - edit task information (name, time frames, tag, description, assigned users)
+  - drag tasks between lists
+  - add and delete members from boards
+  - assign tasks to members of the boards
+  - sort lists
+  - observe board, lists, users and tags statistics
+  - supervise the project flow with timeline charts
